@@ -1,5 +1,5 @@
 grammar Select;
-query   : 'select' fields 'from' entity start? limit? order_clause?;
+query   : 'select' fields 'from' entity start? limit? order_clause? EOF;
 
 
 fields: star | name (',' name)*;
