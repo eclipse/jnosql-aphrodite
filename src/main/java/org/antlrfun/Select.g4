@@ -4,9 +4,9 @@ query   : 'select' fields 'from' entity start? limit? order_clause?;
 
 fields: star | name (',' name)*;
 star: '*';
-order_clause: 'order by' order_name (',' order_name)*;
+order_clause: 'order by' order_name (order_name)*;
 order_name: name | name 'asc' | name 'desc';
-start: 'start at' INT;
+start: 'start' INT;
 limit: 'limit' INT;
 name: ANY_NAME;
 entity: ANY_NAME;
