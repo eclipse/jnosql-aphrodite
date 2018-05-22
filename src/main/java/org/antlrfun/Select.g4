@@ -13,3 +13,4 @@ entity: ANY_NAME;
 INT: [0-9]+;
 ANY_NAME: [a-zA-Z_.] [a-zA-Z._0-9]*;
 WS  : [ \t\r\n]+ -> skip ;
+SL_COMMENT:   '//' .*? '\n' -> skip;

@@ -17,6 +17,7 @@ import org.antlrfun.SelectLexer;
 import org.antlrfun.SelectParser;
 import org.antlrfun.SelectWalker;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
@@ -32,6 +33,11 @@ public class QueryTest {
     public void shouldExecuteQuery(String query) {
         LOGGER.info("Query: " + query);
         testQuery(query);
+    }
+
+    @Test
+    public void shouldIgnoreComments() {
+        testQuery("//ignore this line \n select * from Person");
     }
 
     @ParameterizedTest
