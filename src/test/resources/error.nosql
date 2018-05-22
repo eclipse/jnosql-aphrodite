@@ -14,3 +14,20 @@ select  name, age ,adress.age from Person order by name desc age desc start 20
 select  name, age ,adress.age from Person limit qwe  start 12 order by name desc age desc
 select  name, age ,adress.age from Person start -20 limit 5 order by name desc age desc
 select  name, age ,adress.age from Person limit order by name desc age desc
+#conditions
+select  * from Person where age =
+select  * from Person where age >=
+select  * from Person where age >
+select  * from Person where age <
+select  * from Person where age <= 'ada'
+select  * from Person where age >= 'ada'
+select  * from Person where age > 'ada'
+select  * from Person where age < 'ada'
+select  * from Person where age <= 'ada'
+select  * from Person where age between 13 and
+select  * from Person where age between 13 and 'ada'
+select  * from Person where age between  and 10
+select  * from Person where age between 10.12 and 30 and salary =
+select  * from Person where age between -10 and 30 or salary =
+select  * from Person where age between and 30 and salary = 12
+select  * from Person where age between and 30 or salary = 12
