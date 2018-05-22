@@ -6,7 +6,7 @@ fields: star | name (',' name)*;
 star: '*';
 order_clause: 'order by' order_name (',' order_name)*;
 order_name: name | name 'asc' | name 'desc';
-start: 'start' INT;
+start: 'start at' INT;
 limit: 'limit' INT;
 INT: [0-9]+;
 name: ANY_NAME;
