@@ -36,6 +36,7 @@ select  * from Person where not age <= 40
 select  * from Person where not age between 10 and 30
 select  * from Person where not age between 10 and 30 and salary = 12
 select  * from Person where not age between 10 and 30 or salary = 12
-#
-#select  * from Person where age in (1,2,3,4)
-#select  * from Person where age in (1)
+select  * from Person where age in (1,2,3,4)
+select  * from Person where age in (1)
+select  * from Person where age not in (1,2,3,4)
+select  * from Person where age not in (1)
