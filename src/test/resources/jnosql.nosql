@@ -18,7 +18,7 @@ select  * from Person start 10
 select  name, age ,adress.age from Person start 20 order by name desc age desc
 select  name, age ,adress.age from Person start 20 limit 10 order by name desc age desc
 select  name, age ,adress.age from Person limit 10 order by name desc age desc
-#test where numbers
+#test where int
 select  * from Person where age = 10
 select  * from Person where age >= 10
 select  * from Person where age > 10
@@ -27,6 +27,15 @@ select  * from Person where age <= 40
 select  * from Person where age between 10 and 30
 select  * from Person where age between 10 and 30 and salary = 12
 select  * from Person where age between 10 and 30 or salary = 12
+#test where double
+select  * from Person where age = 10.0
+select  * from Person where age >= 10.56
+select  * from Person where age > 10.123
+select  * from Person where age < 10.123
+select  * from Person where age <= 40.123
+select  * from Person where age between -10.13 and 30
+select  * from Person where age between 10.12 and 30 and salary = 12
+select  * from Person where age between -10 and 30 or salary = 12
 #test where not
 select  * from Person where not age = 10
 select  * from Person where not age >= 10
