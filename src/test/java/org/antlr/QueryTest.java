@@ -49,7 +49,7 @@ public class QueryTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         SelectParser parser = new SelectParser(tokens);
         parser.addErrorListener(QueryErrorListener.INSTANCE);
-        ParseTree tree = parser.r();
+        ParseTree tree = parser.query();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new SelectWalker(), tree);
     }

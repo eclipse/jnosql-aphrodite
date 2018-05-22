@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class SelectWalker extends SelectBaseListener {
 
-    public void enterR(SelectParser.RContext ctx) {
+    public void enterR(SelectParser.QueryContext ctx) {
         Optional.ofNullable(ctx.fields())
                 .map(RuleContext::getText)
                 .ifPresent(entity -> System.out.println("fields : " + entity));
@@ -18,6 +18,6 @@ public class SelectWalker extends SelectBaseListener {
 
     }
 
-    public void exitR(SelectParser.RContext ctx) {
+    public void exitR(SelectParser.QueryContext ctx) {
     }
 }
