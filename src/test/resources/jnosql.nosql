@@ -18,3 +18,8 @@ select  * from Person start 10
 select  name, age ,adress.age from Person start 20 order by name desc age desc
 select  name, age ,adress.age from Person start 20 limit 10 order by name desc age desc
 select  name, age ,adress.age from Person limit 10 order by name desc age desc
+#test where
+select  * from Person where name
+select  * from Person where name and age
+select  * from Person where name or age
+select  * from Person where name or age and address
