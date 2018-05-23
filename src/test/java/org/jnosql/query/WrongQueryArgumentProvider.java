@@ -1,4 +1,4 @@
-package org.antlr;
+package org.jnosql.query;
 
 class WrongQueryArgumentProvider extends AbstractArgumentProvider{
 

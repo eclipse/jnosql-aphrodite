@@ -1,4 +1,4 @@
-package org.antlrfun;
+package org.jnosql.query;
 
 public class App {
 

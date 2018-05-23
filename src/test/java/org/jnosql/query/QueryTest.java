@@ -1,15 +1,10 @@
-package org.antlr;
+package org.jnosql.query;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.antlrfun.JNoSQLQueryExecption;
-import org.antlrfun.QueryErrorListener;
-import org.antlrfun.SelectLexer;
-import org.antlrfun.SelectParser;
-import org.antlrfun.SelectWalker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

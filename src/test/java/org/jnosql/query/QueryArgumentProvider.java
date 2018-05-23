@@ -1,4 +1,4 @@
-package org.antlr;
+package org.jnosql.query;
 
 import java.util.function.Predicate;
 

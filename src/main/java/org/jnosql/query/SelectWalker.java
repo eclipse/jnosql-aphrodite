@@ -1,4 +1,4 @@
-package org.antlrfun;
+package org.jnosql.query;
 
 import org.antlr.v4.runtime.RuleContext;
 
