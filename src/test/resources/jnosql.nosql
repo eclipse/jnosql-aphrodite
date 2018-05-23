@@ -56,3 +56,11 @@ select  * from Person where name in ("Ada")
 select  * from Person where name in ("Ada", "Lovelace")
 select  * from Person where name not in ("Ada")
 select  * from Person where name not in ("Ada", "Lovelace")
+select  * from Person where birthday = "01-09-1988"
+select  * from Person where birthday >= "01-09-1988"
+select  * from Person where birthday > "01-09-1988"
+select  * from Person where birthday < "01-09-1988"
+select  * from Person where birthday <= "01-09-1988"
+select  * from Person where birthday between "01-09-1988" and "01-09-1988"
+select  * from Person where birthday between "01-09-1988" and "01-09-1988" and salary = 12
+select  * from Person where birthday between "01-09-1988" and "01-09-1988" or salary = 12
