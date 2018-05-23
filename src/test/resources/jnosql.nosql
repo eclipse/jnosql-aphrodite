@@ -49,3 +49,10 @@ select  * from Person where age in (1,2,3,4)
 select  * from Person where age in (1)
 select  * from Person where age not in (1,2,3,4)
 select  * from Person where age not in (1)
+#test string
+select  * from Person where not name = "Ada"
+select  * from Person where name = "Ada"
+select  * from Person where name in ("Ada")
+select  * from Person where name in ("Ada", "Lovelace")
+select  * from Person where name not in ("Ada")
+select  * from Person where name not in ("Ada", "Lovelace")
