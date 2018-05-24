@@ -12,17 +12,13 @@ The general concepts about the statements:
 * The goal of the API is not about forgotten the specific behavior that there is in a particular database. These features matter, that's why there's an extensible API.
 
 
-
-
- 
-
 ## Select
 
 The select statement reads one or more columns for one or more rows in a table. It returns a result-set of the rows matching the request, where each row contains the values for the selection corresponding to the query.
 
 ```sql
 select_statement ::=  SELECT ( select_clause | '*' )
-                      FROM table_name
+                      FROM entity_name
                       [ WHERE where_clause ]
                       [ START (integer) ]
                       [ LIMIT (integer) ]
@@ -33,17 +29,43 @@ select_statement ::=  SELECT ( select_clause | '*' )
 
 The WHERE clause specifies a filter to the result. It is composed of conditions appended with the **AND** | **OR** operator.
 
+#### Conditions
+
+The conditions are composed by name where the operation gonna happen, the operator then the value to be measurable.
+
+#### Operators
+
+The Operators ares:
+
+
+| Operator | Description |
+| ------------- | ------------- |
+| =             | Equal to |
+| >             | Greater than|
+| <             | Less than |
+| >=            | Greater than or equal to |
+| <=            | Less than or equal to |
+| &=            | Bitwise AND equals |
+| **BETWEEN**   | TRUE if the operand is within the range of comparisons |
+| **NOT**       | Displays a record if the condition(s) is NOT TRUE	|
+| **AND**       | TRUE if all the conditions separated by AND is TRUE|
+| **OR**        | TRUE if any of the conditions separated by OR is TRUE|
+| **LIKE**          |TRUE if the operand matches a pattern	|
+
+### START
+
+The **START** option to a **SELECT** statement defines where the query should start,
+
+### LIMIT
+
+The **LIMIT** option to a **SELECT** statement limits the number of rows returned by a query, 
 
 ### ORDER BY
 
 The ORDER BY clause allows selecting the order of the returned results. It takes as argument a list of column names along with the order for the column (**ASC** for ascendant and **DESC** for the descendant, omitting the order being equivalent to **ASC**). 
 
-### Limiting
-
-The **LIMIT** option to a **SELECT** statement limits the number of rows returned by a query, 
-
-
 #### Sample:
+
 
 ```sql
 select * from Person
