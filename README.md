@@ -40,12 +40,11 @@ The Operators ares:
 
 | Operator | Description |
 | ------------- | ------------- |
-| =             | Equal to |
-| >             | Greater than|
-| <             | Less than |
-| >=            | Greater than or equal to |
-| <=            | Less than or equal to |
-| &=            | Bitwise AND equals |
+| **=**             | Equal to |
+| **>**             | Greater than|
+| **<**             | Less than |
+| **>=**            | Greater than or equal to |
+| **<=**            | Less than or equal to |
 | **BETWEEN**   | TRUE if the operand is within the range of comparisons |
 | **NOT**       | Displays a record if the condition(s) is NOT TRUE	|
 | **AND**       | TRUE if all the conditions separated by AND is TRUE|
