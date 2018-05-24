@@ -62,6 +62,7 @@ There are four types:
 * string any character among two double quotes `"`. E.g.: name = "Ada Lovelace"
 * Convert: convert is a function where given the first value parameter, as number or string, it will convert to the class type of the second one. E.g.: `birthday = convert("03-01-1988", java.time.LocalDate)`
 * parameter: the parameter it has not a defined value on the query time, it'll replace in the execution time. The query is at `@` followed by a name. E.g.: `age = @age`
+* array: A sequence of elements that can be either number or string that is between braces ` {` `}`. E.g.: `power = {"Sun", "hunt"}`
 
 ### START
 
@@ -92,20 +93,18 @@ Inserting data for a row is done using an INSERT statement:
 
 ```sql
 
-insert_statement ::=  INSERT INTO entity_name (name = value, (name = value) *) TTL
+insert_statement ::=  INSERT entity_name (name = value, (`,` name = value) *) TTL
 ```
-
-### The value
-
-the value is the last element in operation, and it defines what it 'll go to be used in the operator.
-
-There are four types:
-
-* number, where if it is a decimal, will become double, however, long. E.g.: `age = 20`, `salary =12.12`
-* string any character among two double quotes `"`. E.g.: name = "Ada Lovelace"
-* Convert: convert is a function where given the first value parameter, as number or string, it will convert to the class type of the second one. E.g.: `birthday = convert("03-01-1988", java.time.LocalDate)`
-* parameter: the parameter it has not a defined value on the query time, it'll replace in the execution time. The query is at `@` followed by a name. E.g.: `age = @age`
 
 ### TTL
 
 It defines the time to live of an object that is composed of the integer value and then the unit that might be `day`, `hour`, `minute`, `second`, `microsecond`, `millisecond`, `nanosecond`. E.g.: `ttl 10 second`
+
+#### Sample:
+
+
+```sql
+insert God (name = "Diana", age = 10)
+insert God (name = "Diana", age = 10, power = )
+
+```
