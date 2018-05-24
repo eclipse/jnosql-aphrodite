@@ -105,7 +105,7 @@ It defines the time to live of an object that is composed of the integer value a
 
 ```sql
 insert God (name = "Diana", age = 10)
-insert God (name = "Diana", age = 10, power = )
+insert God (name = "Diana", age = 10, power = {"sun", "god"})
 
 ```
 
