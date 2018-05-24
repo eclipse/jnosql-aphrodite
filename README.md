@@ -35,7 +35,7 @@ The conditions are composed by name where the operation gonna happen, the operat
 
 #### Operators
 
-The Operators ares:
+The Operators are:
 
 
 | Operator | Description |
@@ -108,3 +108,16 @@ insert God (name = "Diana", age = 10)
 insert God (name = "Diana", age = 10, power = )
 
 ```
+
+## Update
+
+Inserting data for a row is done using an INSERT statement:
+
+```sql
+
+insert_statement ::=  INSERT entity_name (name = value, (`,` name = value) *) TTL
+```
+
+### TTL
+
+It defines the time to live of an object that is composed of the integer value and then the unit that might be `day`, `hour`, `minute`, `second`, `microsecond`, `millisecond`, `nanosecond`. E.g.: `ttl 10 second`
