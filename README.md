@@ -79,9 +79,9 @@ The ORDER BY clause allows selecting the order of the returned results. It takes
 
 
 ```sql
-select * from Person
-select  name, age ,adress.age from Person order by name desc age desc
-select  * from Person where birthday between "01-09-1988" and "01-09-1988" and salary = 12
-select  name, age ,adress.age from Person start 20 limit 10 order by name desc age desc
+select * from God
+select  name, age ,adress.age from God order by name desc age desc
+select  * from God where birthday between "01-09-1988" and "01-09-1988" and salary = 12
+select  name, age ,adress.age from God start 20 limit 10 order by name desc age desc
 ```
 
