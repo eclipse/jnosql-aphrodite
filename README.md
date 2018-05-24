@@ -50,6 +50,7 @@ The Operators ares:
 | **AND**       | TRUE if all the conditions separated by AND is TRUE|
 | **OR**        | TRUE if any of the conditions separated by OR is TRUE|
 | **LIKE**          |TRUE if the operand matches a pattern	|
+| **IN**          |TRUE if the operand is equal to one of a list of expressions	|
 
 ### START
 
