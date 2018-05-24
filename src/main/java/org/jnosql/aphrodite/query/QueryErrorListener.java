@@ -1,4 +1,4 @@
-package org.jnosql.query;
+package org.jnosql.aphrodite.query;
 
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;

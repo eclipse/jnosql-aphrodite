@@ -1,4 +1,4 @@
-package org.jnosql.query;
+package org.jnosql.aphrodite.query;
 
 public class JNoSQLQueryExecption extends RuntimeException {
 

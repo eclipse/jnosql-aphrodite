@@ -1,2 +1,5 @@
-# query-jnosql
-This is a temporary repository to do tests about JNoSQL and query with antlr
+# Eclipse NoSQL Aphrodite
+
+Eclipse JNoSQL Aphrodite is the project that contains the syntax query to JNoSQL API.
+
+## Select
