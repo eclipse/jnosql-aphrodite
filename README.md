@@ -5,7 +5,7 @@ Eclipse JNoSQL Aphrodite is the project that contains the syntax query to JNoSQL
 The general concepts about the statements:
 
 * It ends with a break line `\n`
-* It isn't ignored case
+* It is case sensitive
 * All keywords must be in lowercase
 * The goals are to look like SQL, however simpler
 * Even with this query, a specific implementation may not support an operation, condition, so on. E.g: Column family may not support query with equals operator in a different column than the key itself.
