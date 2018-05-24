@@ -60,6 +60,8 @@ There are four types:
 
 * number, where if it is a decimal, will become double, however, long. E.g.: `age = 20`, `salary =12.12`
 * string any character among two double quotes `"`. E.g.: name = "Ada Lovelace"
+* Convert: convert is a function where given the first value parameter, as number or string, it will convert to the class type of the second one. E.g.: `birthday = convert("03-01-1988", java.time.LocalDate)`
+* parameter: the parameter it has not a defined value on the query time, it'll replace in the execution time. The query is at `@` followed by a name. E.g.: `age = @age`
 
 ### START
 
