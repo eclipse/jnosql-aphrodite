@@ -7,6 +7,10 @@ The general concepts about the statements:
 * It ends with a break line `\n`
 * It isn't ignored case
 * All keywords must be in lowercase
+* The goals are to look like SQL, however simpler
+* Even with this query, a specific implementation may not support an operation, condition, so on. E.g: Column family may not support query with equals operator in a different column than the key itself.
+* The goal of the API is not about forgotten the specific behavior that there is in a particular database. These features matter, that's why there's an extensible API.
+
 
 
 
@@ -25,7 +29,21 @@ select_statement ::=  SELECT ( select_clause | '*' )
                       [ ORDER BY ordering_clause ]
 ```
 
-### Sample:
+### WHERE
+
+The WHERE clause specifies a filter to the result. It is composed of conditions appended with the **AND** | **OR** operator.
+
+
+### ORDER BY
+
+The ORDER BY clause allows selecting the order of the returned results. It takes as argument a list of column names along with the order for the column (**ASC** for ascendant and **DESC** for the descendant, omitting the order being equivalent to **ASC**). 
+
+### Limiting
+
+The **LIMIT** option to a **SELECT** statement limits the number of rows returned by a query, 
+
+
+#### Sample:
 
 ```sql
 select * from Person
@@ -33,3 +51,4 @@ select  name, age ,adress.age from Person order by name desc age desc
 select  * from Person where birthday between "01-09-1988" and "01-09-1988" and salary = 12
 select  name, age ,adress.age from Person start 20 limit 10 order by name desc age desc
 ```
+
