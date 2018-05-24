@@ -52,6 +52,15 @@ The Operators ares:
 | **LIKE**      |TRUE if the operand matches a pattern	|
 | **IN**        |TRUE if the operand is equal to one of a list of expressions	|
 
+#### The value
+
+the value is the last element in operation, and it defines what it 'll go to be used in the operator.
+
+There are four types:
+
+* number, where if it is a decimal, will become double, however, long. E.g.: `age = 20`, `salary =12.12`
+* string any character among two double quotes `"`. E.g.: name = "Ada Lovelace"
+
 ### START
 
 The **START** option to a **SELECT** statement defines where the query should start,
