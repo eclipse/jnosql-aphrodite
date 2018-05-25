@@ -20,7 +20,7 @@ The select statement reads one or more fields for one or more entities. It retur
 select_statement ::=  SELECT ( select_clause | '*' )
                       FROM entity_name
                       [ WHERE where_clause ]
-                      [ START (integer) ]
+                      [ SKIP (integer) ]
                       [ LIMIT (integer) ]
                       [ ORDER BY ordering_clause ]
 ```
@@ -31,7 +31,7 @@ select_statement ::=  SELECT ( select_clause | '*' )
 select * from God
 select  name, age ,adress.age from God order by name desc age desc
 select  * from God where birthday between "01-09-1988" and "01-09-1988" and salary = 12
-select  name, age ,adress.age from God start 20 limit 10 order by name desc age desc
+select  name, age ,adress.age from God skip 20 limit 10 order by name desc age desc
 ```
 
 ## Insert
@@ -126,9 +126,9 @@ There are five types:
 * parameter: the parameter is a dynamic value, which means, it does not define the query, it'll replace in the execution time. The parameter is at `@` followed by a name. E.g.: `age = @age`
 * array: A sequence of elements that can be either number or string that is between braces ` {` `}`. E.g.: `power = {"Sun", "hunt"}`
 
-### START
+### SKIP
 
-The **START** option to a **SELECT** statement defines where the query should start,
+The **SKIP** option to a **SELECT** statement defines where the query should start,
 
 ### LIMIT
 
