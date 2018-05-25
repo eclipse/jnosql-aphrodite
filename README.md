@@ -25,6 +25,68 @@ select_statement ::=  SELECT ( select_clause | '*' )
                       [ ORDER BY ordering_clause ]
 ```
 
+#### Sample
+
+```sql
+select * from God
+select  name, age ,adress.age from God order by name desc age desc
+select  * from God where birthday between "01-09-1988" and "01-09-1988" and salary = 12
+select  name, age ,adress.age from God start 20 limit 10 order by name desc age desc
+```
+
+## Insert
+
+Inserting data for a row is done using an INSERT statement:
+
+```sql
+
+insert_statement ::=  INSERT entity_name (name = value, (`,` name = value) *) TTL
+```
+
+#### Sample:
+
+
+```sql
+insert God (name = "Diana", age = 10)
+insert God (name = "Diana", age = 10, power = {"sun", "god"})
+```
+
+## Update
+
+Updating a row is done using an **UPDATE** statement:
+
+
+```sql
+
+insert_statement ::=  UPDATE entity_name (name = value, (`,` name = value) *)
+```
+
+#### Sample:
+
+
+```sql
+update God (name = "Diana", age = 10)
+update God (name = "Diana", age = 10, power = {"sun", "god"})
+```
+
+## Delete
+
+Deleting rows or parts of rows uses the **DELETE** statement
+
+```sql
+delete_statement ::=  DELETE [ simple_selection ( ',' simple_selection ) ]
+                      FROM entity_name
+                      WHERE where_clause
+```
+
+#### Sample:
+
+
+```sql
+select * from God
+select  name, age ,adress.age from God order by name desc age desc
+```
+
 ### WHERE
 
 The WHERE clause specifies a filter to the result. It is composed of conditions appended with the **AND** | **OR** operator.
@@ -76,56 +138,6 @@ The **LIMIT** option to a **SELECT** statement limits the number of rows returne
 
 The ORDER BY clause allows selecting the order of the returned results. It takes as argument a list of column names along with the order for the column (**ASC** for ascendant and **DESC** for the descendant, omitting the order being equivalent to **ASC**). 
 
-#### Sample:
-
-
-```sql
-select * from God
-select  name, age ,adress.age from God order by name desc age desc
-select  * from God where birthday between "01-09-1988" and "01-09-1988" and salary = 12
-select  name, age ,adress.age from God start 20 limit 10 order by name desc age desc
-```
-
-
-## Insert
-
-Inserting data for a row is done using an INSERT statement:
-
-```sql
-
-insert_statement ::=  INSERT entity_name (name = value, (`,` name = value) *) TTL
-```
-
 ### TTL
 
 It defines the time to live of an object that is composed of the integer value and then the unit that might be `day`, `hour`, `minute`, `second`, `microsecond`, `millisecond`, `nanosecond`. E.g.: `ttl 10 second`
-
-#### Sample:
-
-
-```sql
-insert God (name = "Diana", age = 10)
-insert God (name = "Diana", age = 10, power = {"sun", "god"})
-
-```
-
-## Update
-
-Updating a row is done using an **UPDATE** statement:
-
-
-```sql
-
-insert_statement ::=  UPDATE entity_name (name = value, (`,` name = value) *)
-```
-
-
-## Delete
-
-Deleting rows or parts of rows uses the **DELETE** statement
-
-```sql
-delete_statement ::=  DELETE [ simple_selection ( ',' simple_selection ) ]
-                      FROM table_name
-                      WHERE where_clause
-```
