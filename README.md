@@ -11,10 +11,10 @@ The general concepts about the statements:
 * Even with this query, a specific implementation may not support an operation, condition, so on. E.g: Column family may not support query with equals operator in a different column than the key itself.
 * The goal of the API is not about forgotten the specific behavior that there is in a particular database. These features matter, that's why there's an extensible API.
 
-
+# Column and Document 
 ## Select
 
-The select statement reads one or more columns for one or more rows in a table. It returns a result-set of the rows matching the request, where each row contains the values for the selection corresponding to the query.
+The select statement reads one or more fields for one or more entities. It returns a result-set of the entities matching the request, where each entity contains the fields for corresponding to the query.
 
 ```sql
 select_statement ::=  SELECT ( select_clause | '*' )
@@ -36,7 +36,7 @@ select  name, age ,adress.age from God start 20 limit 10 order by name desc age 
 
 ## Insert
 
-Inserting data for a row is done using an INSERT statement:
+Inserting data for an entity is done using an INSERT statement:
 
 ```sql
 
@@ -53,7 +53,7 @@ insert God (name = "Diana", age = 10, power = {"sun", "god"})
 
 ## Update
 
-Updating a row is done using an **UPDATE** statement:
+Updating an entity is done using an **UPDATE** statement:
 
 
 ```sql
@@ -71,7 +71,7 @@ update God (name = "Diana", age = 10, power = {"sun", "god"})
 
 ## Delete
 
-Deleting rows or parts of rows uses the **DELETE** statement
+Deleting either an entity or fields uses the **DELETE** statement
 
 ```sql
 delete_statement ::=  DELETE [ simple_selection ( ',' simple_selection ) ]
@@ -83,13 +83,13 @@ delete_statement ::=  DELETE [ simple_selection ( ',' simple_selection ) ]
 
 
 ```sql
-select * from God
-select  name, age ,adress.age from God order by name desc age desc
+delete from God
+delete  name, age ,adress.age from God order by name desc age desc
 ```
 
 ### WHERE
 
-The WHERE clause specifies a filter to the result. It is composed of conditions appended with the **AND** | **OR** operator.
+The WHERE clause specifies a filter to the result. It is composed of one or more conditions appended with the **AND** | **OR** operator.
 
 #### Conditions
 
@@ -116,14 +116,14 @@ The Operators are:
 
 #### The value
 
-the value is the last element in operation, and it defines what it 'll go to be used in the operator.
+the value is the last element in a condition, and it defines what it 'll go to be used, with an operator, in a field.
 
-There are four types:
+There are five types:
 
-* number, where if it is a decimal, will become double, however, long. E.g.: `age = 20`, `salary =12.12`
-* string any character among two double quotes `"`. E.g.: name = "Ada Lovelace"
+* number, where if it is a decimal, will become double, otherwise, long. E.g.: `age = 20`, `salary =12.12`
+* string one or more characters:  among two double quotes `"`. E.g.: name = "Ada Lovelace"
 * Convert: convert is a function where given the first value parameter, as number or string, it will convert to the class type of the second one. E.g.: `birthday = convert("03-01-1988", java.time.LocalDate)`
-* parameter: the parameter it has not a defined value on the query time, it'll replace in the execution time. The query is at `@` followed by a name. E.g.: `age = @age`
+* parameter: the parameter is a dynamic value, which means, it does not define the query, it'll replace in the execution time. The parameter is at `@` followed by a name. E.g.: `age = @age`
 * array: A sequence of elements that can be either number or string that is between braces ` {` `}`. E.g.: `power = {"Sun", "hunt"}`
 
 ### START
