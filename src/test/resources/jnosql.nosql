@@ -79,3 +79,11 @@ select  * from Person where not year < convert(2023,java.time.Year)
 select  * from Person where not age <= convert(10.23,java.math.Integer)
 select  * from Person where not age between 10 and convert(10,java.lang.Float)
 select  * from Person where not age between 10 and 30 and salary = convert(10,java.lang.Integer)
+#paramter
+select  * from Person where not age = @age
+select  * from Person where not age >= @age
+select  * from Person where not birthday > @birthday
+select  * from Person where not year < @year
+select  * from Person where not age <= @age
+select  * from Person where not age between @age1 and @age
+select  * from Person where not age between @age1 and 10 and salary = convert(10,java.lang.Integer)
