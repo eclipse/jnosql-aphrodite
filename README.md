@@ -14,7 +14,7 @@ The general concepts about the statements:
 
 ## Select
 
-The select statement reads one or more fields for one or more entities. It returns a result-set of the entities matching the request, where each entity contains the values for the selection corresponding to the query.
+The select statement reads one or more fields for one or more entities. It returns a result-set of the entities matching the request, where each entity contains the fields for corresponding to the query.
 
 ```sql
 select_statement ::=  SELECT ( select_clause | '*' )
