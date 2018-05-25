@@ -11,7 +11,7 @@ The general concepts about the statements:
 * Even with this query, a specific implementation may not support an operation, condition, so on. E.g: Column family may not support query with equals operator in a different column than the key itself.
 * The goal of the API is not about forgotten the specific behavior that there is in a particular database. These features matter, that's why there's an extensible API.
 
-
+# Column and Document 
 ## Select
 
 The select statement reads one or more fields for one or more entities. It returns a result-set of the entities matching the request, where each entity contains the fields for corresponding to the query.
