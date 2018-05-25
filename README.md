@@ -14,7 +14,7 @@ The general concepts about the statements:
 
 ## Select
 
-The select statement reads one or more columns for one or more rows in a table. It returns a result-set of the rows matching the request, where each row contains the values for the selection corresponding to the query.
+The select statement reads one or more fields for one or more rows in a entity. It returns a result-set of the rows matching the request, where each row contains the values for the selection corresponding to the query.
 
 ```sql
 select_statement ::=  SELECT ( select_clause | '*' )
@@ -36,7 +36,7 @@ select  name, age ,adress.age from God start 20 limit 10 order by name desc age 
 
 ## Insert
 
-Inserting data for a row is done using an INSERT statement:
+Inserting data for an entity is done using an INSERT statement:
 
 ```sql
 
@@ -53,7 +53,7 @@ insert God (name = "Diana", age = 10, power = {"sun", "god"})
 
 ## Update
 
-Updating a row is done using an **UPDATE** statement:
+Updating an entity is done using an **UPDATE** statement:
 
 
 ```sql
@@ -71,7 +71,7 @@ update God (name = "Diana", age = 10, power = {"sun", "god"})
 
 ## Delete
 
-Deleting rows or parts of rows uses the **DELETE** statement
+Deleting either an entity or fields uses the **DELETE** statement
 
 ```sql
 delete_statement ::=  DELETE [ simple_selection ( ',' simple_selection ) ]
