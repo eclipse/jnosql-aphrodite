@@ -83,8 +83,8 @@ delete_statement ::=  DELETE [ simple_selection ( ',' simple_selection ) ]
 
 
 ```sql
-select * from God
-select  name, age ,adress.age from God order by name desc age desc
+delete from God
+delete  name, age ,adress.age from God order by name desc age desc
 ```
 
 ### WHERE
