@@ -89,7 +89,7 @@ delete  name, age ,adress.age from God order by name desc age desc
 
 ### WHERE
 
-The WHERE clause specifies a filter to the result. It is composed of conditions appended with the **AND** | **OR** operator.
+The WHERE clause specifies a filter to the result. It is composed of one or more conditions appended with the **AND** | **OR** operator.
 
 #### Conditions
 
