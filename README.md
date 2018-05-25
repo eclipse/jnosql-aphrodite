@@ -111,13 +111,21 @@ insert God (name = "Diana", age = 10, power = {"sun", "god"})
 
 ## Update
 
-Inserting data for a row is done using an INSERT statement:
+Updating a row is done using an **UPDATE** statement:
+
 
 ```sql
 
-insert_statement ::=  INSERT entity_name (name = value, (`,` name = value) *) TTL
+insert_statement ::=  UPDATE entity_name (name = value, (`,` name = value) *)
 ```
 
-### TTL
 
-It defines the time to live of an object that is composed of the integer value and then the unit that might be `day`, `hour`, `minute`, `second`, `microsecond`, `millisecond`, `nanosecond`. E.g.: `ttl 10 second`
+## Delete
+
+Deleting rows or parts of rows uses the **DELETE** statement
+
+```sql
+delete_statement ::=  DELETE [ simple_selection ( ',' simple_selection ) ]
+                      FROM table_name
+                      WHERE where_clause
+```
