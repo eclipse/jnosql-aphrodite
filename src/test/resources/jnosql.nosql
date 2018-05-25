@@ -13,10 +13,10 @@ select  name, age ,adress.age from Person order by name asc age asc
 select  name, age ,adress.age from Person order by name desc age
 select  name, age ,adress.age from Person order by name desc age desc
 select  name, age ,adress.age from Person
-#start tests
-select  * from Person start 10
-select  name, age ,adress.age from Person start 20 order by name desc age desc
-select  name, age ,adress.age from Person start 20 limit 10 order by name desc age desc
+#skip tests
+select  * from Person skip 10
+select  name, age ,adress.age from Person skip 20 order by name desc age desc
+select  name, age ,adress.age from Person skip 20 limit 10 order by name desc age desc
 select  name, age ,adress.age from Person limit 10 order by name desc age desc
 #test where int
 select  * from Person where age = 10

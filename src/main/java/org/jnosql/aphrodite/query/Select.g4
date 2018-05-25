@@ -1,10 +1,10 @@
 grammar Select;
-query   : 'select' fields 'from' entity where? start? limit? order_clause? EOF;
+query   : 'select' fields 'from' entity where? skip? limit? order_clause? EOF;
 
 
 fields: star | name (',' name)*;
 star: '*';
-start: 'start' INT;
+skip: 'skip' INT;
 limit: 'limit' INT;
 order_clause: 'order by' order_name (order_name)*;
 order_name: name | name 'asc' | name 'desc';
