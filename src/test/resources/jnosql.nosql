@@ -64,3 +64,10 @@ select  * from Person where birthday <= "01-09-1988"
 select  * from Person where birthday between "01-09-1988" and "01-09-1988"
 select  * from Person where birthday between "01-09-1988" and "01-09-1988" and salary = 12
 select  * from Person where birthday between "01-09-1988" and "01-09-1988" or salary = 12
+#test array
+select  * from Person where not phones = {"11-15351"}
+select  * from Person where phones = {"11-15351", "11-15351"}
+select  * from Person where phones in ({"11-15351", "11-15351"}, "Ada")
+select  * from Person where power = {"sun", "hunt"}
+select  * from Person where birthday > "01-09-1988" and power = {"sun", "hunt"}
+select  * from Person where birthday > "01-09-1988" or power = {"sun", "hunt"}
