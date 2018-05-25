@@ -116,14 +116,14 @@ The Operators are:
 
 #### The value
 
-the value is the last element in operation, and it defines what it 'll go to be used in the operator.
+the value is the last element in a condition, and it defines what it 'll go to be used, with an operator, in a field.
 
-There are four types:
+There are five types:
 
-* number, where if it is a decimal, will become double, however, long. E.g.: `age = 20`, `salary =12.12`
-* string any character among two double quotes `"`. E.g.: name = "Ada Lovelace"
+* number, where if it is a decimal, will become double, otherwise, long. E.g.: `age = 20`, `salary =12.12`
+* string one or more characters:  among two double quotes `"`. E.g.: name = "Ada Lovelace"
 * Convert: convert is a function where given the first value parameter, as number or string, it will convert to the class type of the second one. E.g.: `birthday = convert("03-01-1988", java.time.LocalDate)`
-* parameter: the parameter it has not a defined value on the query time, it'll replace in the execution time. The query is at `@` followed by a name. E.g.: `age = @age`
+* parameter: the parameter is a dynamic value, which means, it does not define the query, it'll replace in the execution time. The parameter is at `@` followed by a name. E.g.: `age = @age`
 * array: A sequence of elements that can be either number or string that is between braces ` {` `}`. E.g.: `power = {"Sun", "hunt"}`
 
 ### START
