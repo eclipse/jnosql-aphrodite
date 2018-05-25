@@ -71,3 +71,11 @@ select  * from Person where phones in ({"11-15351", "11-15351"}, "Ada")
 select  * from Person where power = {"sun", "hunt"}
 select  * from Person where birthday > "01-09-1988" and power = {"sun", "hunt"}
 select  * from Person where birthday > "01-09-1988" or power = {"sun", "hunt"}
+#test convert
+select  * from Person where not age = convert(10,java.lang.Integer)
+select  * from Person where not age >= convert(10,java.lang.Integer.java)
+select  * from Person where not birthday > convert("03-27-1922",java.time.Localdate)
+select  * from Person where not year < convert(2023,java.time.Year)
+select  * from Person where not age <= convert(10.23,java.math.Integer)
+select  * from Person where not age between 10 and convert(10,java.lang.Float)
+select  * from Person where not age between 10 and 30 and salary = convert(10,java.lang.Integer)
