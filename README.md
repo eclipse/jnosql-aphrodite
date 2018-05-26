@@ -156,11 +156,16 @@ put {"Diana" ,  "The goddess of hunt", 10 second}, {"Aphrodite" ,  "The goddess 
 
 ### WHERE
 
-The WHERE clause specifies a filter to the result. It is composed of one or more conditions appended with the **AND** | **OR** operator.
+The WHERE clause specifies a filter to the result. These filters are booleans operations that are composed of one or more conditions appended with the and (**AND**) and or (**OR**) operators.
+
 
 #### Conditions
 
-The conditions are composed by name where the operation gonna happen, the operator then the value to be measurable.
+The conditions are composed of three elements:
+
+ 1. **Name**, the data source or target, to apply the operator
+ 1. **Operator**, that defines comparing process beteween the name and the value.
+ 1. **Value**, that data that receives the operation.
 
 #### Operators
 
@@ -183,7 +188,8 @@ The Operators are:
 
 #### The value
 
-the value is the last element in a condition, and it defines what it 'll go to be used, with an operator, in a field.
+The value is the last element in a condition, and it defines what it 'll go to be used, with an operator, in a field target.
+
 
 There are five types:
 
