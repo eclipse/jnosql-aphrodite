@@ -17,6 +17,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.jnosql.aphrodite.query.QueryException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -44,7 +45,7 @@ public class QueryTest {
     @ArgumentsSource(WrongQueryArgumentProvider.class)
     public void shouldNotExecute(String query) {
         LOGGER.info("Query: " + query);
-        Assertions.assertThrows(JNoSQLQueryExecption.class, () -> {
+        Assertions.assertThrows(QueryException.class, () -> {
             testQuery(query);
         });
     }

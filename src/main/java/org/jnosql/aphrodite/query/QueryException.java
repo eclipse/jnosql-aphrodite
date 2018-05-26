@@ -12,9 +12,16 @@
 
 package org.jnosql.aphrodite.query;
 
-public class JNoSQLQueryExecption extends RuntimeException {
+/**
+ * The exception class to query
+ */
+public class QueryException extends RuntimeException {
 
-    public JNoSQLQueryExecption(String message) {
+    /**
+     * creates an error with an error message
+     * @param message the message
+     */
+    public QueryException(String message) {
         super(message);
     }
 }
