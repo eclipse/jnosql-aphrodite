@@ -49,14 +49,14 @@ public class QueryTest {
         SelectLexer lexer = new SelectLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         SelectParser parser = new SelectParser(tokens);
+        lexer.removeErrorListeners();
+        parser.removeErrorListeners();
         lexer.addErrorListener(QueryErrorListener.INSTANCE);
         parser.addErrorListener(QueryErrorListener.INSTANCE);
 
         ParseTree tree = parser.query();
         ParseTreeWalker walker = new ParseTreeWalker();
-
-
-        walker.walk(new DefaultSelectSupplier(), tree);
+        walker.walk(new SelectBaseListener(), tree);
 
 
     }
