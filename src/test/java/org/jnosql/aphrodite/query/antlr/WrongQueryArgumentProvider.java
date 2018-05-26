@@ -10,7 +10,7 @@
  *  Otavio Santana
  */
 
-package org.jnosql.aphrodite.query;
+package org.jnosql.aphrodite.query.antlr;
 
 class WrongQueryArgumentProvider extends AbstractArgumentProvider{
 

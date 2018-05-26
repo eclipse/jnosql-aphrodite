@@ -10,7 +10,7 @@
  *  Otavio Santana
  */
 
-package org.jnosql.aphrodite.query;
+package org.jnosql.aphrodite.query.antlr;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;

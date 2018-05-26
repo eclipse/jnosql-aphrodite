@@ -10,7 +10,7 @@
  *  Otavio Santana
  */
 
-package org.jnosql.aphrodite.query;
+package org.jnosql.aphrodite.query.antlr;
 
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
