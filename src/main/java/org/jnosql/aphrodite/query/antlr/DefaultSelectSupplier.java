@@ -36,6 +36,10 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
 
     private List<Sort> sorts = emptyList();
 
+    private long skip;
+
+    private long limit;
+
     @Override
     public void exitFields(SelectParser.FieldsContext ctx) {
         this.fields = ctx.name().stream().map(SelectParser.NameContext::getText).collect(toList());
@@ -61,6 +65,8 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         this.sorts = ctx.orderName().stream().map(DefaultSort::of).collect(Collectors.toList());
     }
 
+
+
     @Override
     public SelectQuery apply(String query) {
         Objects.requireNonNull(query, "query is required");
@@ -75,6 +81,6 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         ParseTree tree = parser.query();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
-        return new DefaultSelectQuery(entity, fields, sorts);
+        return new DefaultSelectQuery(entity, fields, sorts, skip, limit);
     }
 }

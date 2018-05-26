@@ -27,10 +27,16 @@ final class DefaultSelectQuery implements SelectQuery {
 
     private final List<Sort> sorts;
 
-    DefaultSelectQuery(String entity, List<String> fields, List<Sort> sorts) {
+    private long skip;
+
+    private long limit;
+
+    DefaultSelectQuery(String entity, List<String> fields, List<Sort> sorts, long skip, long limit) {
         this.entity = entity;
         this.fields = fields;
         this.sorts = sorts;
+        this.skip = skip;
+        this.limit = limit;
     }
 
     @Override

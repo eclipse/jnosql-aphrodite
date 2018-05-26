@@ -110,4 +110,40 @@ class SelectSupplierTest {
         assertFalse(selectQuery.getWhere().isPresent());
     }
 
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = { "select * from God skip 12" })
+    public void shouldReturnParserQuery6(String query) {
+        SelectQuery selectQuery = selectSupplier.apply(query);
+        assertEquals("God", selectQuery.getEntity());
+        assertTrue(selectQuery.getFields().isEmpty());
+        assertTrue(selectQuery.getOrderBy().isEmpty());
+        assertEquals(0, selectQuery.getLimit());
+        assertEquals(12, selectQuery.getSkip());
+        assertFalse(selectQuery.getWhere().isPresent());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = { "select * from God limit 12" })
+    public void shouldReturnParserQuery7(String query) {
+        SelectQuery selectQuery = selectSupplier.apply(query);
+        assertEquals("God", selectQuery.getEntity());
+        assertTrue(selectQuery.getFields().isEmpty());
+        assertTrue(selectQuery.getOrderBy().isEmpty());
+        assertEquals(12, selectQuery.getLimit());
+        assertEquals(0, selectQuery.getSkip());
+        assertFalse(selectQuery.getWhere().isPresent());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = { "select * from God skip 10 limit 12" })
+    public void shouldReturnParserQuery8(String query) {
+        SelectQuery selectQuery = selectSupplier.apply(query);
+        assertEquals("God", selectQuery.getEntity());
+        assertTrue(selectQuery.getFields().isEmpty());
+        assertTrue(selectQuery.getOrderBy().isEmpty());
+        assertEquals(12, selectQuery.getLimit());
+        assertEquals(10, selectQuery.getSkip());
+        assertFalse(selectQuery.getWhere().isPresent());
+    }
+
 }

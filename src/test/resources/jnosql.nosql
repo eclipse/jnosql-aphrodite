@@ -13,7 +13,7 @@ select  name, age ,adress.age from Person order by name asc age asc
 select  name, age ,adress.age from Person order by name desc age
 select  name, age ,adress.age from Person order by name desc age desc
 select  name, age ,adress.age from Person
-#skip tests
+#skip and limit tests
 select  * from Person skip 10
 select  name, age ,adress.age from Person skip 20 order by name desc age desc
 select  name, age ,adress.age from Person skip 20 limit 10 order by name desc age desc
