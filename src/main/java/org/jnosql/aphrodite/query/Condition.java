@@ -13,4 +13,10 @@
 package org.jnosql.aphrodite.query;
 
 public interface Condition {
+
+    String getName();
+
+    Operator getOperator();
+
+    Value getValue();
 }
