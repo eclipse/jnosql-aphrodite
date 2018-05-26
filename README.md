@@ -42,7 +42,7 @@ Inserting data for an entity is done using an INSERT statement:
 
 ```sql
 
-insert_statement ::=  INSERT entity_name (name = value, (`,` name = value) *) TTL
+insert_statement ::=  INSERT entity_name (name = value, (`,` name = value) *) [ TTL ]
 ```
 
 #### Sample:
@@ -51,6 +51,8 @@ insert_statement ::=  INSERT entity_name (name = value, (`,` name = value) *) TT
 ```sql
 insert God (name = "Diana", age = 10)
 insert God (name = "Diana", age = 10, power = {"sun", "god"})
+insert God (name = "Diana", age = 10, power = {"sun", "god"}) 1 day
+
 ```
 
 ## Update
@@ -68,7 +70,7 @@ insert_statement ::=  UPDATE entity_name (name = value, (`,` name = value) *)
 
 ```sql
 update God (name = "Diana", age = 10)
-update God (name = "Diana", age = 10, power = {"sun", "god"})
+update God (name = "Diana", age = 10, power = {"hunt", "moon"})
 ```
 
 ## Delete
