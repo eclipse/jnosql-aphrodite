@@ -40,7 +40,7 @@ class SelectSupplierTest {
         });
     }
 
-    @ParameterizedTest(name = "Should return the query {0}")
+    @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = { "select * from God" })
     public void shouldReturnParserQuery(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
@@ -52,7 +52,7 @@ class SelectSupplierTest {
         assertFalse(selectQuery.getWhere().isPresent());
     }
 
-    @ParameterizedTest(name = "Should return the query {0}")
+    @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = { "select name, address from God" })
     public void shouldReturnParserQuery2(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
@@ -65,7 +65,7 @@ class SelectSupplierTest {
         assertFalse(selectQuery.getWhere().isPresent());
     }
 
-    @ParameterizedTest(name = "Should return the query {0}")
+    @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = { "select name, address from God order by name" })
     public void shouldReturnParserQuery3(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
@@ -80,7 +80,7 @@ class SelectSupplierTest {
         assertFalse(selectQuery.getWhere().isPresent());
     }
 
-    @ParameterizedTest(name = "Should return the query {0}")
+    @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = { "select name, address from God order by name desc" })
     public void shouldReturnParserQuery4(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
@@ -95,7 +95,7 @@ class SelectSupplierTest {
         assertFalse(selectQuery.getWhere().isPresent());
     }
 
-    @ParameterizedTest(name = "Should return the query {0}")
+    @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = { "select name, address from God order by name desc age asc" })
     public void shouldReturnParserQuery5(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);

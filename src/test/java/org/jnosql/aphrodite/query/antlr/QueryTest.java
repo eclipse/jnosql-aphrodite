@@ -23,16 +23,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-import java.util.logging.Logger;
-
 public class QueryTest {
-
-    private static Logger LOGGER = Logger.getLogger(QueryTest.class.getName());
 
     @ParameterizedTest
     @ArgumentsSource(QueryArgumentProvider.class)
     public void shouldExecuteQuery(String query) {
-        LOGGER.info("Query: " + query);
         testQuery(query);
     }
 
@@ -44,7 +39,6 @@ public class QueryTest {
     @ParameterizedTest
     @ArgumentsSource(WrongQueryArgumentProvider.class)
     public void shouldNotExecute(String query) {
-        LOGGER.info("Query: " + query);
         Assertions.assertThrows(QueryException.class, () -> {
             testQuery(query);
         });
