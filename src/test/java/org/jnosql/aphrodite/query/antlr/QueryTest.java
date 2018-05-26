@@ -62,7 +62,7 @@ public class QueryTest {
         ParseTreeWalker walker = new ParseTreeWalker();
 
 
-        walker.walk(new SelectWalker(), tree);
+        walker.walk(new DefaultSelectSupplier(), tree);
 
 
     }

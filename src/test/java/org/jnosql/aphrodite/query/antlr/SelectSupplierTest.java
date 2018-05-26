@@ -12,24 +12,14 @@
 
 package org.jnosql.aphrodite.query.antlr;
 
-import org.antlr.v4.runtime.RuleContext;
+import org.jnosql.aphrodite.query.SelectSupplier;
 
-import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class SelectWalker extends SelectBaseListener {
+class SelectSupplierTest {
 
-    public void enterR(SelectParser.QueryContext ctx) {
-        Optional.ofNullable(ctx.fields())
-                .map(RuleContext::getText)
-                .ifPresent(entity -> System.out.println("fields : " + entity));
+    private SelectSupplier selectSupplier = new DefaultSelectSupplier();
 
-        Optional.ofNullable(ctx.entity())
-                .map(RuleContext::getText)
-                .ifPresent(entity -> System.out.println("entity : " + entity));
+    public void shouldReturnERror
 
-
-    }
-
-    public void exitR(SelectParser.QueryContext ctx) {
-    }
 }
