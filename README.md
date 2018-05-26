@@ -12,6 +12,7 @@ The general concepts about the statements:
 * The goal of the API is not about forgotten the specific behavior that there is in a particular database. These features matter, that's why there's an extensible API.
 
 # Column and Document 
+
 ## Select
 
 The select statement reads one or more fields for one or more entities. It returns a result-set of the entities matching the request, where each entity contains the fields for corresponding to the query.
@@ -86,6 +87,46 @@ delete_statement ::=  DELETE [ simple_selection ( ',' simple_selection ) ]
 delete from God
 delete  name, age ,adress.age from God order by name desc age desc
 ```
+
+# Key-value 
+
+## GET
+
+Retrieving data for an entity is done using an **GET** statement:
+
+```sql
+
+insert_statement ::=  GET ID (',' ID)*
+```
+
+
+#### Sample:
+
+
+```sql
+get "Diana" "Artemis"
+get "Apollo"
+```
+
+## PUT
+
+To either insert or overrides values from a key-value database use the **PUT** statement.
+```sql
+
+insert_statement ::=  PUT {KEY, VALUE, [TTL]} (',' {KEY, VALUE [TTL]})*
+```
+
+
+#### Sample:
+
+
+```sql
+put {"Diana" ,  "The goddess of hunt", 10 second}
+put {"Diana" ,  "The goddess of hunt"}
+put {"Diana" ,  "The goddess of hunt", 10 second}, {"Aphrodite" ,  "The goddess of love"}
+
+```
+
 
 ### WHERE
 
