@@ -16,7 +16,6 @@ import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.Sort;
 import org.jnosql.aphrodite.query.Where;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +25,12 @@ final class DefaultSelectQuery implements SelectQuery {
 
     private final List<String> fields;
 
-    DefaultSelectQuery(String entity, List<String> fields) {
+    private final List<Sort> sorts;
+
+    DefaultSelectQuery(String entity, List<String> fields, List<Sort> sorts) {
         this.entity = entity;
         this.fields = fields;
+        this.sorts = sorts;
     }
 
     @Override
@@ -58,7 +60,7 @@ final class DefaultSelectQuery implements SelectQuery {
 
     @Override
     public List<Sort> getOrderBy() {
-        return Collections.emptyList();
+        return sorts;
     }
 
 }

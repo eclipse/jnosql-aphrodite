@@ -19,18 +19,22 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
+import org.jnosql.aphrodite.query.Sort;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
+import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
 public class DefaultSelectSupplier extends SelectBaseListener implements SelectSupplier {
 
     private String entity;
 
-    private List<String> fields = Collections.emptyList();
+    private List<String> fields = emptyList();
+
+    private List<Sort> sorts = emptyList();
 
     @Override
     public void exitFields(SelectParser.FieldsContext ctx) {
@@ -41,12 +45,20 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     public void exitSkip(SelectParser.SkipContext ctx) {
         System.out.println(ctx);
     }
+
     @Override
     public void exitLimit(SelectParser.LimitContext ctx) {
         System.out.println(ctx);
     }
-    @Override public void exitEntity(SelectParser.EntityContext ctx) {
+
+    @Override
+    public void exitEntity(SelectParser.EntityContext ctx) {
         this.entity = ctx.getText();
+    }
+
+    @Override
+    public void enterOrder(SelectParser.OrderContext ctx) {
+        this.sorts = ctx.orderName().stream().map(DefaultSort::of).collect(Collectors.toList());
     }
 
     @Override
@@ -63,6 +75,6 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         ParseTree tree = parser.query();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
-        return new DefaultSelectQuery(entity, fields);
+        return new DefaultSelectQuery(entity, fields, sorts);
     }
 }

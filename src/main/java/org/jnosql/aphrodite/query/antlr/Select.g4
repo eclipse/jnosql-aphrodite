@@ -1,13 +1,13 @@
 grammar Select;
-query   : 'select' fields 'from' entity where? skip? limit? order_clause? EOF;
+query   : 'select' fields 'from' entity where? skip? limit? order? EOF;
 
 
 fields: star | name (',' name)*;
 star: '*';
 skip: 'skip' INT;
 limit: 'limit' INT;
-order_clause: 'order by' order_name (order_name)*;
-order_name: name | name 'asc' | name 'desc';
+order: 'order by' orderName (orderName)*;
+orderName: name | name asc | name desc;
 where: 'where' condition ('and' condition| 'or' condition)* ;
 condition: eq | gt | gte | lt | lte | between | in | like;
 eq: not? name '=' value;
@@ -19,6 +19,8 @@ between: not? name 'between' value 'and' value;
 in: name not? 'in' '('value (',' value)* ')';
 like: not? name 'like' string;
 not: 'not';
+asc: 'asc';
+desc: 'desc';
 value: ( number | string | array | convert | parameter | json);
 name: ANY_NAME;
 entity: ANY_NAME;
