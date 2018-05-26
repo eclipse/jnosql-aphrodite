@@ -12,17 +12,57 @@
 
 package org.jnosql.aphrodite.query.antlr;
 
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+
+import static java.util.stream.Collectors.toList;
 
 public class DefaultSelectSupplier extends SelectBaseListener implements SelectSupplier {
 
+    private String entity;
+
+    private List<String> fields = Collections.emptyList();
+
+    @Override
+    public void exitFields(SelectParser.FieldsContext ctx) {
+        this.fields = ctx.name().stream().map(SelectParser.NameContext::getText).collect(toList());
+    }
+
+    @Override
+    public void exitSkip(SelectParser.SkipContext ctx) {
+        System.out.println(ctx);
+    }
+    @Override
+    public void exitLimit(SelectParser.LimitContext ctx) {
+        System.out.println(ctx);
+    }
+    @Override public void exitEntity(SelectParser.EntityContext ctx) {
+        this.entity = ctx.getText();
+    }
 
     @Override
     public SelectQuery apply(String query) {
         Objects.requireNonNull(query, "query is required");
-        return null;
+
+        CharStream stream = CharStreams.fromString(query);
+        SelectLexer lexer = new SelectLexer(stream);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        SelectParser parser = new SelectParser(tokens);
+        lexer.addErrorListener(QueryErrorListener.INSTANCE);
+        parser.addErrorListener(QueryErrorListener.INSTANCE);
+
+        ParseTree tree = parser.query();
+        ParseTreeWalker walker = new ParseTreeWalker();
+        walker.walk(this, tree);
+        return new DefaultSelectQuery(entity, fields);
     }
 }
