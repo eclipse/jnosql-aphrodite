@@ -12,6 +12,7 @@
 
 package org.jnosql.aphrodite.query.antlr;
 
+import org.jnosql.aphrodite.query.ArrayValue;
 import org.jnosql.aphrodite.query.Condition;
 import org.jnosql.aphrodite.query.NumberValue;
 import org.jnosql.aphrodite.query.Operator;
@@ -25,9 +26,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
+import static org.jnosql.aphrodite.query.Operator.BETWEEN;
+import static org.jnosql.aphrodite.query.Operator.EQUALS;
+import static org.jnosql.aphrodite.query.Operator.GREATER_THAN;
 import static org.jnosql.aphrodite.query.Sort.SortType.ASC;
 import static org.jnosql.aphrodite.query.Sort.SortType.DESC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -156,7 +163,7 @@ class SelectSupplierTest {
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
         Value value = condition.getValue();
-        assertEquals(Operator.EQUALS, condition.getOperator());
+        assertEquals(EQUALS, condition.getOperator());
         assertEquals("age", condition.getName());
         assertTrue(value instanceof NumberValue);
         assertEquals(10L, value.get());
@@ -172,10 +179,27 @@ class SelectSupplierTest {
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
         Value value = condition.getValue();
-        assertEquals(Operator.GREATER_THAN, condition.getOperator());
+        assertEquals(GREATER_THAN, condition.getOperator());
         assertEquals("stamina", condition.getName());
         assertTrue(value instanceof NumberValue);
         assertEquals(10.23, value.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where age between 10 and 30"})
+    public void shouldReturnParserQuery11(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(BETWEEN, condition.getOperator());
+        assertEquals("age", condition.getName());
+        assertTrue(value instanceof ArrayValue);
+        ArrayValue arrayValue = ArrayValue.class.cast(value);
+        Value<?>[] values = arrayValue.get();
+        assertThat(Stream.of(values).map(Value::get).collect(toList()), contains(10L, 30L));
     }
 
     private SelectQuery checkSelectFromStart(String query) {

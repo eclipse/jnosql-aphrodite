@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
+import static org.jnosql.aphrodite.query.Operator.BETWEEN;
 import static org.jnosql.aphrodite.query.Operator.EQUALS;
 import static org.jnosql.aphrodite.query.Operator.GREATER_EQUALS_THAN;
 import static org.jnosql.aphrodite.query.Operator.GREATER_THAN;
@@ -118,6 +119,14 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         this.condition = new DefaultCondition(name, GREATER_EQUALS_THAN, value);
     }
 
+
+    @Override
+    public void exitBetween(SelectParser.BetweenContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String name = ctx.name().getText();
+        Value[] values = ctx.value().stream().map(ValueConverter::get).toArray(Value[]::new);
+        this.condition = new DefaultCondition(name, BETWEEN, new DefaultArrayValue(values));
+    }
 
 
     @Override

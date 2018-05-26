@@ -65,4 +65,9 @@ final class DefaultCondition implements Condition {
     public int hashCode() {
         return Objects.hash(name, operator, value);
     }
+
+    @Override
+    public String toString() {
+        return name + " " + operator + " " + value;
+    }
 }

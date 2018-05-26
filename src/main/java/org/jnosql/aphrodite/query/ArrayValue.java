@@ -12,5 +12,5 @@
 
 package org.jnosql.aphrodite.query;
 
-public interface ArrayValue<T> extends Value<T[]> {
+public interface ArrayValue extends Value<Value<?>[]> {
 }
