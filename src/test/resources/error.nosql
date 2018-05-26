@@ -42,3 +42,7 @@ select  * from Person where not phones = "11-15351"}
 select  * from Person where phones = "11-15351", "11-15351"
 select  * from Person where phones = "11-15351" "11-15351"
 select  * from Person where phones in ({"11-15351" "11-15351"})
+#json
+select  * from Person where siblings = {"apollo": "brother", "zeus": "father"
+select  * from Person where siblings = {"apollo": , "zeus" "father"}
+select  * from Person where siblings = {"apollo" "brother", "zeus": "father"}
