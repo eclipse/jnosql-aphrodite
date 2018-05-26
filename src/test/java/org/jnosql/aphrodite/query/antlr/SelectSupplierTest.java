@@ -34,7 +34,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.jnosql.aphrodite.query.Operator.BETWEEN;
 import static org.jnosql.aphrodite.query.Operator.EQUALS;
+import static org.jnosql.aphrodite.query.Operator.GREATER_EQUALS_THAN;
 import static org.jnosql.aphrodite.query.Operator.GREATER_THAN;
+import static org.jnosql.aphrodite.query.Operator.LESSER_EQUALS_THAN;
+import static org.jnosql.aphrodite.query.Operator.LESSER_THAN;
 import static org.jnosql.aphrodite.query.Sort.SortType.ASC;
 import static org.jnosql.aphrodite.query.Sort.SortType.DESC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -186,8 +189,54 @@ class SelectSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"select  * from God where age between 10 and 30"})
+    @ValueSource(strings = {"select  * from God where stamina >= 10.23"})
     public void shouldReturnParserQuery11(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(GREATER_EQUALS_THAN, condition.getOperator());
+        assertEquals("stamina", condition.getName());
+        assertTrue(value instanceof NumberValue);
+        assertEquals(10.23, value.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where stamina <= 10.23"})
+    public void shouldReturnParserQuery12(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(LESSER_EQUALS_THAN, condition.getOperator());
+        assertEquals("stamina", condition.getName());
+        assertTrue(value instanceof NumberValue);
+        assertEquals(10.23, value.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where stamina < 10.23"})
+    public void shouldReturnParserQuery13(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(LESSER_THAN, condition.getOperator());
+        assertEquals("stamina", condition.getName());
+        assertTrue(value instanceof NumberValue);
+        assertEquals(10.23, value.get());
+    }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where age between 10 and 30"})
+    public void shouldReturnParserQuery14(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
 

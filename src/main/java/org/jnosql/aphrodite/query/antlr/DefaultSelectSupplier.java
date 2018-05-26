@@ -66,7 +66,6 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     @Override
     public void exitLimit(SelectParser.LimitContext ctx) {
         this.limit = Long.valueOf(ctx.INT().getText());
-        System.out.println(ctx);
     }
 
     @Override
