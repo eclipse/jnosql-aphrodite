@@ -10,7 +10,7 @@
  *  Otavio Santana
  */
 
-package org.jnosql.aphrodite.query.antlr;
+package org.jnosql.aphrodite.query;
 
 public class JNoSQLQueryExecption extends RuntimeException {
 
