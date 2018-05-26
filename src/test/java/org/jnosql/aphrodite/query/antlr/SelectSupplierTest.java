@@ -14,6 +14,7 @@ package org.jnosql.aphrodite.query.antlr;
 
 import org.jnosql.aphrodite.query.Condition;
 import org.jnosql.aphrodite.query.NumberValue;
+import org.jnosql.aphrodite.query.Operator;
 import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
 import org.jnosql.aphrodite.query.Sort;
@@ -155,13 +156,15 @@ class SelectSupplierTest {
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
         Value value = condition.getValue();
+        assertEquals(Operator.EQUALS, condition.getOperator());
         assertEquals("age", condition.getName());
         assertTrue(value instanceof NumberValue);
         assertEquals(10L, value.get());
+
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"select  * from God where stamina = 10.23"})
+    @ValueSource(strings = {"select  * from God where stamina > 10.23"})
     public void shouldReturnParserQuery10(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
@@ -169,6 +172,7 @@ class SelectSupplierTest {
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
         Value value = condition.getValue();
+        assertEquals(Operator.GREATER_THAN, condition.getOperator());
         assertEquals("stamina", condition.getName());
         assertTrue(value instanceof NumberValue);
         assertEquals(10.23, value.get());

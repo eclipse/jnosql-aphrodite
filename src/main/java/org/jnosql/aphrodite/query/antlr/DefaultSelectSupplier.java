@@ -18,7 +18,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.jnosql.aphrodite.query.Condition;
-import org.jnosql.aphrodite.query.Operator;
 import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
 import org.jnosql.aphrodite.query.Sort;
@@ -31,6 +30,11 @@ import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
+import static org.jnosql.aphrodite.query.Operator.EQUALS;
+import static org.jnosql.aphrodite.query.Operator.GREATER_EQUALS_THAN;
+import static org.jnosql.aphrodite.query.Operator.GREATER_THAN;
+import static org.jnosql.aphrodite.query.Operator.LESSER_EQUALS_THAN;
+import static org.jnosql.aphrodite.query.Operator.LESSER_THAN;
 
 public class DefaultSelectSupplier extends SelectBaseListener implements SelectSupplier {
 
@@ -79,8 +83,42 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
-        this.condition = new DefaultCondition(name, Operator.EQUALS, value);
+        this.condition = new DefaultCondition(name, EQUALS, value);
     }
+
+    @Override
+    public void exitLt(SelectParser.LtContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String name = ctx.name().getText();
+        Value<?> value = ValueConverter.get(ctx.value());
+        this.condition = new DefaultCondition(name, LESSER_THAN, value);
+    }
+
+    @Override
+    public void exitLte(SelectParser.LteContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String name = ctx.name().getText();
+        Value<?> value = ValueConverter.get(ctx.value());
+        this.condition = new DefaultCondition(name, LESSER_EQUALS_THAN, value);
+    }
+
+    @Override
+    public void exitGt(SelectParser.GtContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String name = ctx.name().getText();
+        Value<?> value = ValueConverter.get(ctx.value());
+        this.condition = new DefaultCondition(name, GREATER_THAN, value);
+    }
+
+    @Override
+    public void exitGte(SelectParser.GteContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String name = ctx.name().getText();
+        Value<?> value = ValueConverter.get(ctx.value());
+        this.condition = new DefaultCondition(name, GREATER_EQUALS_THAN, value);
+    }
+
+
 
     @Override
     public SelectQuery apply(String query) {
