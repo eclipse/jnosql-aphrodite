@@ -4,11 +4,12 @@ Eclipse JNoSQL Aphrodite is the project that contains the syntax query to JNoSQL
 
 The general concepts about the statements:
 
-* It ends with a break line `\n`
+* All instructions end with a break like `\n`
 * It is case sensitive
 * All keywords must be in lowercase
-* The goals are to look like SQL, however simpler
-* Even with this query, a specific implementation may not support an operation, condition, so on. E.g: Column family may not support query with equals operator in a different column than the key itself.
+* The goal is to look like SQL, however simpler
+* The scope of this API is to key-value, column and document type, once Apache Tinkerpop already have one to Graph.
+* Even with this query, a specific implementation may not support an operation, condition, so on. E.g: Column family may not support query with equals operator in a different field that is not the key field.
 * The goal of the API is not about forgotten the specific behavior that there is in a particular database. These features matter, that's why there's an extensible API.
 
 # Column and Document 
@@ -85,7 +86,7 @@ delete_statement ::=  DELETE [ simple_selection ( ',' simple_selection ) ]
 
 ```sql
 delete from God
-delete  name, age ,adress.age from God order by name desc age desc
+delete  name, age ,adress.age from God
 ```
 
 # Key-value 
@@ -96,7 +97,7 @@ Retrieving data for an entity is done using an **GET** statement:
 
 ```sql
 
-insert_statement ::=  GET ID (',' ID)*
+get_statement ::=  GET ID (',' ID)*
 ```
 
 
@@ -113,7 +114,7 @@ get "Apollo"
 To either insert or overrides values from a key-value database use the **PUT** statement.
 ```sql
 
-insert_statement ::=  PUT {KEY, VALUE, [TTL]} (',' {KEY, VALUE [TTL]})*
+put_statement ::=  PUT {KEY, VALUE, [TTL]} (',' {KEY, VALUE [TTL]})*
 ```
 
 
@@ -131,6 +132,10 @@ put {"Diana" ,  "The goddess of hunt", 10 second}, {"Aphrodite" ,  "The goddess 
 
 To delete one or more entities use the **DEL** statement
 
+```sql
+
+del_statement ::=  GET ID (',' ID)*
+```
 
 ```sql
 
@@ -148,7 +153,6 @@ put {"Diana" ,  "The goddess of hunt"}
 put {"Diana" ,  "The goddess of hunt", 10 second}, {"Aphrodite" ,  "The goddess of love"}
 
 ```
-
 
 ### WHERE
 
