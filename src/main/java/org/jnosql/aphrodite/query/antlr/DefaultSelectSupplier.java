@@ -47,11 +47,12 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
 
     @Override
     public void exitSkip(SelectParser.SkipContext ctx) {
-        System.out.println(ctx);
+        this.skip = Long.valueOf(ctx.INT().getText());
     }
 
     @Override
     public void exitLimit(SelectParser.LimitContext ctx) {
+        this.limit = Long.valueOf(ctx.INT().getText());
         System.out.println(ctx);
     }
 

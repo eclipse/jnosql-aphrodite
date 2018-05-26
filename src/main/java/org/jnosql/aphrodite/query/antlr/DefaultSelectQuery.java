@@ -56,12 +56,12 @@ final class DefaultSelectQuery implements SelectQuery {
 
     @Override
     public long getSkip() {
-        return 0;
+        return skip;
     }
 
     @Override
     public long getLimit() {
-        return 0;
+        return limit;
     }
 
     @Override
