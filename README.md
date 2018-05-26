@@ -127,6 +127,28 @@ put {"Diana" ,  "The goddess of hunt", 10 second}, {"Aphrodite" ,  "The goddess 
 
 ```
 
+## DEL
+
+To delete one or more entities use the **DEL** statement
+
+
+```sql
+
+del "Diana" "Artemis"
+del "Apollo"
+```
+
+
+#### Sample:
+
+
+```sql
+put {"Diana" ,  "The goddess of hunt", 10 second}
+put {"Diana" ,  "The goddess of hunt"}
+put {"Diana" ,  "The goddess of hunt", 10 second}, {"Aphrodite" ,  "The goddess of love"}
+
+```
+
 
 ### WHERE
 
