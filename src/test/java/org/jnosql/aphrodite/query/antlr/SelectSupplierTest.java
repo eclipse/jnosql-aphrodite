@@ -12,7 +12,11 @@
 
 package org.jnosql.aphrodite.query.antlr;
 
+import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,6 +24,23 @@ class SelectSupplierTest {
 
     private SelectSupplier selectSupplier = new DefaultSelectSupplier();
 
-    public void shouldReturnERror
+    @Test
+    public void shouldReturnErrorWhenStringIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->{
+           selectSupplier.apply(null);
+        });
+    }
+
+    @Test
+    @DisplayName("Should return the query 'select * from God'")
+    public void shouldReturnSelectFrom() {
+        SelectQuery query = selectSupplier.apply("select * from God");
+        assertEquals("God", query.getEntity());
+        assertTrue(query.getFields().isEmpty());
+        assertTrue(query.getOrderBy().isEmpty());
+        assertEquals(0, query.getLimit());
+        assertEquals(0, query.getSkip());
+        assertTrue(query.getWhere().isPresent());
+    }
 
 }
