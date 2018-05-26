@@ -87,3 +87,5 @@ select  * from Person where not year < @year
 select  * from Person where not age <= @age
 select  * from Person where not age between @age1 and @age
 select  * from Person where not age between @age1 and 10 and salary = convert(10,java.lang.Integer)
+#json
+select  * from Person where siblings = {"apollo": "brother", "zeus": "father"}
