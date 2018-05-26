@@ -31,12 +31,15 @@ final class DefaultSelectQuery implements SelectQuery {
 
     private long limit;
 
-    DefaultSelectQuery(String entity, List<String> fields, List<Sort> sorts, long skip, long limit) {
+    private final Where where;
+
+    DefaultSelectQuery(String entity, List<String> fields, List<Sort> sorts, long skip, long limit, Where where) {
         this.entity = entity;
         this.fields = fields;
         this.sorts = sorts;
         this.skip = skip;
         this.limit = limit;
+        this.where = where;
     }
 
     @Override
@@ -51,7 +54,7 @@ final class DefaultSelectQuery implements SelectQuery {
 
     @Override
     public Optional<Where> getWhere() {
-        return Optional.empty();
+        return Optional.ofNullable(where);
     }
 
     @Override

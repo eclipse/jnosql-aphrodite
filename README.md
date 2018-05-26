@@ -195,7 +195,7 @@ The value is the last element in a condition, and it defines what it 'll go to b
 
 There are six types:
 
-* number, where if it is a decimal, will become double, otherwise, long. E.g.: `age = 20`, `salary =12.12`
+* number, where if it is a decimal, will become double, otherwise, long. E.g.: `age = 20`, `salary = 12.12`
 * string one or more characters:  among two double quotes `"`. E.g.: name = "Ada Lovelace"
 * Convert: convert is a function where given the first value parameter, as number or string, it will convert to the class type of the second one. E.g.: `birthday = convert("03-01-1988", java.time.LocalDate)`
 * parameter: the parameter is a dynamic value, which means, it does not define the query, it'll replace in the execution time. The parameter is at `@` followed by a name. E.g.: `age = @age`

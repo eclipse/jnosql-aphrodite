@@ -17,9 +17,13 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.jnosql.aphrodite.query.Condition;
+import org.jnosql.aphrodite.query.Operator;
 import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
 import org.jnosql.aphrodite.query.Sort;
+import org.jnosql.aphrodite.query.Value;
+import org.jnosql.aphrodite.query.Where;
 
 import java.util.List;
 import java.util.Objects;
@@ -39,6 +43,10 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     private long skip;
 
     private long limit;
+
+    private Where where;
+
+    private Condition condition;
 
     @Override
     public void exitFields(SelectParser.FieldsContext ctx) {
@@ -66,7 +74,13 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         this.sorts = ctx.orderName().stream().map(DefaultSort::of).collect(Collectors.toList());
     }
 
-
+    @Override
+    public void exitEq(SelectParser.EqContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String name = ctx.name().getText();
+        Value<?> value = ValueConverter.get(ctx.value());
+        this.condition = new DefaultCondition(name, Operator.EQUALS, value);
+    }
 
     @Override
     public SelectQuery apply(String query) {
@@ -82,6 +96,9 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         ParseTree tree = parser.query();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
-        return new DefaultSelectQuery(entity, fields, sorts, skip, limit);
+        if(Objects.nonNull(condition)) {
+            this.where = new DefaultWhere(condition);
+        }
+        return new DefaultSelectQuery(entity, fields, sorts, skip, limit, where);
     }
 }

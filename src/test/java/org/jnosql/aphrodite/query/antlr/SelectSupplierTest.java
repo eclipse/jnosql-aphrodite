@@ -13,9 +13,11 @@
 package org.jnosql.aphrodite.query.antlr;
 
 import org.jnosql.aphrodite.query.Condition;
+import org.jnosql.aphrodite.query.NumberValue;
 import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
 import org.jnosql.aphrodite.query.Sort;
+import org.jnosql.aphrodite.query.Value;
 import org.jnosql.aphrodite.query.Where;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -43,19 +45,14 @@ class SelectSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = { "select * from God" })
+    @ValueSource(strings = {"select * from God"})
     public void shouldReturnParserQuery(String query) {
-        SelectQuery selectQuery = selectSupplier.apply(query);
-        assertEquals("God", selectQuery.getEntity());
-        assertTrue(selectQuery.getFields().isEmpty());
-        assertTrue(selectQuery.getOrderBy().isEmpty());
-        assertEquals(0, selectQuery.getLimit());
-        assertEquals(0, selectQuery.getSkip());
+        SelectQuery selectQuery = checkSelectFromStart(query);
         assertFalse(selectQuery.getWhere().isPresent());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = { "select name, address from God" })
+    @ValueSource(strings = {"select name, address from God"})
     public void shouldReturnParserQuery2(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
         assertEquals("God", selectQuery.getEntity());
@@ -68,7 +65,7 @@ class SelectSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = { "select name, address from God order by name" })
+    @ValueSource(strings = {"select name, address from God order by name"})
     public void shouldReturnParserQuery3(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
         assertEquals("God", selectQuery.getEntity());
@@ -83,7 +80,7 @@ class SelectSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = { "select name, address from God order by name desc" })
+    @ValueSource(strings = {"select name, address from God order by name desc"})
     public void shouldReturnParserQuery4(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
         assertEquals("God", selectQuery.getEntity());
@@ -98,7 +95,7 @@ class SelectSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = { "select name, address from God order by name desc age asc" })
+    @ValueSource(strings = {"select name, address from God order by name desc age asc"})
     public void shouldReturnParserQuery5(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
         assertEquals("God", selectQuery.getEntity());
@@ -113,7 +110,7 @@ class SelectSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = { "select * from God skip 12" })
+    @ValueSource(strings = {"select * from God skip 12"})
     public void shouldReturnParserQuery6(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
         assertEquals("God", selectQuery.getEntity());
@@ -125,7 +122,7 @@ class SelectSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = { "select * from God limit 12" })
+    @ValueSource(strings = {"select * from God limit 12"})
     public void shouldReturnParserQuery7(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
         assertEquals("God", selectQuery.getEntity());
@@ -137,7 +134,7 @@ class SelectSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = { "select * from God skip 10 limit 12" })
+    @ValueSource(strings = {"select * from God skip 10 limit 12"})
     public void shouldReturnParserQuery8(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
         assertEquals("God", selectQuery.getEntity());
@@ -150,20 +147,41 @@ class SelectSupplierTest {
 
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = { "select  * from Person where age = 10" })
+    @ValueSource(strings = {"select  * from God where age = 10"})
     public void shouldReturnParserQuery9(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals("age", condition.getName());
+        assertTrue(value instanceof NumberValue);
+        assertEquals(10L, value.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where stamina = 10.23"})
+    public void shouldReturnParserQuery10(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals("stamina", condition.getName());
+        assertTrue(value instanceof NumberValue);
+        assertEquals(10.23, value.get());
+    }
+
+    private SelectQuery checkSelectFromStart(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
         assertEquals("God", selectQuery.getEntity());
         assertTrue(selectQuery.getFields().isEmpty());
         assertTrue(selectQuery.getOrderBy().isEmpty());
         assertEquals(0, selectQuery.getLimit());
         assertEquals(0, selectQuery.getSkip());
-        assertTrue(selectQuery.getWhere().isPresent());
-
-        Where where = selectQuery.getWhere().get();
-        Condition condition = where.getCondition();
-        assertEquals("name", condition.getName());
-
+        return selectQuery;
     }
 
 }
