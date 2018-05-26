@@ -12,9 +12,11 @@
 
 package org.jnosql.aphrodite.query.antlr;
 
+import org.jnosql.aphrodite.query.Condition;
 import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
 import org.jnosql.aphrodite.query.Sort;
+import org.jnosql.aphrodite.query.Where;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -144,6 +146,24 @@ class SelectSupplierTest {
         assertEquals(12, selectQuery.getLimit());
         assertEquals(10, selectQuery.getSkip());
         assertFalse(selectQuery.getWhere().isPresent());
+    }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = { "select  * from Person where age = 10" })
+    public void shouldReturnParserQuery9(String query) {
+        SelectQuery selectQuery = selectSupplier.apply(query);
+        assertEquals("God", selectQuery.getEntity());
+        assertTrue(selectQuery.getFields().isEmpty());
+        assertTrue(selectQuery.getOrderBy().isEmpty());
+        assertEquals(0, selectQuery.getLimit());
+        assertEquals(0, selectQuery.getSkip());
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        assertEquals("name", condition.getName());
+
     }
 
 }

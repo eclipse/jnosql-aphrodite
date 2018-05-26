@@ -13,7 +13,6 @@
 package org.jnosql.aphrodite.query;
 
 import javax.json.JsonObject;
-import java.util.function.Supplier;
 
-public interface JSONValue extends Value, Supplier<JsonObject> {
+public interface JSONValue extends Value<JsonObject> {
 }

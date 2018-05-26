@@ -12,8 +12,6 @@
 
 package org.jnosql.aphrodite.query;
 
-import java.util.function.Supplier;
-
-public interface NumberValue extends Value, Supplier<Number> {
+public interface NumberValue extends Value<Number> {
 
 }

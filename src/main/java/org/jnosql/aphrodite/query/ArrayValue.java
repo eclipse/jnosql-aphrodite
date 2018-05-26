@@ -12,9 +12,5 @@
 
 package org.jnosql.aphrodite.query;
 
-import sun.awt.SunHints;
-
-import java.util.function.Supplier;
-
-public interface ArrayValue<T> extends Value, Supplier<T[]> {
+public interface ArrayValue<T> extends Value<T[]> {
 }
