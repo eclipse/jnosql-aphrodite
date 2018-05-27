@@ -56,16 +56,25 @@ final class DefaultFunctionValue implements FunctionValue {
 
     static FunctionValue of(SelectParser.FunctionContext context) {
         if (Objects.nonNull(context.converter())) {
-            return getConverterFunction(context);
+            SelectParser.ConverterContext converter = context.converter();
+            Value<?> value = Elements.getElement(converter.element());
+            String text = converter.name().getText();
+            return getFunctionValue(value, text);
         }
-
         throw new UnsupportedOperationException("There is not support to this function yet");
     }
 
-    private static FunctionValue getConverterFunction(SelectParser.FunctionContext context) {
-        SelectParser.ConverterContext converter = context.converter();
-        Value<?> value = Elements.getElement(converter.element());
-        String text = converter.name().getText();
+    static FunctionValue of(DeleteParser.FunctionContext context) {
+        if (Objects.nonNull(context.converter())) {
+            DeleteParser.ConverterContext converter = context.converter();
+            Value<?> value = Elements.getElement(converter.element());
+            String text = converter.name().getText();
+            return getFunctionValue(value, text);
+        }
+        throw new UnsupportedOperationException("There is not support to this function yet");
+    }
+
+    private static FunctionValue getFunctionValue(Value<?> value, String text) {
         try {
             Object[] params = new Object[]{value, Class.forName(text.toString())};
             Function function = DefaultFunction.of("converter", params);

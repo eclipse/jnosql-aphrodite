@@ -53,6 +53,15 @@ final class DefaultStringValue implements StringValue {
 
     public static StringValue of(SelectParser.StringContext context) {
         String text = context.STRING().getText();
+        return getStringValue(text);
+    }
+
+    public static StringValue of(DeleteParser.StringContext context) {
+        String text = context.STRING().getText();
+        return getStringValue(text);
+    }
+
+    private static StringValue getStringValue(String text) {
         return new DefaultStringValue(text.substring(1, text.length() - 1));
     }
 }

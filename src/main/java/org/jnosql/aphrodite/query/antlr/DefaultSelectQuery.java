@@ -17,6 +17,7 @@ import org.jnosql.aphrodite.query.Sort;
 import org.jnosql.aphrodite.query.Where;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 final class DefaultSelectQuery implements SelectQuery {
@@ -72,4 +73,25 @@ final class DefaultSelectQuery implements SelectQuery {
         return sorts;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof DefaultSelectQuery)) {
+            return false;
+        }
+        DefaultSelectQuery that = (DefaultSelectQuery) o;
+        return skip == that.skip &&
+                limit == that.limit &&
+                Objects.equals(entity, that.entity) &&
+                Objects.equals(fields, that.fields) &&
+                Objects.equals(sorts, that.sorts) &&
+                Objects.equals(where, that.where);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(entity, fields, sorts, skip, limit, where);
+    }
 }

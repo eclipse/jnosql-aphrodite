@@ -52,8 +52,15 @@ class DefaultNumberValue implements NumberValue {
         return number.toString();
     }
 
-    public static NumberValue of(NumberContext context) {
-        String value = context.getText();
+    public static NumberValue of(SelectParser.NumberContext context) {
+        return getNumberValue(context.getText());
+    }
+
+    public static NumberValue of(DeleteParser.NumberContext context) {
+        return getNumberValue(context.getText());
+    }
+
+    private static NumberValue getNumberValue(String value) {
         if (value.contains(".")) {
             return new DefaultNumberValue(Double.valueOf(value));
         }
