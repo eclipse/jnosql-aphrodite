@@ -12,11 +12,7 @@
 
 package org.jnosql.aphrodite.query;
 
-public interface Condition {
+import java.util.List;
 
-    String getName();
-
-    Operator getOperator();
-
-    Value<?> getValue();
+public interface ConditionValue extends Value<List<Condition>> {
 }

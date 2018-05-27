@@ -126,7 +126,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     public void exitIn(SelectParser.InContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
-        Value[] values = ctx.value().stream()
+        Value<?>[] values = ctx.value().stream()
                 .map(ValueConverter::get)
                 .toArray(Value[]::new);
         ArrayValue value = DefaultArrayValue.of(values);
@@ -147,7 +147,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     public void exitBetween(SelectParser.BetweenContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
-        Value[] values = ctx.value().stream().map(ValueConverter::get).toArray(Value[]::new);
+        Value<?>[] values = ctx.value().stream().map(ValueConverter::get).toArray(Value[]::new);
         this.condition = new DefaultCondition(name, BETWEEN, DefaultArrayValue.of(values));
     }
 

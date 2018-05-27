@@ -43,7 +43,7 @@ final class DefaultCondition implements Condition {
     }
 
     @Override
-    public Value getValue() {
+    public Value<?> getValue() {
         return value;
     }
 

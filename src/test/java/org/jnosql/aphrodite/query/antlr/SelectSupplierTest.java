@@ -14,6 +14,7 @@ package org.jnosql.aphrodite.query.antlr;
 
 import org.jnosql.aphrodite.query.ArrayValue;
 import org.jnosql.aphrodite.query.Condition;
+import org.jnosql.aphrodite.query.ConditionValue;
 import org.jnosql.aphrodite.query.Function;
 import org.jnosql.aphrodite.query.FunctionValue;
 import org.jnosql.aphrodite.query.JSONValue;
@@ -45,6 +46,7 @@ import static org.jnosql.aphrodite.query.Operator.IN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_EQUALS_THAN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_THAN;
 import static org.jnosql.aphrodite.query.Operator.LIKE;
+import static org.jnosql.aphrodite.query.Operator.NOT;
 import static org.jnosql.aphrodite.query.Sort.SortType.ASC;
 import static org.jnosql.aphrodite.query.Sort.SortType.DESC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -373,7 +375,7 @@ class SelectSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"select  * from God where name like \"Ada\""})
+    @ValueSource(strings = {"select * from God where name like \"Ada\""})
     public void shouldReturnParserQuery22(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
@@ -386,6 +388,29 @@ class SelectSupplierTest {
         assertTrue(value instanceof StringValue);
         assertEquals("Ada", StringValue.class.cast(value).get());
     }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select * from God where name not like \"Ada\""})
+    public void shouldReturnParserQuery23(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(NOT, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof ConditionValue);
+        List<Condition> conditions = ConditionValue.class.cast(value).get();
+        assertEquals(1, conditions.size());
+        condition = conditions.get(0);
+        value = condition.getValue();
+        assertEquals(LIKE, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof StringValue);
+        assertEquals("Ada", StringValue.class.cast(value).get());
+    }
+
 
 
     private SelectQuery checkSelectFromStart(String query) {

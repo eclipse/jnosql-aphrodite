@@ -17,7 +17,7 @@ lt: not? name '<' value;
 lte: not? name '<=' value;
 between: not? name 'between' value 'and' value;
 in: name not? 'in' '('value (',' value)* ')';
-like: not? name 'like' string;
+like: name not? 'like' string;
 not: 'not';
 asc: 'asc';
 desc: 'desc';
