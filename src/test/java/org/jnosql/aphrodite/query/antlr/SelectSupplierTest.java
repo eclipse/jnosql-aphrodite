@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -265,6 +266,39 @@ class SelectSupplierTest {
         assertTrue(value instanceof StringValue);
         assertEquals("diana", value.get());
     }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where name = {\"diana\"}"})
+    public void shouldReturnParserQuery16(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof ArrayValue);
+        List<?> values = Stream.of(ArrayValue.class.cast(value).get()).map(Value::get).collect(toList());
+        assertThat(values, contains("diana"));
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where name = {\"diana\", 17, 20.21}"})
+    public void shouldReturnParserQuery17(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof ArrayValue);
+        List<?> values = Stream.of(ArrayValue.class.cast(value).get()).map(Value::get).collect(toList());
+        assertThat(values, contains("diana", 17L, 20.21));
+    }
+
 
 
     private SelectQuery checkSelectFromStart(String query) {

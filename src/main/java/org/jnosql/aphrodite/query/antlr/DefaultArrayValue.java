@@ -21,7 +21,7 @@ class DefaultArrayValue implements ArrayValue {
 
     private final Value<?>[] values;
 
-    DefaultArrayValue(Value<?>[] values) {
+    private DefaultArrayValue(Value<?>[] values) {
         this.values = values;
     }
 
@@ -50,5 +50,9 @@ class DefaultArrayValue implements ArrayValue {
     @Override
     public String toString() {
         return Arrays.toString(values);
+    }
+
+    static DefaultArrayValue of(Value<?>[] values) {
+        return new DefaultArrayValue(values);
     }
 }

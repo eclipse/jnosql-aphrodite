@@ -124,7 +124,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value[] values = ctx.value().stream().map(ValueConverter::get).toArray(Value[]::new);
-        this.condition = new DefaultCondition(name, BETWEEN, new DefaultArrayValue(values));
+        this.condition = new DefaultCondition(name, BETWEEN, DefaultArrayValue.of(values));
     }
 
 

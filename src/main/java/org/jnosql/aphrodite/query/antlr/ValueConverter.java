@@ -18,6 +18,9 @@ import org.jnosql.aphrodite.query.Value;
 import java.util.Objects;
 
 final class ValueConverter {
+
+    private static final String MESSAGE = "There is an error when trying to convert the value";
+
     private ValueConverter() {
     }
 
@@ -25,10 +28,26 @@ final class ValueConverter {
         if (Objects.nonNull(context.number())) {
             return DefaultNumberValue.of(context.number());
         }
-        if(Objects.nonNull(context.string())) {
+        if (Objects.nonNull(context.string())) {
             return DefaultStringValue.of(context.string());
         }
 
-        throw new QueryException("There is an error when trying to convert the value");
+        if (Objects.nonNull(context.array())) {
+            Value[] elements = context.array().element().stream()
+                    .map(ValueConverter::getArrayElement)
+                    .toArray(Value[]::new);
+            return DefaultArrayValue.of(elements);
+        }
+        throw new QueryException(MESSAGE);
+    }
+
+    private static Value<?> getArrayElement(SelectParser.ElementContext elementContext) {
+        if (Objects.nonNull(elementContext.string())) {
+            return DefaultStringValue.of(elementContext.string());
+        }
+        if (Objects.nonNull(elementContext.number())) {
+            return DefaultNumberValue.of(elementContext.number());
+        }
+        throw new QueryException(MESSAGE);
     }
 }
