@@ -16,7 +16,7 @@ import org.jnosql.aphrodite.query.ArrayValue;
 import org.jnosql.aphrodite.query.Condition;
 import org.jnosql.aphrodite.query.JSONValue;
 import org.jnosql.aphrodite.query.NumberValue;
-import org.jnosql.aphrodite.query.Operator;
+import org.jnosql.aphrodite.query.ParamValue;
 import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
 import org.jnosql.aphrodite.query.Sort;
@@ -30,7 +30,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.json.JsonObject;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
@@ -317,6 +316,21 @@ class SelectSupplierTest {
         JsonObject jsonObject = JSONValue.class.cast(value).get();
         assertEquals("Brother", jsonObject.getString("apollo"));
         assertEquals("Father", jsonObject.getString("Zeus"));
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where name = @name"})
+    public void shouldReturnParserQuery19(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof ParamValue);
+        assertEquals("name", ParamValue.class.cast(value).get());
     }
 
     private SelectQuery checkSelectFromStart(String query) {

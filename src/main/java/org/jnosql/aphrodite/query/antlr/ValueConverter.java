@@ -38,6 +38,10 @@ final class ValueConverter {
             return DefaultJSONValue.of(context.json());
         }
 
+        if (Objects.nonNull(context.parameter())) {
+            return DefaultParamValue.of(context.parameter());
+        }
+
         if (Objects.nonNull(context.array())) {
             Value[] elements = context.array().element().stream()
                     .map(ValueConverter::getArrayElement)
