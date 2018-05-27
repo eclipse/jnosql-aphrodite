@@ -17,6 +17,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.jnosql.aphrodite.query.ArrayValue;
 import org.jnosql.aphrodite.query.Condition;
 import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
@@ -34,6 +35,7 @@ import static org.jnosql.aphrodite.query.Operator.BETWEEN;
 import static org.jnosql.aphrodite.query.Operator.EQUALS;
 import static org.jnosql.aphrodite.query.Operator.GREATER_EQUALS_THAN;
 import static org.jnosql.aphrodite.query.Operator.GREATER_THAN;
+import static org.jnosql.aphrodite.query.Operator.IN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_EQUALS_THAN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_THAN;
 
@@ -118,6 +120,22 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         this.condition = new DefaultCondition(name, GREATER_EQUALS_THAN, value);
     }
 
+    @Override
+    public void exitIn(SelectParser.InContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String name = ctx.name().getText();
+        Value[] values = ctx.value().stream()
+                .map(ValueConverter::get)
+                .toArray(Value[]::new);
+        ArrayValue value = DefaultArrayValue.of(values);
+        this.condition = new DefaultCondition(name, IN, value);
+    }
+
+
+    @Override
+    public void exitLike(SelectParser.LikeContext ctx) {
+    }
+
 
     @Override
     public void exitBetween(SelectParser.BetweenContext ctx) {
@@ -144,7 +162,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         ParseTree tree = parser.query();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
-        if(Objects.nonNull(condition)) {
+        if (Objects.nonNull(condition)) {
             this.where = new DefaultWhere(condition);
         }
         return new DefaultSelectQuery(entity, fields, sorts, skip, limit, where);

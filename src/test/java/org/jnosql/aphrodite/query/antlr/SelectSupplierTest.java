@@ -41,6 +41,7 @@ import static org.jnosql.aphrodite.query.Operator.BETWEEN;
 import static org.jnosql.aphrodite.query.Operator.EQUALS;
 import static org.jnosql.aphrodite.query.Operator.GREATER_EQUALS_THAN;
 import static org.jnosql.aphrodite.query.Operator.GREATER_THAN;
+import static org.jnosql.aphrodite.query.Operator.IN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_EQUALS_THAN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_THAN;
 import static org.jnosql.aphrodite.query.Sort.SortType.ASC;
@@ -352,6 +353,22 @@ class SelectSupplierTest {
         Object[] params = function.getParams();
         assertEquals(12L, NumberValue.class.cast(params[0]).get());
         assertEquals(Integer.class, params[1]);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where name in (\"Ada\", \"Apollo\")"})
+    public void shouldReturnParserQuery21(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(IN, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof ArrayValue);
+        List<?> values = Stream.of(ArrayValue.class.cast(value).get()).map(Value::get).collect(toList());
+        assertThat(values, contains("Ada", "Apollo"));
     }
 
     private SelectQuery checkSelectFromStart(String query) {

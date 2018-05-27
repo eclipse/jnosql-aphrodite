@@ -46,7 +46,7 @@ final class ValueConverter {
             return DefaultFunctionValue.of(context.function());
         }
         if (Objects.nonNull(context.array())) {
-            Value[] elements = context.array().element().stream()
+            Value<?>[] elements = context.array().element().stream()
                     .map(Elements::getElement)
                     .toArray(Value[]::new);
             return DefaultArrayValue.of(elements);
