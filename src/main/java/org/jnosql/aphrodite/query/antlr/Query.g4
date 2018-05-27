@@ -1,8 +1,14 @@
-grammar Delete;
-query   : 'delete' fields 'from' entity where? EOF;
+grammar Query;
+select: 'select' fields 'from' entity where? skip? limit? order? EOF;
+delete: 'delete' fields 'from' entity where? EOF;
 
 
-fields: name? (',' name)*;
+fields: star | name (',' name)*;
+star: '*';
+skip: 'skip' INT;
+limit: 'limit' INT;
+order: 'order by' orderName (orderName)*;
+orderName: name | name asc | name desc;
 where: 'where' condition (and condition| or condition)* ;
 condition: eq | gt | gte | lt | lte | between | in | like;
 eq: not? name '=' value;
