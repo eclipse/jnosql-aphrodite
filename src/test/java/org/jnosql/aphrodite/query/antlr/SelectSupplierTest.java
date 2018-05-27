@@ -14,6 +14,8 @@ package org.jnosql.aphrodite.query.antlr;
 
 import org.jnosql.aphrodite.query.ArrayValue;
 import org.jnosql.aphrodite.query.Condition;
+import org.jnosql.aphrodite.query.Function;
+import org.jnosql.aphrodite.query.FunctionValue;
 import org.jnosql.aphrodite.query.JSONValue;
 import org.jnosql.aphrodite.query.NumberValue;
 import org.jnosql.aphrodite.query.ParamValue;
@@ -331,6 +333,23 @@ class SelectSupplierTest {
         assertEquals("name", condition.getName());
         assertTrue(value instanceof ParamValue);
         assertEquals("name", ParamValue.class.cast(value).get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where age = converter(12, Integer)"})
+    public void shouldReturnParserQuery20(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("age", condition.getName());
+        assertTrue(value instanceof FunctionValue);
+        Function function = FunctionValue.class.cast(value).get();
+        assertEquals("converter", function.getName());
+        assertThat(Stream.of(function.getParams()).collect(toList()), contains(12L, Integer.class));
     }
 
     private SelectQuery checkSelectFromStart(String query) {
