@@ -19,6 +19,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.jnosql.aphrodite.query.ArrayValue;
 import org.jnosql.aphrodite.query.Condition;
+import org.jnosql.aphrodite.query.ConditionValue;
 import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
 import org.jnosql.aphrodite.query.Sort;
@@ -26,6 +27,7 @@ import org.jnosql.aphrodite.query.StringValue;
 import org.jnosql.aphrodite.query.Value;
 import org.jnosql.aphrodite.query.Where;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -40,6 +42,7 @@ import static org.jnosql.aphrodite.query.Operator.IN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_EQUALS_THAN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_THAN;
 import static org.jnosql.aphrodite.query.Operator.LIKE;
+import static org.jnosql.aphrodite.query.Operator.NOT;
 
 public class DefaultSelectSupplier extends SelectBaseListener implements SelectSupplier {
 
@@ -87,7 +90,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
-        this.condition = new DefaultCondition(name, EQUALS, value);
+        checkCondition(new DefaultCondition(name, EQUALS, value), hasNot);
     }
 
     @Override
@@ -95,7 +98,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
-        this.condition = new DefaultCondition(name, LESSER_THAN, value);
+        checkCondition(new DefaultCondition(name, LESSER_THAN, value), hasNot);
     }
 
     @Override
@@ -103,7 +106,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
-        this.condition = new DefaultCondition(name, LESSER_EQUALS_THAN, value);
+        checkCondition(new DefaultCondition(name, LESSER_EQUALS_THAN, value), hasNot);
     }
 
     @Override
@@ -111,7 +114,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
-        this.condition = new DefaultCondition(name, GREATER_THAN, value);
+        checkCondition(new DefaultCondition(name, GREATER_THAN, value), hasNot);
     }
 
     @Override
@@ -119,7 +122,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
-        this.condition = new DefaultCondition(name, GREATER_EQUALS_THAN, value);
+        checkCondition(new DefaultCondition(name, GREATER_EQUALS_THAN, value), hasNot);
     }
 
     @Override
@@ -130,7 +133,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
                 .map(ValueConverter::get)
                 .toArray(Value[]::new);
         ArrayValue value = DefaultArrayValue.of(values);
-        this.condition = new DefaultCondition(name, IN, value);
+        checkCondition(new DefaultCondition(name, IN, value), hasNot);
     }
 
 
@@ -139,18 +142,25 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         StringValue value = DefaultStringValue.of(ctx.string());
-        this.condition = new DefaultCondition(name, LIKE, value);
+        checkCondition(new DefaultCondition(name, LIKE, value), hasNot);
     }
-
 
     @Override
     public void exitBetween(SelectParser.BetweenContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?>[] values = ctx.value().stream().map(ValueConverter::get).toArray(Value[]::new);
-        this.condition = new DefaultCondition(name, BETWEEN, DefaultArrayValue.of(values));
+        checkCondition(new DefaultCondition(name, BETWEEN, DefaultArrayValue.of(values)), hasNot);
     }
 
+    private void checkCondition(Condition condition, boolean hasNot) {
+        if (hasNot) {
+            ConditionValue conditions = DefaultConditionValue.of(Collections.singletonList(condition));
+            this.condition = new DefaultCondition(condition.getName(), NOT, conditions);
+        } else {
+            this.condition = condition;
+        }
+    }
 
     @Override
     public SelectQuery apply(String query) {
