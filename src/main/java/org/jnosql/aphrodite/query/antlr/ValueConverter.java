@@ -25,11 +25,17 @@ final class ValueConverter {
     }
 
     static Value<?> get(SelectParser.ValueContext context) {
+
         if (Objects.nonNull(context.number())) {
             return DefaultNumberValue.of(context.number());
         }
+
         if (Objects.nonNull(context.string())) {
             return DefaultStringValue.of(context.string());
+        }
+
+        if (Objects.nonNull(context.json())) {
+            return DefaultJSONValue.of(context.json());
         }
 
         if (Objects.nonNull(context.array())) {
