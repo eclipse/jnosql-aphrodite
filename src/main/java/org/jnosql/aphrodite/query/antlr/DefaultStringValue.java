@@ -13,7 +13,6 @@
 package org.jnosql.aphrodite.query.antlr;
 
 import org.jnosql.aphrodite.query.StringValue;
-import org.jnosql.aphrodite.query.Value;
 
 import java.util.Objects;
 
