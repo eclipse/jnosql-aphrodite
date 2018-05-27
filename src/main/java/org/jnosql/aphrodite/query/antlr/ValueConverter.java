@@ -25,6 +25,9 @@ final class ValueConverter {
         if (Objects.nonNull(context.number())) {
             return DefaultNumberValue.of(context.number());
         }
+        if(Objects.nonNull(context.string())) {
+            return DefaultStringValue.of(context.string());
+        }
 
         throw new QueryException("There is an error when trying to convert the value");
     }

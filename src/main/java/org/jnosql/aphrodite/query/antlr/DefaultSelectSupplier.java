@@ -136,6 +136,8 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         SelectLexer lexer = new SelectLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         SelectParser parser = new SelectParser(tokens);
+        lexer.removeErrorListeners();
+        parser.removeErrorListeners();
         lexer.addErrorListener(QueryErrorListener.INSTANCE);
         parser.addErrorListener(QueryErrorListener.INSTANCE);
 
