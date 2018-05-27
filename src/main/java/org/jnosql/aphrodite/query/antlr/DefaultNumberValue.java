@@ -49,7 +49,7 @@ class DefaultNumberValue implements NumberValue {
 
     @Override
     public String toString() {
-        return "NumberValue: " + number.toString();
+        return number.toString();
     }
 
     public static NumberValue of(NumberContext context) {

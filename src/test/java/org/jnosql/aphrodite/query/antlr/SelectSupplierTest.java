@@ -603,6 +603,67 @@ class SelectSupplierTest {
     }
 
 
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where name = \"Ada\" and age = 20 or" +
+            " siblings = {\"apollo\": \"Brother\", \"Zeus\": \"Father\"} and birthday =" +
+            " convert(\"2007-12-03\", java.time.LocalDate)"})
+    public void shouldReturnParserQuery28(String query) {
+
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(AND, condition.getOperator());
+        assertEquals("_AND", condition.getName());
+        assertTrue(value instanceof ConditionValue);
+        List<Condition> conditions = ConditionValue.class.cast(value).get();
+        assertEquals(4, conditions.size());
+
+        condition = conditions.get(0);
+        value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof StringValue);
+        assertEquals("Ada", StringValue.class.cast(value).get());
+
+        condition = conditions.get(1);
+        value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("age", condition.getName());
+        assertTrue(value instanceof NumberValue);
+        assertEquals(20L, NumberValue.class.cast(value).get());
+
+        condition = conditions.get(2);
+        assertEquals(OR, condition.getOperator());
+
+        assertEquals(1, ConditionValue.class.cast(condition.getValue()).get().size());
+
+        Condition c = ConditionValue.class.cast(condition.getValue()).get().get(0);
+        value = c.getValue();
+        assertEquals(EQUALS, c.getOperator());
+
+        assertEquals("siblings", c.getName());
+        assertTrue(value instanceof JSONValue);
+        JsonObject jsonObject = JSONValue.class.cast(value).get();
+        assertEquals("Brother", jsonObject.getString("apollo"));
+        assertEquals("Father", jsonObject.getString("Zeus"));
+
+
+        condition = conditions.get(3);
+        value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+
+        assertEquals("birthday", condition.getName());
+        assertTrue(value instanceof FunctionValue);
+        Function function = FunctionValue.class.cast(value).get();
+        assertEquals("converter", function.getName());
+        Object[] params = function.getParams();
+        assertEquals("2007-12-03", StringValue.class.cast(params[0]).get());
+        assertEquals(LocalDate.class, params[1]);
+    }
+
 
 
     private SelectQuery checkSelectFromStart(String query) {
