@@ -12,17 +12,13 @@
 
 package org.jnosql.aphrodite.query.antlr;
 
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
 import org.jnosql.aphrodite.query.Sort;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
@@ -69,23 +65,12 @@ public class DefaultSelectSupplier extends AbstractWhereSupplier implements Sele
 
     @Override
     public SelectQuery apply(String query) {
-        Objects.requireNonNull(query, "query is required");
-
-        CharStream stream = CharStreams.fromString(query);
-        QueryLexer lexer = new QueryLexer(stream);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        QueryParser parser = new QueryParser(tokens);
-        lexer.removeErrorListeners();
-        parser.removeErrorListeners();
-        lexer.addErrorListener(QueryErrorListener.INSTANCE);
-        parser.addErrorListener(QueryErrorListener.INSTANCE);
-
-        ParseTree tree = parser.select();
-        ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(this, tree);
-        if (Objects.nonNull(condition)) {
-            this.where = new DefaultWhere(condition);
-        }
+        runQuery(query);
         return new DefaultSelectQuery(entity, fields, sorts, skip, limit, where);
+    }
+
+    @Override
+    Function<QueryParser, ParseTree> getParserTree() {
+        return QueryParser::select;
     }
 }

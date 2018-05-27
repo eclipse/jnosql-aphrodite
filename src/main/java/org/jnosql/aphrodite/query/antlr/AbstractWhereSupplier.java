@@ -26,13 +26,22 @@ import static org.jnosql.aphrodite.query.Operator.LIKE;
 import static org.jnosql.aphrodite.query.Operator.NOT;
 import static org.jnosql.aphrodite.query.Operator.OR;
 
-class AbstractWhereSupplier extends QueryBaseListener {
+abstract class AbstractWhereSupplier extends AbstractSupplier {
 
     protected Where where;
 
     protected Condition condition;
 
     protected boolean and = true;
+
+
+    @Override
+    protected void runQuery(String query) {
+        super.runQuery(query);
+        if (Objects.nonNull(condition)) {
+            this.where = new DefaultWhere(condition);
+        }
+    }
 
     @Override
     public void exitEq(QueryParser.EqContext ctx) {

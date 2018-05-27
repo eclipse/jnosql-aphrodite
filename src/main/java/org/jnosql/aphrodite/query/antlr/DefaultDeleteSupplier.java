@@ -12,16 +12,12 @@
 
 package org.jnosql.aphrodite.query.antlr;
 
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.jnosql.aphrodite.query.DeleteQuery;
 import org.jnosql.aphrodite.query.DeleteSupplier;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.function.Function;
 
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
@@ -46,23 +42,12 @@ public class DefaultDeleteSupplier extends AbstractWhereSupplier implements Dele
 
     @Override
     public DeleteQuery apply(String query) {
-        Objects.requireNonNull(query, "query is required");
-
-        CharStream stream = CharStreams.fromString(query);
-        QueryLexer lexer = new QueryLexer(stream);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        QueryParser parser = new QueryParser(tokens);
-        lexer.removeErrorListeners();
-        parser.removeErrorListeners();
-        lexer.addErrorListener(QueryErrorListener.INSTANCE);
-        parser.addErrorListener(QueryErrorListener.INSTANCE);
-
-        ParseTree tree = parser.delete();
-        ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(this, tree);
-        if (Objects.nonNull(condition)) {
-            this.where = new DefaultWhere(condition);
-        }
+        runQuery(query);
         return new DefaultDeleteQuery(entity, fields, where);
+    }
+
+    @Override
+    Function<QueryParser, ParseTree> getParserTree() {
+        return QueryParser::delete;
     }
 }
