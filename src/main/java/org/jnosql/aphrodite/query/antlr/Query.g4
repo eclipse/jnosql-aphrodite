@@ -1,7 +1,11 @@
 grammar Query;
 select: 'select' fields 'from' entity where? skip? limit? order? EOF;
 delete: 'delete' fields 'from' entity where? EOF;
-
+insert: 'insert' entity '(' set ')' ttl? EOF;
+update: 'update' entity '(' set ')' EOF;
+get: 'get' keys EOF;
+del: 'del' keys EOF;
+put: 'put' '{' value ',' value (',' ttl)?  '}' EOF;
 
 fields: star | name (',' name)*;
 star: '*';
@@ -24,6 +28,11 @@ asc: 'asc';
 desc: 'desc';
 and: 'and';
 or: 'or';
+ttl: INT unit;
+unit: 'day' | 'hour' | 'minute' | 'second' | 'microsecond' | 'millisecond' | 'nanosecond';
+set: setUnit (',' setUnit)*;
+setUnit: name '=' value;
+keys: value (','value)*;
 value: ( number | string | array | function | parameter | json);
 name: ANY_NAME;
 entity: ANY_NAME;

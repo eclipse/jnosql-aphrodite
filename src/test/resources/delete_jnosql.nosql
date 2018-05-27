@@ -1,5 +1,5 @@
 #select fields tests
-delete  from Person
+delete from Person
 delete name,age from Person
 delete _id,name,age from Person
 delete  name,age,adress.age from Person
