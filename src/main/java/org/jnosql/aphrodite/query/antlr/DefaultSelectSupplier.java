@@ -185,6 +185,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     }
 
     private void appendCondition(Operator operator, Condition newCondition) {
+
         if (operator.equals(this.condition.getOperator())) {
             ConditionValue conditionValue = ConditionValue.class.cast(this.condition.getValue());
             List<Condition> conditions = new ArrayList<>(conditionValue.get());
@@ -196,9 +197,18 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         } else {
             List<Condition> conditions = ConditionValue.class.cast(this.condition.getValue()).get();
             Condition lastCondition = conditions.get(conditions.size() - 1);
-            if (isAppendable(lastCondition) && isEqualsOperator(newCondition, lastCondition)) {
-                List<Condition> lastConditions = new ArrayList<>(ConditionValue.class.cast(lastCondition).get());
+
+            if (isAppendable(lastCondition) && operator.equals(lastCondition.getOperator())) {
+                List<Condition> lastConditions = new ArrayList<>(ConditionValue.class.cast(lastCondition.getValue()).get());
                 lastConditions.add(newCondition);
+
+                Condition newAppendable = new DefaultCondition("_" + operator.name(),
+                        operator, DefaultConditionValue.of(lastConditions));
+
+                List<Condition> newConditions = new ArrayList<>(conditions.subList(0, conditions.size() - 1));
+                newConditions.add(newAppendable);
+                this.condition = new DefaultCondition(this.condition.getName(), this.condition.getOperator(),
+                        DefaultConditionValue.of(newConditions));
             } else {
                 Condition newAppendable = new DefaultCondition("_" + operator.name(),
                         operator, DefaultConditionValue.of(Collections.singletonList(newCondition)));
@@ -210,10 +220,6 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
             }
 
         }
-    }
-
-    private boolean isEqualsOperator(Condition a, Condition b) {
-        return b.getOperator().equals(a.getOperator());
     }
 
     private boolean isAppendable(Condition condition) {
