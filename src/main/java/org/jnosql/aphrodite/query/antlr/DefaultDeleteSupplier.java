@@ -227,9 +227,9 @@ public class DefaultDeleteSupplier extends DeleteBaseListener implements DeleteS
         Objects.requireNonNull(query, "query is required");
 
         CharStream stream = CharStreams.fromString(query);
-        SelectLexer lexer = new SelectLexer(stream);
+        DeleteLexer lexer = new DeleteLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        SelectParser parser = new SelectParser(tokens);
+        DeleteParser parser = new DeleteParser(tokens);
         lexer.removeErrorListeners();
         parser.removeErrorListeners();
         lexer.addErrorListener(QueryErrorListener.INSTANCE);
