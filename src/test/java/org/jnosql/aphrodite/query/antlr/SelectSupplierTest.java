@@ -336,7 +336,7 @@ class SelectSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"select  * from God where age = converter(12, Integer)"})
+    @ValueSource(strings = {"select  * from God where age = convert(12, java.lang.Integer)"})
     public void shouldReturnParserQuery20(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
@@ -349,7 +349,9 @@ class SelectSupplierTest {
         assertTrue(value instanceof FunctionValue);
         Function function = FunctionValue.class.cast(value).get();
         assertEquals("converter", function.getName());
-        assertThat(Stream.of(function.getParams()).collect(toList()), contains(12L, Integer.class));
+        Object[] params = function.getParams();
+        assertEquals(12L, NumberValue.class.cast(params[0]).get());
+        assertEquals(Integer.class, params[1]);
     }
 
     private SelectQuery checkSelectFromStart(String query) {

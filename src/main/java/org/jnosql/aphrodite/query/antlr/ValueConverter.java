@@ -42,22 +42,17 @@ final class ValueConverter {
             return DefaultParamValue.of(context.parameter());
         }
 
+        if (Objects.nonNull(context.function())) {
+            return DefaultFunctionValue.of(context.function());
+        }
         if (Objects.nonNull(context.array())) {
             Value[] elements = context.array().element().stream()
-                    .map(ValueConverter::getArrayElement)
+                    .map(Elements::getElement)
                     .toArray(Value[]::new);
             return DefaultArrayValue.of(elements);
         }
         throw new QueryException(MESSAGE);
     }
 
-    private static Value<?> getArrayElement(SelectParser.ElementContext elementContext) {
-        if (Objects.nonNull(elementContext.string())) {
-            return DefaultStringValue.of(elementContext.string());
-        }
-        if (Objects.nonNull(elementContext.number())) {
-            return DefaultNumberValue.of(elementContext.number());
-        }
-        throw new QueryException(MESSAGE);
-    }
+
 }

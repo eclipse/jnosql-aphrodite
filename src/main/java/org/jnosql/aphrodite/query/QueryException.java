@@ -19,9 +19,19 @@ public class QueryException extends RuntimeException {
 
     /**
      * creates an error with an error message
+     *
      * @param message the message
      */
     public QueryException(String message) {
         super(message);
+    }
+
+    /**
+     * A new exception with a Throwable error
+     * @param message the message
+     * @param exception the exception
+     */
+    public QueryException(String message, Throwable exception) {
+        super(message, exception);
     }
 }
