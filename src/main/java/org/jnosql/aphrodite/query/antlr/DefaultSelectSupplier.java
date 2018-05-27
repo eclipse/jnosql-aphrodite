@@ -190,10 +190,38 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
             List<Condition> conditions = new ArrayList<>(conditionValue.get());
             conditions.add(newCondition);
             this.condition = new DefaultCondition("_" + operator.name(), operator, DefaultConditionValue.of(conditions));
-        } else {
+        } else if (isNotAppendable()) {
             List<Condition> conditions = Arrays.asList(this.condition, newCondition);
             this.condition = new DefaultCondition("_" + operator.name(), operator, DefaultConditionValue.of(conditions));
+        } else {
+            List<Condition> conditions = ConditionValue.class.cast(this.condition.getValue()).get();
+            Condition lastCondition = conditions.get(conditions.size() - 1);
+            if (isAppendable(lastCondition) && isEqualsOperator(newCondition, lastCondition)) {
+                List<Condition> lastConditions = new ArrayList<>(ConditionValue.class.cast(lastCondition).get());
+                lastConditions.add(newCondition);
+            } else {
+                Condition newAppendable = new DefaultCondition("_" + operator.name(),
+                        operator, DefaultConditionValue.of(Collections.singletonList(newCondition)));
+
+                List<Condition> newConditions = new ArrayList<>(conditions);
+                newConditions.add(newAppendable);
+                this.condition = new DefaultCondition(this.condition.getName(), this.condition.getOperator(),
+                        DefaultConditionValue.of(newConditions));
+            }
+
         }
+    }
+
+    private boolean isEqualsOperator(Condition a, Condition b) {
+        return b.getOperator().equals(a.getOperator());
+    }
+
+    private boolean isAppendable(Condition condition) {
+        return (AND.equals(condition.getOperator()) || OR.equals(condition.getOperator()));
+    }
+
+    private boolean isNotAppendable() {
+        return !isAppendable(this.condition);
     }
 
     private Condition checkNotCondition(Condition condition, boolean hasNot) {

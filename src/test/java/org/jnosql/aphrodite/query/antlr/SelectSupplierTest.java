@@ -38,6 +38,7 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
+import static org.jnosql.aphrodite.query.Operator.AND;
 import static org.jnosql.aphrodite.query.Operator.BETWEEN;
 import static org.jnosql.aphrodite.query.Operator.EQUALS;
 import static org.jnosql.aphrodite.query.Operator.GREATER_EQUALS_THAN;
@@ -47,6 +48,7 @@ import static org.jnosql.aphrodite.query.Operator.LESSER_EQUALS_THAN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_THAN;
 import static org.jnosql.aphrodite.query.Operator.LIKE;
 import static org.jnosql.aphrodite.query.Operator.NOT;
+import static org.jnosql.aphrodite.query.Operator.OR;
 import static org.jnosql.aphrodite.query.Sort.SortType.ASC;
 import static org.jnosql.aphrodite.query.Sort.SortType.DESC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -411,6 +413,132 @@ class SelectSupplierTest {
         assertEquals("Ada", StringValue.class.cast(value).get());
     }
 
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where name = \"Ada\" and age = 20 and" +
+            " siblings = {\"apollo\": \"Brother\", \"Zeus\": \"Father\"}"})
+    public void shouldReturnParserQuery24(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(AND, condition.getOperator());
+        assertEquals("_AND", condition.getName());
+        assertTrue(value instanceof ConditionValue);
+        List<Condition> conditions = ConditionValue.class.cast(value).get();
+        assertEquals(3, conditions.size());
+        condition = conditions.get(0);
+        value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof StringValue);
+        assertEquals("Ada", StringValue.class.cast(value).get());
+
+        condition = conditions.get(1);
+        value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("age", condition.getName());
+        assertTrue(value instanceof NumberValue);
+        assertEquals(20L, NumberValue.class.cast(value).get());
+
+        condition = conditions.get(2);
+        value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("siblings", condition.getName());
+        assertTrue(value instanceof JSONValue);
+        JsonObject jsonObject = JSONValue.class.cast(value).get();
+        assertEquals("Brother", jsonObject.getString("apollo"));
+        assertEquals("Father", jsonObject.getString("Zeus"));
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where name = \"Ada\" or age = 20 or" +
+            " siblings = {\"apollo\": \"Brother\", \"Zeus\": \"Father\"}"})
+    public void shouldReturnParserQuery25(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(OR, condition.getOperator());
+        assertEquals("_OR", condition.getName());
+        assertTrue(value instanceof ConditionValue);
+        List<Condition> conditions = ConditionValue.class.cast(value).get();
+        assertEquals(3, conditions.size());
+        condition = conditions.get(0);
+        value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof StringValue);
+        assertEquals("Ada", StringValue.class.cast(value).get());
+
+        condition = conditions.get(1);
+        value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("age", condition.getName());
+        assertTrue(value instanceof NumberValue);
+        assertEquals(20L, NumberValue.class.cast(value).get());
+
+        condition = conditions.get(2);
+        value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("siblings", condition.getName());
+        assertTrue(value instanceof JSONValue);
+        JsonObject jsonObject = JSONValue.class.cast(value).get();
+        assertEquals("Brother", jsonObject.getString("apollo"));
+        assertEquals("Father", jsonObject.getString("Zeus"));
+    }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where name = \"Ada\" and age = 20 or" +
+            " siblings = {\"apollo\": \"Brother\", \"Zeus\": \"Father\"}"})
+    public void shouldReturnParserQuery26(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(AND, condition.getOperator());
+        assertEquals("_AND", condition.getName());
+        assertTrue(value instanceof ConditionValue);
+        List<Condition> conditions = ConditionValue.class.cast(value).get();
+        assertEquals(3, conditions.size());
+
+        condition = conditions.get(0);
+        value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof StringValue);
+        assertEquals("Ada", StringValue.class.cast(value).get());
+
+        condition = conditions.get(1);
+        value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+        assertEquals("age", condition.getName());
+        assertTrue(value instanceof NumberValue);
+        assertEquals(20L, NumberValue.class.cast(value).get());
+
+        condition = conditions.get(2);
+        value = condition.getValue();
+        assertEquals(OR, condition.getOperator());
+
+        conditions = ConditionValue.class.cast(condition.getValue()).get();
+        assertEquals(1, conditions.size());
+
+        condition = conditions.get(0);
+        value = condition.getValue();
+        assertEquals(EQUALS, condition.getOperator());
+
+        assertEquals("siblings", condition.getName());
+        assertTrue(value instanceof JSONValue);
+        JsonObject jsonObject = JSONValue.class.cast(value).get();
+        assertEquals("Brother", jsonObject.getString("apollo"));
+        assertEquals("Father", jsonObject.getString("Zeus"));
+    }
 
 
     private SelectQuery checkSelectFromStart(String query) {
