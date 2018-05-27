@@ -22,6 +22,7 @@ import org.jnosql.aphrodite.query.Condition;
 import org.jnosql.aphrodite.query.SelectQuery;
 import org.jnosql.aphrodite.query.SelectSupplier;
 import org.jnosql.aphrodite.query.Sort;
+import org.jnosql.aphrodite.query.StringValue;
 import org.jnosql.aphrodite.query.Value;
 import org.jnosql.aphrodite.query.Where;
 
@@ -38,6 +39,7 @@ import static org.jnosql.aphrodite.query.Operator.GREATER_THAN;
 import static org.jnosql.aphrodite.query.Operator.IN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_EQUALS_THAN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_THAN;
+import static org.jnosql.aphrodite.query.Operator.LIKE;
 
 public class DefaultSelectSupplier extends SelectBaseListener implements SelectSupplier {
 
@@ -134,6 +136,10 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
 
     @Override
     public void exitLike(SelectParser.LikeContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String name = ctx.name().getText();
+        StringValue value = DefaultStringValue.of(ctx.string());
+        this.condition = new DefaultCondition(name, LIKE, value);
     }
 
 

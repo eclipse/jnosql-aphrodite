@@ -44,6 +44,7 @@ import static org.jnosql.aphrodite.query.Operator.GREATER_THAN;
 import static org.jnosql.aphrodite.query.Operator.IN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_EQUALS_THAN;
 import static org.jnosql.aphrodite.query.Operator.LESSER_THAN;
+import static org.jnosql.aphrodite.query.Operator.LIKE;
 import static org.jnosql.aphrodite.query.Sort.SortType.ASC;
 import static org.jnosql.aphrodite.query.Sort.SortType.DESC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -370,6 +371,22 @@ class SelectSupplierTest {
         List<?> values = Stream.of(ArrayValue.class.cast(value).get()).map(Value::get).collect(toList());
         assertThat(values, contains("Ada", "Apollo"));
     }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where name like \"Ada\""})
+    public void shouldReturnParserQuery22(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        assertEquals(LIKE, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof StringValue);
+        assertEquals("Ada", StringValue.class.cast(value).get());
+    }
+
 
     private SelectQuery checkSelectFromStart(String query) {
         SelectQuery selectQuery = selectSupplier.apply(query);
