@@ -16,7 +16,7 @@ class QueryArgumentProvider extends AbstractArgumentProvider {
 
     @Override
     protected String getFile() {
-        return "/jnosql.nosql";
+        return "/select_jnosql.nosql";
     }
 
 }

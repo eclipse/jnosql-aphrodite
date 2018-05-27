@@ -16,6 +16,6 @@ class WrongQueryArgumentProvider extends AbstractArgumentProvider{
 
     @Override
     protected String getFile() {
-        return "/error.nosql";
+        return "/select_error.nosql";
     }
 }
