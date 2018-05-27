@@ -12,10 +12,11 @@
 
 package org.jnosql.aphrodite.query.antlr;
 
-class WrongQueryArgumentProvider extends AbstractArgumentProvider{
+class SelectQueryArgumentProvider extends AbstractArgumentProvider {
 
     @Override
     protected String getFile() {
-        return "/select_error.nosql";
+        return "/select_jnosql.nosql";
     }
+
 }

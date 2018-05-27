@@ -23,10 +23,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-public class QueryTest {
+public class SelectQueryTest {
 
     @ParameterizedTest
-    @ArgumentsSource(QueryArgumentProvider.class)
+    @ArgumentsSource(SelectQueryArgumentProvider.class)
     public void shouldExecuteQuery(String query) {
         testQuery(query);
     }
@@ -37,7 +37,7 @@ public class QueryTest {
     }
 
     @ParameterizedTest
-    @ArgumentsSource(WrongQueryArgumentProvider.class)
+    @ArgumentsSource(WrongSelectQueryArgumentProvider.class)
     public void shouldNotExecute(String query) {
         Assertions.assertThrows(QueryException.class, () -> testQuery(query));
     }

@@ -31,7 +31,7 @@ abstract class AbstractArgumentProvider implements ArgumentsProvider {
 
     @Override
     public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
-        URL url = WrongQueryArgumentProvider.class.getResource(getFile());
+        URL url = AbstractArgumentProvider.class.getResource(getFile());
         Path path = Paths.get(url.toURI());
         return Files.readAllLines(path).stream()
                 .filter(IS_COMMENT.negate())
