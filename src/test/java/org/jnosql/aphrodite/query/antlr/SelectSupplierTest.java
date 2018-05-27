@@ -62,9 +62,7 @@ class SelectSupplierTest {
 
     @Test
     public void shouldReturnErrorWhenStringIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            selectSupplier.apply(null);
-        });
+        Assertions.assertThrows(NullPointerException.class, () -> selectSupplier.apply(null));
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -575,7 +573,6 @@ class SelectSupplierTest {
         assertEquals(20L, NumberValue.class.cast(value).get());
 
         condition = conditions.get(2);
-        value = condition.getValue();
         assertEquals(OR, condition.getOperator());
 
         conditions = ConditionValue.class.cast(condition.getValue()).get();

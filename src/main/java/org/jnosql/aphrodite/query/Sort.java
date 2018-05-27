@@ -19,6 +19,6 @@ public interface Sort {
     SortType getType();
 
     enum SortType {
-        ASC, DESC;
+        ASC, DESC
     }
 }

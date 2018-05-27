@@ -14,5 +14,5 @@ package org.jnosql.aphrodite.query;
 
 public enum ValueType {
 
-    CONDITION, NUMBER, STRING, CONVERT, PARAMETER, ARRAY;
+    CONDITION, NUMBER, STRING, CONVERT, PARAMETER, ARRAY
 }

@@ -39,9 +39,7 @@ public class QueryTest {
     @ParameterizedTest
     @ArgumentsSource(WrongQueryArgumentProvider.class)
     public void shouldNotExecute(String query) {
-        Assertions.assertThrows(QueryException.class, () -> {
-            testQuery(query);
-        });
+        Assertions.assertThrows(QueryException.class, () -> testQuery(query));
     }
 
     private void testQuery(String query) {
