@@ -24,7 +24,7 @@ final class ValueConverter {
     private ValueConverter() {
     }
 
-    static Value<?> get(SelectParser.ValueContext context) {
+    static Value<?> get(QueryParser.ValueContext context) {
 
         if (Objects.nonNull(context.number())) {
             return DefaultNumberValue.of(context.number());
@@ -53,36 +53,5 @@ final class ValueConverter {
         }
         throw new QueryException(MESSAGE);
     }
-
-    static Value<?> get(DeleteParser.ValueContext context) {
-
-        if (Objects.nonNull(context.number())) {
-            return DefaultNumberValue.of(context.number());
-        }
-
-        if (Objects.nonNull(context.string())) {
-            return DefaultStringValue.of(context.string());
-        }
-
-        if (Objects.nonNull(context.json())) {
-            return DefaultJSONValue.of(context.json());
-        }
-
-        if (Objects.nonNull(context.parameter())) {
-            return DefaultParamValue.of(context.parameter());
-        }
-
-        if (Objects.nonNull(context.function())) {
-            return DefaultFunctionValue.of(context.function());
-        }
-        if (Objects.nonNull(context.array())) {
-            Value<?>[] elements = context.array().element().stream()
-                    .map(Elements::getElement)
-                    .toArray(Value[]::new);
-            return DefaultArrayValue.of(elements);
-        }
-        throw new QueryException(MESSAGE);
-    }
-
 
 }

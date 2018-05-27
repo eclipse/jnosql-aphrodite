@@ -49,7 +49,7 @@ import static org.jnosql.aphrodite.query.Operator.LIKE;
 import static org.jnosql.aphrodite.query.Operator.NOT;
 import static org.jnosql.aphrodite.query.Operator.OR;
 
-public class DefaultSelectSupplier extends SelectBaseListener implements SelectSupplier {
+public class DefaultSelectSupplier extends QueryBaseListener implements SelectSupplier {
 
     private String entity;
 
@@ -68,32 +68,32 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     private boolean and = true;
 
     @Override
-    public void exitFields(SelectParser.FieldsContext ctx) {
-        this.fields = ctx.name().stream().map(SelectParser.NameContext::getText).collect(toList());
+    public void exitFields(QueryParser.FieldsContext ctx) {
+        this.fields = ctx.name().stream().map(QueryParser.NameContext::getText).collect(toList());
     }
 
     @Override
-    public void exitSkip(SelectParser.SkipContext ctx) {
+    public void exitSkip(QueryParser.SkipContext ctx) {
         this.skip = Long.valueOf(ctx.INT().getText());
     }
 
     @Override
-    public void exitLimit(SelectParser.LimitContext ctx) {
+    public void exitLimit(QueryParser.LimitContext ctx) {
         this.limit = Long.valueOf(ctx.INT().getText());
     }
 
     @Override
-    public void exitEntity(SelectParser.EntityContext ctx) {
+    public void exitEntity(QueryParser.EntityContext ctx) {
         this.entity = ctx.getText();
     }
 
     @Override
-    public void enterOrder(SelectParser.OrderContext ctx) {
+    public void enterOrder(QueryParser.OrderContext ctx) {
         this.sorts = ctx.orderName().stream().map(DefaultSort::of).collect(Collectors.toList());
     }
 
     @Override
-    public void exitEq(SelectParser.EqContext ctx) {
+    public void exitEq(QueryParser.EqContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
@@ -101,7 +101,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     }
 
     @Override
-    public void exitLt(SelectParser.LtContext ctx) {
+    public void exitLt(QueryParser.LtContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
@@ -109,7 +109,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     }
 
     @Override
-    public void exitLte(SelectParser.LteContext ctx) {
+    public void exitLte(QueryParser.LteContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
@@ -117,7 +117,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     }
 
     @Override
-    public void exitGt(SelectParser.GtContext ctx) {
+    public void exitGt(QueryParser.GtContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
@@ -125,7 +125,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     }
 
     @Override
-    public void exitGte(SelectParser.GteContext ctx) {
+    public void exitGte(QueryParser.GteContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
@@ -133,7 +133,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     }
 
     @Override
-    public void exitIn(SelectParser.InContext ctx) {
+    public void exitIn(QueryParser.InContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?>[] values = ctx.value().stream()
@@ -145,7 +145,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
 
 
     @Override
-    public void exitLike(SelectParser.LikeContext ctx) {
+    public void exitLike(QueryParser.LikeContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         StringValue value = DefaultStringValue.of(ctx.string());
@@ -153,7 +153,7 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     }
 
     @Override
-    public void exitBetween(SelectParser.BetweenContext ctx) {
+    public void exitBetween(QueryParser.BetweenContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?>[] values = ctx.value().stream().map(ValueConverter::get).toArray(Value[]::new);
@@ -161,12 +161,12 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
     }
 
     @Override
-    public void exitAnd(SelectParser.AndContext ctx) {
+    public void exitAnd(QueryParser.AndContext ctx) {
         this.and = true;
     }
 
     @Override
-    public void exitOr(SelectParser.OrContext ctx) {
+    public void exitOr(QueryParser.OrContext ctx) {
         this.and = false;
     }
 
@@ -244,15 +244,15 @@ public class DefaultSelectSupplier extends SelectBaseListener implements SelectS
         Objects.requireNonNull(query, "query is required");
 
         CharStream stream = CharStreams.fromString(query);
-        SelectLexer lexer = new SelectLexer(stream);
+        QueryLexer lexer = new QueryLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        SelectParser parser = new SelectParser(tokens);
+        QueryParser parser = new QueryParser(tokens);
         lexer.removeErrorListeners();
         parser.removeErrorListeners();
         lexer.addErrorListener(QueryErrorListener.INSTANCE);
         parser.addErrorListener(QueryErrorListener.INSTANCE);
 
-        ParseTree tree = parser.query();
+        ParseTree tree = parser.select();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
         if (Objects.nonNull(condition)) {

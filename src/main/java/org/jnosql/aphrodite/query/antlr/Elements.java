@@ -24,7 +24,7 @@ final class Elements {
     private Elements() {
     }
 
-    static Value<?> getElement(SelectParser.ElementContext elementContext) {
+    static Value<?> getElement(QueryParser.ElementContext elementContext) {
         if (Objects.nonNull(elementContext.string())) {
             return DefaultStringValue.of(elementContext.string());
         }
@@ -34,13 +34,4 @@ final class Elements {
         throw new QueryException(MESSAGE);
     }
 
-    static Value<?> getElement(DeleteParser.ElementContext elementContext) {
-        if (Objects.nonNull(elementContext.string())) {
-            return DefaultStringValue.of(elementContext.string());
-        }
-        if (Objects.nonNull(elementContext.number())) {
-            return DefaultNumberValue.of(elementContext.number());
-        }
-        throw new QueryException(MESSAGE);
-    }
 }

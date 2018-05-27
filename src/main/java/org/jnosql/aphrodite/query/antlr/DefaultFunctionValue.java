@@ -54,33 +54,25 @@ final class DefaultFunctionValue implements FunctionValue {
         return function.toString();
     }
 
-    static FunctionValue of(SelectParser.FunctionContext context) {
+    static FunctionValue of(QueryParser.FunctionContext context) {
         if (Objects.nonNull(context.converter())) {
-            SelectParser.ConverterContext converter = context.converter();
-            Value<?> value = Elements.getElement(converter.element());
-            String text = converter.name().getText();
-            return getFunctionValue(value, text);
+            return getConverter(context);
         }
         throw new UnsupportedOperationException("There is not support to this function yet");
     }
 
-    static FunctionValue of(DeleteParser.FunctionContext context) {
-        if (Objects.nonNull(context.converter())) {
-            DeleteParser.ConverterContext converter = context.converter();
-            Value<?> value = Elements.getElement(converter.element());
-            String text = converter.name().getText();
-            return getFunctionValue(value, text);
-        }
-        throw new UnsupportedOperationException("There is not support to this function yet");
-    }
-
-    private static FunctionValue getFunctionValue(Value<?> value, String text) {
+    private static FunctionValue getConverter(QueryParser.FunctionContext context) {
+        QueryParser.ConverterContext converter = context.converter();
+        Value<?> value = Elements.getElement(converter.element());
+        String text = converter.name().getText();
         try {
             Object[] params = new Object[]{value, Class.forName(text.toString())};
-            Function function = DefaultFunction.of("converter", params);
-            return new DefaultFunctionValue(function);
+            Function function1 = DefaultFunction.of("converter", params);
+            return new DefaultFunctionValue(function1);
         } catch (ClassNotFoundException e) {
             throw new QueryException("Class does not found the converter function argument: " + text, e);
         }
     }
+
+
 }

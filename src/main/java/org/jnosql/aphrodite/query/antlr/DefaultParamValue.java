@@ -51,15 +51,8 @@ final class DefaultParamValue implements ParamValue {
         return "@" + value;
     }
 
-    public static ParamValue of(SelectParser.ParameterContext parameter) {
-        return getParamValue(parameter.getText());
-    }
-
-    public static ParamValue of(DeleteParser.ParameterContext parameter) {
-        return getParamValue(parameter.getText());
-    }
-    private static ParamValue getParamValue(String text) {
-        return new DefaultParamValue(text.substring(1));
+    public static ParamValue of(QueryParser.ParameterContext parameter) {
+        return new DefaultParamValue(parameter.getText().substring(1));
     }
 
 }

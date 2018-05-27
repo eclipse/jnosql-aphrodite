@@ -23,9 +23,6 @@ import org.jnosql.aphrodite.query.ConditionValue;
 import org.jnosql.aphrodite.query.DeleteQuery;
 import org.jnosql.aphrodite.query.DeleteSupplier;
 import org.jnosql.aphrodite.query.Operator;
-import org.jnosql.aphrodite.query.SelectQuery;
-import org.jnosql.aphrodite.query.SelectSupplier;
-import org.jnosql.aphrodite.query.Sort;
 import org.jnosql.aphrodite.query.StringValue;
 import org.jnosql.aphrodite.query.Value;
 import org.jnosql.aphrodite.query.Where;
@@ -35,7 +32,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
@@ -51,7 +47,7 @@ import static org.jnosql.aphrodite.query.Operator.LIKE;
 import static org.jnosql.aphrodite.query.Operator.NOT;
 import static org.jnosql.aphrodite.query.Operator.OR;
 
-public class DefaultDeleteSupplier extends DeleteBaseListener implements DeleteSupplier {
+public class DefaultDeleteSupplier extends QueryBaseListener implements DeleteSupplier {
 
     private String entity;
 
@@ -64,19 +60,19 @@ public class DefaultDeleteSupplier extends DeleteBaseListener implements DeleteS
     private boolean and = true;
 
     @Override
-    public void exitFields(DeleteParser.FieldsContext ctx) {
-        this.fields = ctx.name().stream().map(DeleteParser.NameContext::getText).collect(toList());
+    public void exitDeleteFields(QueryParser.DeleteFieldsContext ctx) {
+        this.fields = ctx.name().stream().map(QueryParser.NameContext::getText).collect(toList());
     }
 
 
     @Override
-    public void exitEntity(DeleteParser.EntityContext ctx) {
+    public void exitEntity(QueryParser.EntityContext ctx) {
         this.entity = ctx.getText();
     }
 
 
     @Override
-    public void exitEq(DeleteParser.EqContext ctx) {
+    public void exitEq(QueryParser.EqContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
@@ -84,7 +80,7 @@ public class DefaultDeleteSupplier extends DeleteBaseListener implements DeleteS
     }
 
     @Override
-    public void exitLt(DeleteParser.LtContext ctx) {
+    public void exitLt(QueryParser.LtContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
@@ -92,7 +88,7 @@ public class DefaultDeleteSupplier extends DeleteBaseListener implements DeleteS
     }
 
     @Override
-    public void exitLte(DeleteParser.LteContext ctx) {
+    public void exitLte(QueryParser.LteContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
@@ -100,7 +96,7 @@ public class DefaultDeleteSupplier extends DeleteBaseListener implements DeleteS
     }
 
     @Override
-    public void exitGt(DeleteParser.GtContext ctx) {
+    public void exitGt(QueryParser.GtContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
@@ -108,7 +104,7 @@ public class DefaultDeleteSupplier extends DeleteBaseListener implements DeleteS
     }
 
     @Override
-    public void exitGte(DeleteParser.GteContext ctx) {
+    public void exitGte(QueryParser.GteContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?> value = ValueConverter.get(ctx.value());
@@ -116,7 +112,7 @@ public class DefaultDeleteSupplier extends DeleteBaseListener implements DeleteS
     }
 
     @Override
-    public void exitIn(DeleteParser.InContext ctx) {
+    public void exitIn(QueryParser.InContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?>[] values = ctx.value().stream()
@@ -128,7 +124,7 @@ public class DefaultDeleteSupplier extends DeleteBaseListener implements DeleteS
 
 
     @Override
-    public void exitLike(DeleteParser.LikeContext ctx) {
+    public void exitLike(QueryParser.LikeContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         StringValue value = DefaultStringValue.of(ctx.string());
@@ -136,7 +132,7 @@ public class DefaultDeleteSupplier extends DeleteBaseListener implements DeleteS
     }
 
     @Override
-    public void exitBetween(DeleteParser.BetweenContext ctx) {
+    public void exitBetween(QueryParser.BetweenContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
         Value<?>[] values = ctx.value().stream().map(ValueConverter::get).toArray(Value[]::new);
@@ -144,12 +140,12 @@ public class DefaultDeleteSupplier extends DeleteBaseListener implements DeleteS
     }
 
     @Override
-    public void exitAnd(DeleteParser.AndContext ctx) {
+    public void exitAnd(QueryParser.AndContext ctx) {
         this.and = true;
     }
 
     @Override
-    public void exitOr(DeleteParser.OrContext ctx) {
+    public void exitOr(QueryParser.OrContext ctx) {
         this.and = false;
     }
 
@@ -227,15 +223,15 @@ public class DefaultDeleteSupplier extends DeleteBaseListener implements DeleteS
         Objects.requireNonNull(query, "query is required");
 
         CharStream stream = CharStreams.fromString(query);
-        DeleteLexer lexer = new DeleteLexer(stream);
+        QueryLexer lexer = new QueryLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        DeleteParser parser = new DeleteParser(tokens);
+        QueryParser parser = new QueryParser(tokens);
         lexer.removeErrorListeners();
         parser.removeErrorListeners();
         lexer.addErrorListener(QueryErrorListener.INSTANCE);
         parser.addErrorListener(QueryErrorListener.INSTANCE);
 
-        ParseTree tree = parser.query();
+        ParseTree tree = parser.delete();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
         if (Objects.nonNull(condition)) {

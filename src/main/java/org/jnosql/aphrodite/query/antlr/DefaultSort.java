@@ -60,7 +60,7 @@ final class DefaultSort implements Sort {
         return name + " " + type.name();
     }
 
-    public static Sort of(SelectParser.OrderNameContext context) {
+    public static Sort of(QueryParser.OrderNameContext context) {
         String text = context.name().getText();
         SortType type = context.desc() == null? SortType.ASC: SortType.DESC;
         return new DefaultSort(text, type);

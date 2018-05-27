@@ -55,19 +55,10 @@ final class DefaultJSONValue implements JSONValue {
         return value.toString();
     }
 
-    public static JSONValue of(SelectParser.JsonContext context) {
-        return getJsonValue(context.getText());
-    }
-
-
-    public static JSONValue of(DeleteParser.JsonContext context) {
-        return getJsonValue(context.getText());
-    }
-
-
-    private static JSONValue getJsonValue(String text) {
-        JsonReader jsonReader = Json.createReader(new StringReader(text));
+    public static JSONValue of(QueryParser.JsonContext context) {
+        JsonReader jsonReader = Json.createReader(new StringReader(context.getText()));
         return new DefaultJSONValue(jsonReader.readObject());
     }
+
 
 }

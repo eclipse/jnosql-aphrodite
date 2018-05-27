@@ -13,7 +13,6 @@
 package org.jnosql.aphrodite.query.antlr;
 
 import org.jnosql.aphrodite.query.NumberValue;
-import org.jnosql.aphrodite.query.antlr.SelectParser.NumberContext;
 
 import java.util.Objects;
 
@@ -52,18 +51,13 @@ class DefaultNumberValue implements NumberValue {
         return number.toString();
     }
 
-    public static NumberValue of(SelectParser.NumberContext context) {
-        return getNumberValue(context.getText());
-    }
-
-    public static NumberValue of(DeleteParser.NumberContext context) {
-        return getNumberValue(context.getText());
-    }
-
-    private static NumberValue getNumberValue(String value) {
+    public static NumberValue of(QueryParser.NumberContext context) {
+        String value = context.getText();
         if (value.contains(".")) {
             return new DefaultNumberValue(Double.valueOf(value));
         }
         return new DefaultNumberValue(Long.valueOf(value));
     }
+
+
 }
