@@ -18,6 +18,8 @@ import org.jnosql.aphrodite.query.ConditionValue;
 import java.util.List;
 import java.util.Objects;
 
+import static java.util.Collections.unmodifiableList;
+
 final class DefaultConditionValue implements ConditionValue {
 
     private final List<Condition> conditions;
@@ -28,7 +30,7 @@ final class DefaultConditionValue implements ConditionValue {
 
     @Override
     public List<Condition> get() {
-        return conditions;
+        return unmodifiableList(conditions);
     }
 
     @Override

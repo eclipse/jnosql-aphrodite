@@ -399,7 +399,7 @@ class SelectSupplierTest {
         Condition condition = where.getCondition();
         Value value = condition.getValue();
         assertEquals(NOT, condition.getOperator());
-        assertEquals("name", condition.getName());
+        assertEquals("_NOT", condition.getName());
         assertTrue(value instanceof ConditionValue);
         List<Condition> conditions = ConditionValue.class.cast(value).get();
         assertEquals(1, conditions.size());
