@@ -258,7 +258,7 @@ class DeleteSupplierTest {
         assertEquals("age", condition.getName());
         assertTrue(value instanceof FunctionValue);
         Function function = FunctionValue.class.cast(value).get();
-        assertEquals("converter", function.getName());
+        assertEquals("convert", function.getName());
         Object[] params = function.getParams();
         assertEquals(12L, NumberValue.class.cast(params[0]).get());
         assertEquals(Integer.class, params[1]);
@@ -502,7 +502,7 @@ class DeleteSupplierTest {
         assertEquals("birthday", condition.getName());
         assertTrue(value instanceof FunctionValue);
         Function function = FunctionValue.class.cast(value).get();
-        assertEquals("converter", function.getName());
+        assertEquals("convert", function.getName());
         Object[] params = function.getParams();
         assertEquals("2007-12-03", StringValue.class.cast(params[0]).get());
         assertEquals(LocalDate.class, params[1]);
@@ -564,7 +564,7 @@ class DeleteSupplierTest {
         assertEquals("birthday", condition.getName());
         assertTrue(value instanceof FunctionValue);
         Function function = FunctionValue.class.cast(value).get();
-        assertEquals("converter", function.getName());
+        assertEquals("convert", function.getName());
         Object[] params = function.getParams();
         assertEquals("2007-12-03", StringValue.class.cast(params[0]).get());
         assertEquals(LocalDate.class, params[1]);

@@ -55,19 +55,19 @@ final class DefaultFunctionValue implements FunctionValue {
     }
 
     static FunctionValue of(QueryParser.FunctionContext context) {
-        if (Objects.nonNull(context.converter())) {
+        if (Objects.nonNull(context.convert())) {
             return getConverter(context);
         }
         throw new UnsupportedOperationException("There is not support to this function yet");
     }
 
     private static FunctionValue getConverter(QueryParser.FunctionContext context) {
-        QueryParser.ConverterContext converter = context.converter();
+        QueryParser.ConvertContext converter = context.convert();
         Value<?> value = Elements.getElement(converter.element());
         String text = converter.name().getText();
         try {
             Object[] params = new Object[]{value, Class.forName(text.toString())};
-            Function function1 = DefaultFunction.of("converter", params);
+            Function function1 = DefaultFunction.of("convert", params);
             return new DefaultFunctionValue(function1);
         } catch (ClassNotFoundException e) {
             throw new QueryException("Class does not found the converter function argument: " + text, e);
