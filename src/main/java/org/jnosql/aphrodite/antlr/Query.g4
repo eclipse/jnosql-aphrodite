@@ -30,7 +30,7 @@ desc: 'desc';
 and: 'and';
 or: 'or';
 ttl: INT unit;
-unit: 'day' | 'hour' | 'minute' | 'second' | 'microsecond' | 'millisecond' | 'nanosecond';
+unit: 'day' | 'hour' | 'minute' | 'second' | 'millisecond' | 'nanosecond';
 changes: change (',' change)*;
 change: name '=' value;
 keys: value (','value)*;
