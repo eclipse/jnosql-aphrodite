@@ -10,34 +10,40 @@
  *  Otavio Santana
  */
 
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.query;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.jnosql.aphrodite.antlr.QueryBaseListener;
+import org.jnosql.aphrodite.antlr.QueryErrorListener;
+import org.jnosql.aphrodite.antlr.QueryLexer;
+import org.jnosql.aphrodite.antlr.QueryParser;
+import org.jnosql.aphrodite.provider.SelectQueryArgumentProvider;
+import org.jnosql.aphrodite.antlr.provider.WrongSelectQueryArgumentProvider;
 import org.jnosql.query.QueryException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-public class InsertQueryTest {
+public class SelectQueryTest {
 
     @ParameterizedTest
-    @ArgumentsSource(InsertQueryArgumentProvider.class)
+    @ArgumentsSource(SelectQueryArgumentProvider.class)
     public void shouldExecuteQuery(String query) {
         testQuery(query);
     }
 
     @Test
     public void shouldIgnoreComments() {
-        testQuery("//ignore this line \n insert Person (name = \"Ada Lovelace\")");
+        testQuery("//ignore this line \n select * from Person");
     }
 
     @ParameterizedTest
-    @ArgumentsSource(WrongInsertQueryArgumentProvider.class)
+    @ArgumentsSource(WrongSelectQueryArgumentProvider.class)
     public void shouldNotExecute(String query) {
         Assertions.assertThrows(QueryException.class, () -> testQuery(query));
     }
@@ -52,7 +58,7 @@ public class InsertQueryTest {
         lexer.addErrorListener(QueryErrorListener.INSTANCE);
         parser.addErrorListener(QueryErrorListener.INSTANCE);
 
-        ParseTree tree = parser.insert();
+        ParseTree tree = parser.select();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new QueryBaseListener(), tree);
 

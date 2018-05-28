@@ -10,13 +10,12 @@
  *  Otavio Santana
  */
 
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.aphrodite.provider;
 
-class SelectQueryArgumentProvider extends AbstractArgumentProvider {
+class WrongSelectQueryArgumentProvider extends AbstractArgumentProvider{
 
     @Override
     protected String getFile() {
-        return "/select_jnosql.nosql";
+        return "/select_error.nosql";
     }
-
 }

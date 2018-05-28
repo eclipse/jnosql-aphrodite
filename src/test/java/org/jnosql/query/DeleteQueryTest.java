@@ -10,13 +10,19 @@
  *  Otavio Santana
  */
 
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.query;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.jnosql.aphrodite.antlr.QueryBaseListener;
+import org.jnosql.aphrodite.antlr.QueryErrorListener;
+import org.jnosql.aphrodite.antlr.QueryLexer;
+import org.jnosql.aphrodite.antlr.QueryParser;
+import org.jnosql.aphrodite.provider.DeleteQueryArgumentProvider;
+import org.jnosql.aphrodite.antlr.provider.WrongDeleteQueryArgumentProvider;
 import org.jnosql.query.QueryException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

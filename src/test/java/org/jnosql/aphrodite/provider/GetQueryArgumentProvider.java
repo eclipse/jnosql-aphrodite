@@ -10,13 +10,13 @@
  *  Otavio Santana
  */
 
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.aphrodite.provider;
 
-class DeleteQueryArgumentProvider extends AbstractArgumentProvider {
+public class GetQueryArgumentProvider extends AbstractArgumentProvider {
 
     @Override
     protected String getFile() {
-        return "/delete_jnosql.nosql";
+        return "/get_jnosql.nosql";
     }
 
 }

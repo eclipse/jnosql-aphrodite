@@ -10,13 +10,12 @@
  *  Otavio Santana
  */
 
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.aphrodite.provider;
 
-class InsertQueryArgumentProvider extends AbstractArgumentProvider {
+class WrongUpdateQueryArgumentProvider extends AbstractArgumentProvider{
 
     @Override
     protected String getFile() {
-        return "/insert_jnosql.nosql";
+        return "/update_error.nosql";
     }
-
 }
