@@ -76,7 +76,7 @@ class DelSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"del 1,12"})
+    @ValueSource(strings = {"del {1,12}"})
     public void shouldReturnParserQuery3(String query) {
         DelQuery delQuery = delQuerySupplier.apply(query);
         List<Value<?>> keys = delQuery.getKeys();
