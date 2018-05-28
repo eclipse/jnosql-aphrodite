@@ -46,7 +46,7 @@ string: STRING;
 json: object_json | array_json;
 object_json:  '{' pair_json (',' pair_json)* '}' | '{' '}';
 pair_json:   STRING ':' value_json ;
-value_json: STRING | NUMBER | object_json |   array_json | 'true' | 'false'| 'null';
+value_json: STRING | number | object_json |   array_json | 'true' | 'false'| 'null';
 array_json: '[' value_json (',' value_json)* ']'| '[' ']';
 parameter: PARAMETER;
 STRING :  '"' (ESC | ~["\\])* '"' ;
