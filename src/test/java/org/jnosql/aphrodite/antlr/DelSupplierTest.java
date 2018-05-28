@@ -76,8 +76,31 @@ class DelSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"del {1,12}"})
+    @ValueSource(strings = {"del -12"})
     public void shouldReturnParserQuery3(String query) {
+        DelQuery delQuery = delQuerySupplier.apply(query);
+        List<Value<?>> keys = delQuery.getKeys();
+        assertEquals(1, keys.size());
+        Value<?> key = keys.get(0);
+        assertTrue(key instanceof NumberValue);
+        assertEquals(-12L, NumberValue.class.cast(key).get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"del -12.12"})
+    public void shouldReturnParserQuery4(String query) {
+        DelQuery delQuery = delQuerySupplier.apply(query);
+        List<Value<?>> keys = delQuery.getKeys();
+        assertEquals(1, keys.size());
+        Value<?> key = keys.get(0);
+        assertTrue(key instanceof NumberValue);
+        assertEquals(-12.12, NumberValue.class.cast(key).get());
+    }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"del {1,12}"})
+    public void shouldReturnParserQuery5(String query) {
         DelQuery delQuery = delQuerySupplier.apply(query);
         List<Value<?>> keys = delQuery.getKeys();
         assertEquals(1, keys.size());
