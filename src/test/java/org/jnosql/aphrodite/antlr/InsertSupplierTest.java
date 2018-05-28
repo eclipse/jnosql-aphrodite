@@ -167,9 +167,51 @@ public class InsertSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"insert God (name = \"Diana\") 10 second"})
+    @ValueSource(strings = {"insert God (name = \"Diana\") 10 day"})
     public void shouldReturnParserQuery7(String query) {
         InsertQuery insertQuery = checkInsertFromStart(query);
+        checkTTL(insertQuery, Duration.ofDays(10L));
+
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"insert God (name = \"Diana\") 10 hour"})
+    public void shouldReturnParserQuery8(String query) {
+        InsertQuery insertQuery = checkInsertFromStart(query);
+        checkTTL(insertQuery, Duration.ofHours(10L));
+
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"insert God (name = \"Diana\") 10 minute"})
+    public void shouldReturnParserQuery9(String query) {
+        InsertQuery insertQuery = checkInsertFromStart(query);
+        checkTTL(insertQuery, Duration.ofMinutes(10L));
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"insert God (name = \"Diana\") 10 second"})
+    public void shouldReturnParserQuery10(String query) {
+        InsertQuery insertQuery = checkInsertFromStart(query);
+        checkTTL(insertQuery, Duration.ofSeconds(10L));
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"insert God (name = \"Diana\") 10 millisecond"})
+    public void shouldReturnParserQuery11(String query) {
+        InsertQuery insertQuery = checkInsertFromStart(query);
+        checkTTL(insertQuery, Duration.ofMillis(10L));
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"insert God (name = \"Diana\") 10 nanosecond"})
+    public void shouldReturnParserQuery12(String query) {
+        InsertQuery insertQuery = checkInsertFromStart(query);
+        checkTTL(insertQuery, Duration.ofNanos(10L));
+    }
+
+
+    private void checkTTL(InsertQuery insertQuery, Duration duration) {
         List<Condition> conditions = insertQuery.getConditions();
         assertEquals(1, conditions.size());
         Condition condition = conditions.get(0);
@@ -181,8 +223,7 @@ public class InsertSupplierTest {
 
         Optional<Duration> ttl = insertQuery.getTtl();
         assertTrue(ttl.isPresent());
-        assertEquals(Duration.ofSeconds(10L), ttl.get());
-
+        assertEquals(duration, ttl.get());
     }
 
 
