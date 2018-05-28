@@ -14,6 +14,7 @@ package org.jnosql.aphrodite.antlr;
 import org.jnosql.query.Condition;
 import org.jnosql.query.InsertQuery;
 import org.jnosql.query.InsertSupplier;
+import org.jnosql.query.NumberValue;
 import org.jnosql.query.Operator;
 import org.jnosql.query.StringValue;
 import org.jnosql.query.Value;
@@ -38,7 +39,7 @@ public class InsertSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"insert Person (name = \"Ada Lovelace\")"})
+    @ValueSource(strings = {"insert God (name = \"Diana\")"})
     public void shouldReturnParserQuery(String query) {
         InsertQuery insertQuery = checkInsertFromStart(query);
         List<Condition> conditions = insertQuery.getConditions();
@@ -48,8 +49,37 @@ public class InsertSupplierTest {
         assertEquals(Operator.EQUALS, condition.getOperator());
         Value<?> value = condition.getValue();
         assertTrue(value instanceof StringValue);
-        assertEquals("Ada Lovelace", StringValue.class.cast(value).get());
+        assertEquals("Diana", StringValue.class.cast(value).get());
     }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"insert God (age = 30)"})
+    public void shouldReturnParserQuery1(String query) {
+        InsertQuery insertQuery = checkInsertFromStart(query);
+        List<Condition> conditions = insertQuery.getConditions();
+        assertEquals(1, conditions.size());
+        Condition condition = conditions.get(0);
+        assertEquals("age", condition.getName());
+        assertEquals(Operator.EQUALS, condition.getOperator());
+        Value<?> value = condition.getValue();
+        assertTrue(value instanceof NumberValue);
+        assertEquals(30L, NumberValue.class.cast(value).get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"insert God (stamina = 32.23)"})
+    public void shouldReturnParserQuery2(String query) {
+        InsertQuery insertQuery = checkInsertFromStart(query);
+        List<Condition> conditions = insertQuery.getConditions();
+        assertEquals(1, conditions.size());
+        Condition condition = conditions.get(0);
+        assertEquals("stamina", condition.getName());
+        assertEquals(Operator.EQUALS, condition.getOperator());
+        Value<?> value = condition.getValue();
+        assertTrue(value instanceof NumberValue);
+        assertEquals(32.23, NumberValue.class.cast(value).get());
+    }
+
 
     private InsertQuery checkInsertFromStart(String query) {
         InsertQuery insertQuery = insertSupplier.apply(query);

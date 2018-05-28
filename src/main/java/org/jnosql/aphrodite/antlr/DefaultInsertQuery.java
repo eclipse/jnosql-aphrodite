@@ -71,6 +71,6 @@ final class DefaultInsertQuery implements InsertQuery {
 
     @Override
     public String toString() {
-        return "update " + entity + " (" + conditions + ") " + duration == null ? "" : duration.toString();
+        return "update " + entity + " (" + conditions + ") " + getTtl().map(Duration::toString).orElse("");
     }
 }
