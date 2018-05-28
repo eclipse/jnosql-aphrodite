@@ -11,8 +11,6 @@
  */
 package org.jnosql.aphrodite.antlr;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.jnosql.query.Condition;
 import org.jnosql.query.Function;
 import org.jnosql.query.FunctionValue;
@@ -22,7 +20,6 @@ import org.jnosql.query.JSONValue;
 import org.jnosql.query.NumberValue;
 import org.jnosql.query.Operator;
 import org.jnosql.query.ParamValue;
-import org.jnosql.query.Sort;
 import org.jnosql.query.StringValue;
 import org.jnosql.query.Value;
 import org.junit.jupiter.api.Assertions;
@@ -33,10 +30,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import javax.json.JsonObject;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -139,6 +133,27 @@ public class InsertSupplierTest {
         assertEquals(2, params.length);
         assertEquals("1988-01-01", StringValue.class.cast(params[0]).get());
         assertEquals(LocalDate.class, params[1]);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"insert God (age = 30, name = \"Artemis\")"})
+    public void shouldReturnParserQuery6(String query) {
+        InsertQuery insertQuery = checkInsertFromStart(query);
+        List<Condition> conditions = insertQuery.getConditions();
+        assertEquals(2, conditions.size());
+        Condition condition = conditions.get(0);
+        assertEquals("age", condition.getName());
+        assertEquals(Operator.EQUALS, condition.getOperator());
+        Value<?> value = condition.getValue();
+        assertTrue(value instanceof NumberValue);
+        assertEquals(30L, NumberValue.class.cast(value).get());
+
+        condition = conditions.get(1);
+        assertEquals("name", condition.getName());
+        assertEquals(Operator.EQUALS, condition.getOperator());
+        value = condition.getValue();
+        assertTrue(value instanceof StringValue);
+        assertEquals("Artemis", StringValue.class.cast(value).get());
     }
 
 
