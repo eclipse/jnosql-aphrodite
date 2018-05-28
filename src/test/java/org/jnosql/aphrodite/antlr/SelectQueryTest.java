@@ -44,17 +44,17 @@ public class SelectQueryTest {
 
     private void testQuery(String query) {
         CharStream stream = CharStreams.fromString(query);
-        SelectLexer lexer = new SelectLexer(stream);
+        QueryLexer lexer = new QueryLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        SelectParser parser = new SelectParser(tokens);
+        QueryParser parser = new QueryParser(tokens);
         lexer.removeErrorListeners();
         parser.removeErrorListeners();
         lexer.addErrorListener(QueryErrorListener.INSTANCE);
         parser.addErrorListener(QueryErrorListener.INSTANCE);
 
-        ParseTree tree = parser.query();
+        ParseTree tree = parser.select();
         ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(new SelectBaseListener(), tree);
+        walker.walk(new QueryBaseListener(), tree);
 
 
     }

@@ -54,7 +54,7 @@ public class UpdateQueryTest {
 
         ParseTree tree = parser.update();
         ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(new SelectBaseListener(), tree);
+        walker.walk(new QueryBaseListener(), tree);
 
 
     }

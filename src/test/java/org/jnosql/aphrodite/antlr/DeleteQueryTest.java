@@ -45,17 +45,17 @@ public class DeleteQueryTest {
 
     private void testQuery(String query) {
         CharStream stream = CharStreams.fromString(query);
-        DeleteLexer lexer = new DeleteLexer(stream);
+        QueryLexer lexer = new QueryLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        DeleteParser parser = new DeleteParser(tokens);
+        QueryParser parser = new QueryParser(tokens);
         lexer.removeErrorListeners();
         parser.removeErrorListeners();
         lexer.addErrorListener(QueryErrorListener.INSTANCE);
         parser.addErrorListener(QueryErrorListener.INSTANCE);
 
-        ParseTree tree = parser.query();
+        ParseTree tree = parser.delete();
         ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(new DeleteBaseListener(), tree);
+        walker.walk(new QueryBaseListener(), tree);
 
 
     }

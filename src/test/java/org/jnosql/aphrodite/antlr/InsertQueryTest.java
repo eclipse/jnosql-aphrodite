@@ -54,7 +54,7 @@ public class InsertQueryTest {
 
         ParseTree tree = parser.insert();
         ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(new SelectBaseListener(), tree);
+        walker.walk(new QueryBaseListener(), tree);
 
 
     }
