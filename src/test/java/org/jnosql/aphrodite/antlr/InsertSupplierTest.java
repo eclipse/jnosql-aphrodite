@@ -28,10 +28,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.json.JsonObject;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InsertSupplierTest {
@@ -56,6 +59,7 @@ public class InsertSupplierTest {
         Value<?> value = condition.getValue();
         assertTrue(value instanceof StringValue);
         assertEquals("Diana", StringValue.class.cast(value).get());
+        assertFalse(insertQuery.getTtl().isPresent());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -70,6 +74,7 @@ public class InsertSupplierTest {
         Value<?> value = condition.getValue();
         assertTrue(value instanceof NumberValue);
         assertEquals(30L, NumberValue.class.cast(value).get());
+        assertFalse(insertQuery.getTtl().isPresent());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -84,6 +89,7 @@ public class InsertSupplierTest {
         Value<?> value = condition.getValue();
         assertTrue(value instanceof NumberValue);
         assertEquals(32.23, NumberValue.class.cast(value).get());
+        assertFalse(insertQuery.getTtl().isPresent());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -100,6 +106,7 @@ public class InsertSupplierTest {
         JsonObject jsonObject = JSONValue.class.cast(value).get();
         assertEquals("Brother", jsonObject.getString("Apollo"));
         assertEquals("Father", jsonObject.getString("Zeus"));
+        assertFalse(insertQuery.getTtl().isPresent());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -114,6 +121,7 @@ public class InsertSupplierTest {
         Value<?> value = condition.getValue();
         assertTrue(value instanceof ParamValue);
         assertEquals("age", ParamValue.class.cast(value).get());
+        assertFalse(insertQuery.getTtl().isPresent());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -133,6 +141,7 @@ public class InsertSupplierTest {
         assertEquals(2, params.length);
         assertEquals("1988-01-01", StringValue.class.cast(params[0]).get());
         assertEquals(LocalDate.class, params[1]);
+        assertFalse(insertQuery.getTtl().isPresent());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -154,6 +163,26 @@ public class InsertSupplierTest {
         value = condition.getValue();
         assertTrue(value instanceof StringValue);
         assertEquals("Artemis", StringValue.class.cast(value).get());
+        assertFalse(insertQuery.getTtl().isPresent());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"insert God (name = \"Diana\") 10 second"})
+    public void shouldReturnParserQuery7(String query) {
+        InsertQuery insertQuery = checkInsertFromStart(query);
+        List<Condition> conditions = insertQuery.getConditions();
+        assertEquals(1, conditions.size());
+        Condition condition = conditions.get(0);
+        assertEquals("name", condition.getName());
+        assertEquals(Operator.EQUALS, condition.getOperator());
+        Value<?> value = condition.getValue();
+        assertTrue(value instanceof StringValue);
+        assertEquals("Diana", StringValue.class.cast(value).get());
+
+        Optional<Duration> ttl = insertQuery.getTtl();
+        assertTrue(ttl.isPresent());
+        assertEquals(Duration.ofSeconds(10L), ttl.get());
+
     }
 
 

@@ -54,6 +54,11 @@ class DefaultInsertSupplier extends AbstractSupplier implements InsertSupplier {
         return new DefaultCondition(name, Operator.EQUALS, value);
     }
 
+    @Override
+    public void exitTtl(QueryParser.TtlContext ctx) {
+        this.duration = Durations.get(ctx);
+    }
+
 
     @Override
     public InsertQuery apply(String query) {
