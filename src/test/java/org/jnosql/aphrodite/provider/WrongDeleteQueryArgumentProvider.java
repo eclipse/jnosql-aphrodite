@@ -12,7 +12,7 @@
 
 package org.jnosql.aphrodite.provider;
 
-class WrongDeleteQueryArgumentProvider extends AbstractArgumentProvider{
+public class WrongDeleteQueryArgumentProvider extends AbstractArgumentProvider{
 
     @Override
     protected String getFile() {

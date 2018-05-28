@@ -57,10 +57,9 @@ public class DelQueryTest {
         lexer.addErrorListener(QueryErrorListener.INSTANCE);
         parser.addErrorListener(QueryErrorListener.INSTANCE);
 
-        ParseTree tree = parser.get();
+        ParseTree tree = parser.del();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new QueryBaseListener(), tree);
-
 
     }
 

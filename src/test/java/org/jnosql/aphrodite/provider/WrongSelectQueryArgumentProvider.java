@@ -12,7 +12,7 @@
 
 package org.jnosql.aphrodite.provider;
 
-class WrongSelectQueryArgumentProvider extends AbstractArgumentProvider{
+public class WrongSelectQueryArgumentProvider extends AbstractArgumentProvider{
 
     @Override
     protected String getFile() {
