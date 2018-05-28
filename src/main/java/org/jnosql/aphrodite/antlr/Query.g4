@@ -5,7 +5,7 @@ insert: 'insert' entity '(' changes ')' ttl? EOF;
 update: 'update' entity '(' changes ')' EOF;
 get: 'get' keys EOF;
 del: 'del' keys EOF;
-put: 'put' '{' value ',' value (',' ttl)?  '}' EOF;
+put: 'put' '{' key ',' value (',' ttl)?  '}' EOF;
 
 fields: star | name (',' name)*;
 deleteFields: name (',' name)*;
@@ -33,6 +33,7 @@ ttl: INT unit;
 unit: 'day' | 'hour' | 'minute' | 'second' | 'millisecond' | 'nanosecond';
 changes: change (',' change)*;
 change: name '=' value;
+key: value;
 keys: value (','value)*;
 value: ( number | string | array | function | parameter | json);
 name: ANY_NAME;
