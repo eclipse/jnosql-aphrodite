@@ -14,14 +14,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-     <parent>
+    <parent>
         <groupId>org.jnosql.query</groupId>
         <artifactId>query-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>jnosql-query-antlr</artifactId>
-    <name>Eclipse JNoSQL Query API</name>
+    <name>Eclipse JNoSQL Query Implementation with Antlr4</name>
     <description>The Eclipse JNoSQL Query implementation that uses Antlr 4</description>
     <url>http://jnosql.org/</url>
 
@@ -78,11 +78,16 @@
             <artifactId>antlr4-runtime</artifactId>
             <version>${antlr4.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.jnosql.query</groupId>
+            <artifactId>jnosql-query-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-              <plugin>
+            <plugin>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
                 <version>${antlr4.version}</version>
