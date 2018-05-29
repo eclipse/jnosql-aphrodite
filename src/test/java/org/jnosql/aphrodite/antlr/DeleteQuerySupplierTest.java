@@ -16,7 +16,7 @@ import org.jnosql.query.ArrayValue;
 import org.jnosql.query.Condition;
 import org.jnosql.query.ConditionValue;
 import org.jnosql.query.DeleteQuery;
-import org.jnosql.query.DeleteSupplier;
+import org.jnosql.query.DeleteQuerySupplier;
 import org.jnosql.query.Function;
 import org.jnosql.query.FunctionValue;
 import org.jnosql.query.JSONValue;
@@ -43,9 +43,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class DeleteSupplierTest {
+class DeleteQuerySupplierTest {
 
-    private DeleteSupplier selectSupplier = new AntlrDeleteSupplier();
+    private DeleteQuerySupplier selectSupplier = new AntlrDeleteQuerySupplier();
 
     @Test
     public void shouldReturnErrorWhenStringIsNull() {

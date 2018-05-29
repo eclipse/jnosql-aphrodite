@@ -14,7 +14,7 @@ package org.jnosql.aphrodite.antlr;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.jnosql.query.DeleteQuery;
-import org.jnosql.query.DeleteSupplier;
+import org.jnosql.query.DeleteQuerySupplier;
 
 import java.util.List;
 import java.util.function.Function;
@@ -22,7 +22,7 @@ import java.util.function.Function;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
-public final class AntlrDeleteSupplier extends AbstractWhereSupplier implements DeleteSupplier {
+public final class AntlrDeleteQuerySupplier extends AbstractWhereSupplier implements DeleteQuerySupplier {
 
     private String entity;
 

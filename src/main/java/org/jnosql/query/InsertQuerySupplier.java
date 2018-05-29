@@ -14,5 +14,5 @@ package org.jnosql.query;
 
 import java.util.function.Function;
 
-public interface InsertSupplier extends Function<String, InsertQuery> {
+public interface InsertQuerySupplier extends Function<String, InsertQuery> {
 }

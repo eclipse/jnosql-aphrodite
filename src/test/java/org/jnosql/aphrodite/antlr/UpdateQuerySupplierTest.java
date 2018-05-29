@@ -20,7 +20,7 @@ import org.jnosql.query.Operator;
 import org.jnosql.query.ParamValue;
 import org.jnosql.query.StringValue;
 import org.jnosql.query.UpdateQuery;
-import org.jnosql.query.UpdateSupplier;
+import org.jnosql.query.UpdateQuerySupplier;
 import org.jnosql.query.Value;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -34,9 +34,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class UpdateSupplierTest {
+public class UpdateQuerySupplierTest {
 
-    private UpdateSupplier update = new AntlrUpdateSupplier();
+    private UpdateQuerySupplier update = new AntlrUpdateQuerySupplier();
 
 
     @Test

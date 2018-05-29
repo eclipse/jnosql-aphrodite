@@ -11,27 +11,27 @@
  */
 package org.jnosql.aphrodite.antlr.cache;
 
-import org.jnosql.aphrodite.antlr.AntlrSelectSupplier;
-import org.jnosql.query.SelectQuery;
-import org.jnosql.query.SelectSupplier;
+import org.jnosql.aphrodite.antlr.AntlrUpdateQuerySupplier;
+import org.jnosql.query.UpdateQuery;
+import org.jnosql.query.UpdateQuerySupplier;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public final class CachedSelectSupplier implements SelectSupplier {
+public final class CachedUpdateQuerySupplier implements UpdateQuerySupplier {
 
-    private final Map<String, SelectQuery> cached;
+    private final Map<String, UpdateQuery> cached;
 
-    private final SelectSupplier supplier;
+    private final UpdateQuerySupplier supplier;
 
-    public CachedSelectSupplier() {
-        supplier = new AntlrSelectSupplier();
+    public CachedUpdateQuerySupplier() {
+        supplier = new AntlrUpdateQuerySupplier();
         this.cached = TTLCache.of(5, TimeUnit.MINUTES, supplier);
     }
 
     @Override
-    public SelectQuery apply(String query) {
+    public UpdateQuery apply(String query) {
         Objects.requireNonNull(query, "query is required");
         return cached.get(query);
     }

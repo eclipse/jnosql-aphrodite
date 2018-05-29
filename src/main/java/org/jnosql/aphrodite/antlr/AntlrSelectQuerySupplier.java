@@ -14,7 +14,7 @@ package org.jnosql.aphrodite.antlr;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.jnosql.query.SelectQuery;
-import org.jnosql.query.SelectSupplier;
+import org.jnosql.query.SelectQuerySupplier;
 import org.jnosql.query.Sort;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
-public final class AntlrSelectSupplier extends AbstractWhereSupplier implements SelectSupplier {
+public final class AntlrSelectQuerySupplier extends AbstractWhereSupplier implements SelectQuerySupplier {
 
     private String entity;
 

@@ -12,11 +12,8 @@
 package org.jnosql.aphrodite.antlr.cache;
 
 import org.jnosql.aphrodite.antlr.AntlrGetQuerySupplier;
-import org.jnosql.aphrodite.antlr.AntlrInsertSupplier;
 import org.jnosql.query.GetQuery;
 import org.jnosql.query.GetQuerySupplier;
-import org.jnosql.query.InsertQuery;
-import org.jnosql.query.InsertSupplier;
 
 import java.util.Map;
 import java.util.Objects;

@@ -11,27 +11,27 @@
  */
 package org.jnosql.aphrodite.antlr.cache;
 
-import org.jnosql.aphrodite.antlr.AntlrDeleteSupplier;
-import org.jnosql.query.DeleteQuery;
-import org.jnosql.query.DeleteSupplier;
+import org.jnosql.aphrodite.antlr.AntlrInsertQuerySupplier;
+import org.jnosql.query.InsertQuery;
+import org.jnosql.query.InsertQuerySupplier;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public final class CachedDeleteSupplier implements DeleteSupplier {
+public final class CachedInsertQuerySupplier implements InsertQuerySupplier {
 
-    private final Map<String, DeleteQuery> cached;
+    private final Map<String, InsertQuery> cached;
 
-    private final DeleteSupplier supplier;
+    private final InsertQuerySupplier supplier;
 
-    public CachedDeleteSupplier() {
-        supplier = new AntlrDeleteSupplier();
+    public CachedInsertQuerySupplier() {
+        supplier = new AntlrInsertQuerySupplier();
         this.cached = TTLCache.of(5, TimeUnit.MINUTES, supplier);
     }
 
     @Override
-    public DeleteQuery apply(String query) {
+    public InsertQuery apply(String query) {
         Objects.requireNonNull(query, "query is required");
         return cached.get(query);
     }

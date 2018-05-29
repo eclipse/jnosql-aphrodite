@@ -15,7 +15,7 @@ import org.jnosql.query.Condition;
 import org.jnosql.query.Function;
 import org.jnosql.query.FunctionValue;
 import org.jnosql.query.InsertQuery;
-import org.jnosql.query.InsertSupplier;
+import org.jnosql.query.InsertQuerySupplier;
 import org.jnosql.query.JSONValue;
 import org.jnosql.query.NumberValue;
 import org.jnosql.query.Operator;
@@ -37,14 +37,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class InsertSupplierTest {
+public class InsertQuerySupplierTest {
 
-    private InsertSupplier insertSupplier = new AntlrInsertSupplier();
+    private InsertQuerySupplier insertQuerySupplier = new AntlrInsertQuerySupplier();
 
 
     @Test
     public void shouldReturnErrorWhenStringIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () -> insertSupplier.apply(null));
+        Assertions.assertThrows(NullPointerException.class, () -> insertQuerySupplier.apply(null));
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -228,7 +228,7 @@ public class InsertSupplierTest {
 
 
     private InsertQuery checkInsertFromStart(String query) {
-        InsertQuery insertQuery = insertSupplier.apply(query);
+        InsertQuery insertQuery = insertQuerySupplier.apply(query);
         assertEquals("God", insertQuery.getEntity());
         return insertQuery;
     }
