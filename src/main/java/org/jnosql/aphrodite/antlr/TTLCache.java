@@ -9,7 +9,6 @@
  *  Contributors:
  *  Otavio Santana
  */
-
 package org.jnosql.aphrodite.antlr;
 
 import java.util.Collection;
@@ -151,6 +150,15 @@ class TTLCache<K, V> implements Map<K, V>, Runnable {
 
     private boolean isObsolete(Object key) {
         return (System.nanoTime() - timestamps.get(key)) > this.ttl;
+    }
+
+    public static <K, V> TTLCache<K, V> of(long value, TimeUnit timeUnit, Function<K, V> supplier) {
+        Objects.requireNonNull(timeUnit, "timeUnit is required");
+        Objects.requireNonNull(supplier, "supplier is required");
+        if (value <= 0) {
+            throw new IllegalArgumentException("The value to TTL must be greater than zero");
+        }
+        return new TTLCache<>(value, timeUnit, supplier);
     }
 
 
