@@ -24,6 +24,9 @@ import java.util.stream.Collectors;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
+/**
+ * The {@link SelectQuerySupplier} implementation that uses Antlr4
+ */
 public final class AntlrSelectQuerySupplier extends AbstractWhereSupplier implements SelectQuerySupplier {
 
     private String entity;

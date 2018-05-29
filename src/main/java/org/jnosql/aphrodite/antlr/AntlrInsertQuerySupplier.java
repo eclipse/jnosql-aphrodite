@@ -25,6 +25,10 @@ import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
 
+
+/**
+ * The {@link InsertQuerySupplier} implementation that uses Antlr4
+ */
 public final class AntlrInsertQuerySupplier extends AbstractSupplier implements InsertQuerySupplier {
 
     private String entity;

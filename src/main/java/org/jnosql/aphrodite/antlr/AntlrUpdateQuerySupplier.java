@@ -24,6 +24,9 @@ import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * The {@link UpdateQuerySupplier} implementation that uses Antlr4
+ */
 public final class AntlrUpdateQuerySupplier extends AbstractSupplier implements UpdateQuerySupplier {
 
     private String entity;

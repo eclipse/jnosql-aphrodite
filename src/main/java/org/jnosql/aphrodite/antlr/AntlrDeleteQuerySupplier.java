@@ -22,6 +22,9 @@ import java.util.function.Function;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
+/**
+ * The {@link DeleteQuerySupplier} implementation that uses Antlr4
+ */
 public final class AntlrDeleteQuerySupplier extends AbstractWhereSupplier implements DeleteQuerySupplier {
 
     private String entity;

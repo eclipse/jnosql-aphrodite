@@ -23,6 +23,9 @@ import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * The {@link GetQuerySupplier} implementation that uses Antlr4
+ */
 public final class AntlrGetQuerySupplier extends AbstractSupplier implements GetQuerySupplier {
 
     private List<Value<?>> keys = Collections.emptyList();

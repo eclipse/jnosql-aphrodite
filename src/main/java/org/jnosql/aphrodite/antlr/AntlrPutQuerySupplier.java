@@ -20,6 +20,9 @@ import org.jnosql.query.Value;
 import java.time.Duration;
 import java.util.function.Function;
 
+/**
+ * The {@link PutQuerySupplier} implementation that uses Antlr4
+ */
 public final class AntlrPutQuerySupplier extends AbstractSupplier implements PutQuerySupplier {
 
 
