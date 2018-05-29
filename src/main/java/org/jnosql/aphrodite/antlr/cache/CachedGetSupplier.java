@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * The {@link GetQuerySupplier} cache wrapper.
+ * The {@link AntlrGetQuerySupplier} cache wrapper.
  */
 public final class CachedGetSupplier implements GetQuerySupplier {
 

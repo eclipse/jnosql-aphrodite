@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The {@link DelQuerySupplier} cache wrapper.
+ * The {@link AntlrDelQuerySupplier} cache wrapper.
  */
 public final class CachedDelSupplier implements DelQuerySupplier {
 

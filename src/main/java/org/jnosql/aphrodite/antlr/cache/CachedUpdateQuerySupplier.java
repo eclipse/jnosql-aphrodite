@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The {@link UpdateQuerySupplier} cache wrapper.
+ * The {@link AntlrUpdateQuerySupplier} cache wrapper.
  */
 public final class CachedUpdateQuerySupplier implements UpdateQuerySupplier {
 

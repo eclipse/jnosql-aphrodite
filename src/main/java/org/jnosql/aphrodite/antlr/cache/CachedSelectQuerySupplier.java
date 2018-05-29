@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The {@link SelectQuerySupplier} cache wrapper.
+ * The {@link AntlrSelectQuerySupplier} cache wrapper.
  */
 public final class CachedSelectQuerySupplier implements SelectQuerySupplier {
 
