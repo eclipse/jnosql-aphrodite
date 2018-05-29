@@ -15,4 +15,8 @@ package org.jnosql.query;
 import java.util.function.Function;
 
 public interface SelectQuerySupplier extends Function<String, SelectQuery> {
+
+    static SelectQuerySupplier getSupplier() {
+        return SelectQuerySupplierServiceLoader.INSTANCE;
+    }
 }

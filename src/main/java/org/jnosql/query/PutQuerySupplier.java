@@ -16,4 +16,8 @@ import java.util.function.Function;
 
 public interface PutQuerySupplier extends Function<String, PutQuery> {
 
+    static PutQuerySupplier getSupplier() {
+        return PutQuerySupplierServiceLoader.INSTANCE;
+    }
+
 }

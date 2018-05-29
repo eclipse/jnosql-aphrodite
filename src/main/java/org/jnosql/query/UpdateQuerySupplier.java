@@ -15,4 +15,8 @@ package org.jnosql.query;
 import java.util.function.Function;
 
 public interface UpdateQuerySupplier extends Function<String, UpdateQuery> {
+
+    static UpdateQuerySupplier getSupplier() {
+        return UpdateQuerySupplierServiceLoader.INSTANCE;
+    }
 }

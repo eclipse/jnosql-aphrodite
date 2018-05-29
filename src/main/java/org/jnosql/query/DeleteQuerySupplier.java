@@ -15,4 +15,8 @@ package org.jnosql.query;
 import java.util.function.Function;
 
 public interface DeleteQuerySupplier extends Function<String, DeleteQuery> {
+
+    static DeleteQuerySupplier getSupplier() {
+        return DeleteQuerySupplierServiceLoader.INSTANCE;
+    }
 }

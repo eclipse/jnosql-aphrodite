@@ -16,4 +16,8 @@ import java.util.function.Function;
 
 public interface GetQuerySupplier extends Function<String, GetQuery> {
 
+
+    static GetQuerySupplier getSupplier() {
+        return GetQuerySupplierServiceLoader.INSTANCE;
+    }
 }

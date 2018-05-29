@@ -16,4 +16,8 @@ import java.util.function.Function;
 
 public interface DelQuerySupplier extends Function<String, DelQuery> {
 
+    static DelQuerySupplier getSupplier() {
+        return DelQuerySupplierServiceLoader.INSTANCE;
+    }
+
 }
