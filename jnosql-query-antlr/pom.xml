@@ -67,7 +67,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compile.targetLevel>1.8</maven.compile.targetLevel>
         <maven.compile.sourceLevel>1.8</maven.compile.sourceLevel>
-        <antlr4.visitor>true</antlr4.visitor>
+        <antlr4.visitor>false</antlr4.visitor>
         <antlr4.listener>true</antlr4.listener>
         <antlr4.version>4.7.1</antlr4.version>
     </properties>
