@@ -183,7 +183,6 @@
 
     <modules>
         <module>jnosql-query-api</module>
-        <module>jnosql-query-antlr</module>
     </modules>
 
 </project>
