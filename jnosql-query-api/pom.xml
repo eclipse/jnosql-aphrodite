@@ -20,7 +20,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>query</artifactId>
+    <artifactId>jnosql-query-api</artifactId>
     <name>Eclipse JNoSQL Query API</name>
     <description>A query project to Eclipse JNoSQL</description>
     <url>http://jnosql.org/</url>
