@@ -66,7 +66,7 @@ final class DefaultFunctionValue implements FunctionValue {
         Value<?> value = Elements.getElement(converter.element());
         String text = converter.name().getText();
         try {
-            Object[] params = new Object[]{value, Class.forName(text.toString())};
+            Object[] params = new Object[]{value, Class.forName(text)};
             Function function1 = DefaultFunction.of("convert", params);
             return new DefaultFunctionValue(function1);
         } catch (ClassNotFoundException e) {

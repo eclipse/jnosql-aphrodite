@@ -32,17 +32,13 @@ class TTLCacheTest {
 
     @Test
     public void shouldReturnErrorWhenDurationIsNull() {
-        assertThrows(NullPointerException.class, () -> {
-            TTLCache.of(1, null, null);
-        });
+        assertThrows(NullPointerException.class, () -> TTLCache.of(1, null, null));
 
     }
 
     @Test
     public void shouldReturnIllegalWhenValueIsNegative() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            TTLCache.of(-1, TimeUnit.DAYS, supplier);
-        });
+        assertThrows(IllegalArgumentException.class, () -> TTLCache.of(-1, TimeUnit.DAYS, supplier));
     }
 
     @Test

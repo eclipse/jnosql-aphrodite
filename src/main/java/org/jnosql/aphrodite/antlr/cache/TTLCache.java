@@ -131,7 +131,7 @@ class TTLCache<K, V> implements Map<K, V>, Runnable {
 
 
     private void clearExpired() {
-        store.keySet().stream().forEach(this::checkExpired);
+        store.keySet().forEach(this::checkExpired);
     }
 
     private void put(Map.Entry<? extends K, ? extends V> entry) {
