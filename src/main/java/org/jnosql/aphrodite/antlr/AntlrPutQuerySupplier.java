@@ -20,7 +20,7 @@ import org.jnosql.query.Value;
 import java.time.Duration;
 import java.util.function.Function;
 
-final class DefaultPutQuerySupplier extends AbstractSupplier implements PutQuerySupplier {
+public final class AntlrPutQuerySupplier extends AbstractSupplier implements PutQuerySupplier {
 
 
     private Value<?> key;

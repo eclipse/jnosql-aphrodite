@@ -45,7 +45,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DeleteSupplierTest {
 
-    private DeleteSupplier selectSupplier = new DefaultDeleteSupplier();
+    private DeleteSupplier selectSupplier = new AntlrDeleteSupplier();
 
     @Test
     public void shouldReturnErrorWhenStringIsNull() {

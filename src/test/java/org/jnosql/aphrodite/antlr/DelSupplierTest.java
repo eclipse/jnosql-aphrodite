@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DelSupplierTest {
 
-    private DelQuerySupplier delQuerySupplier = new DefaultDelQuerySupplier();
+    private DelQuerySupplier delQuerySupplier = new AntlrDelQuerySupplier();
 
     @Test
     public void shouldReturnErrorWhenStringIsNull() {

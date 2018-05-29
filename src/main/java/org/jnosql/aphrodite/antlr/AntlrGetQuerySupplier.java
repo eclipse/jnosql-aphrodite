@@ -23,7 +23,7 @@ import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
 
-final class DefaultGetQuerySupplier extends AbstractSupplier implements GetQuerySupplier {
+public final class AntlrGetQuerySupplier extends AbstractSupplier implements GetQuerySupplier {
 
     private List<Value<?>> keys = Collections.emptyList();
 

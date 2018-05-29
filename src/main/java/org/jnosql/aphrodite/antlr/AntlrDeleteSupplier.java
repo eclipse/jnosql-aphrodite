@@ -22,7 +22,7 @@ import java.util.function.Function;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
-public class DefaultDeleteSupplier extends AbstractWhereSupplier implements DeleteSupplier {
+public final class AntlrDeleteSupplier extends AbstractWhereSupplier implements DeleteSupplier {
 
     private String entity;
 

@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UpdateSupplierTest {
 
-    private UpdateSupplier update = new DefaultUpdateSupplier();
+    private UpdateSupplier update = new AntlrUpdateSupplier();
 
 
     @Test

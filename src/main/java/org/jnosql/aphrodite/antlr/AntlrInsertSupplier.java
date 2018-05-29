@@ -13,26 +13,29 @@ package org.jnosql.aphrodite.antlr;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.jnosql.query.Condition;
+import org.jnosql.query.InsertQuery;
+import org.jnosql.query.InsertSupplier;
 import org.jnosql.query.Operator;
-import org.jnosql.query.UpdateQuery;
-import org.jnosql.query.UpdateSupplier;
 import org.jnosql.query.Value;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
 
-class DefaultUpdateSupplier extends AbstractSupplier implements UpdateSupplier {
+public final class AntlrInsertSupplier extends AbstractSupplier implements InsertSupplier {
 
     private String entity;
 
     private List<Condition> conditions = Collections.emptyList();
 
+    private Duration duration;
+
     @Override
     Function<QueryParser, ParseTree> getParserTree() {
-        return QueryParser::update;
+        return QueryParser::insert;
     }
 
     @Override
@@ -51,10 +54,15 @@ class DefaultUpdateSupplier extends AbstractSupplier implements UpdateSupplier {
         return new DefaultCondition(name, Operator.EQUALS, value);
     }
 
+    @Override
+    public void exitTtl(QueryParser.TtlContext ctx) {
+        this.duration = Durations.get(ctx);
+    }
+
 
     @Override
-    public UpdateQuery apply(String query) {
+    public InsertQuery apply(String query) {
         runQuery(query);
-        return new DefaultUpdateQuery(entity, conditions);
+        return new DefaultInsertQuery(entity, duration, conditions);
     }
 }

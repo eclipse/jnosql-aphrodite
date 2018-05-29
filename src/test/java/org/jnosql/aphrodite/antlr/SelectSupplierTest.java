@@ -48,7 +48,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SelectSupplierTest {
 
-    private SelectSupplier selectSupplier = new DefaultSelectSupplier();
+    private SelectSupplier selectSupplier = new AntlrSelectSupplier();
 
     @Test
     public void shouldReturnErrorWhenStringIsNull() {

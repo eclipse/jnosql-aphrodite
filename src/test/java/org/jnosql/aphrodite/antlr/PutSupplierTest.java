@@ -24,7 +24,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PutSupplierTest {
 
-    private PutQuerySupplier supplier = new DefaultPutQuerySupplier();
+    private PutQuerySupplier supplier = new AntlrPutQuerySupplier();
 
     @Test
     public void shouldReturnErrorWhenStringIsNull() {

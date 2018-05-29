@@ -23,7 +23,7 @@ import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
 
-final class DefaultDelQuerySupplier extends AbstractSupplier implements DelQuerySupplier {
+public final class AntlrDelQuerySupplier extends AbstractSupplier implements DelQuerySupplier {
 
     private List<Value<?>> keys = Collections.emptyList();
 

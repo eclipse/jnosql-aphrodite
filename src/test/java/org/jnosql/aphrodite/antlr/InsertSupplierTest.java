@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InsertSupplierTest {
 
-    private InsertSupplier insertSupplier = new DefaultInsertSupplier();
+    private InsertSupplier insertSupplier = new AntlrInsertSupplier();
 
 
     @Test

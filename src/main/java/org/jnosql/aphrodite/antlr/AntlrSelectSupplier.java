@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
-public class DefaultSelectSupplier extends AbstractWhereSupplier implements SelectSupplier {
+public final class AntlrSelectSupplier extends AbstractWhereSupplier implements SelectSupplier {
 
     private String entity;
 

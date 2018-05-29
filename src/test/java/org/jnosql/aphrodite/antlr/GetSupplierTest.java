@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GetSupplierTest {
 
-    private GetQuerySupplier querySupplier = new DefaultGetQuerySupplier();
+    private GetQuerySupplier querySupplier = new AntlrGetQuerySupplier();
 
     @Test
     public void shouldReturnErrorWhenStringIsNull() {
