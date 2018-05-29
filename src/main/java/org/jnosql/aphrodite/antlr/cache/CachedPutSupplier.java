@@ -19,6 +19,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The {@link PutQuerySupplier} cache wrapper.
+ */
 public final class CachedPutSupplier implements PutQuerySupplier {
 
     private final Map<String, PutQuery> cached;

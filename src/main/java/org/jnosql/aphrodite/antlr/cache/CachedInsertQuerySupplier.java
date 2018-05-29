@@ -19,6 +19,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The {@link InsertQuerySupplier} cache wrapper.
+ */
 public final class CachedInsertQuerySupplier implements InsertQuerySupplier {
 
     private final Map<String, InsertQuery> cached;

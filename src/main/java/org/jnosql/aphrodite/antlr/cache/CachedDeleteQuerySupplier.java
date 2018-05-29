@@ -19,6 +19,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The {@link AntlrDeleteQuerySupplier} cache wrapper.
+ */
 public final class CachedDeleteQuerySupplier implements DeleteQuerySupplier {
 
     private final Map<String, DeleteQuery> cached;

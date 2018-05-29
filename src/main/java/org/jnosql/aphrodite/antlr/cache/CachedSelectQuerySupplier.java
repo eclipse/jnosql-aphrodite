@@ -19,6 +19,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The {@link SelectQuerySupplier} cache wrapper.
+ */
 public final class CachedSelectQuerySupplier implements SelectQuerySupplier {
 
     private final Map<String, SelectQuery> cached;

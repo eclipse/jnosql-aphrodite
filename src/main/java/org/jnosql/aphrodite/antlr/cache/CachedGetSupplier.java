@@ -19,6 +19,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+
+/**
+ * The {@link GetQuerySupplier} cache wrapper.
+ */
 public final class CachedGetSupplier implements GetQuerySupplier {
 
     private final Map<String, GetQuery> cached;

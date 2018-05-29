@@ -19,6 +19,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The {@link UpdateQuerySupplier} cache wrapper.
+ */
 public final class CachedUpdateQuerySupplier implements UpdateQuerySupplier {
 
     private final Map<String, UpdateQuery> cached;

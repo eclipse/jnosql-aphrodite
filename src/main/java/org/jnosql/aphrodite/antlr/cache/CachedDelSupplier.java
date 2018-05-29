@@ -19,6 +19,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The {@link DelQuerySupplier} cache wrapper.
+ */
 public final class CachedDelSupplier implements DelQuerySupplier {
 
     private final Map<String, DelQuery> cached;
