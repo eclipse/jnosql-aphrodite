@@ -14,9 +14,21 @@ package org.jnosql.query;
 
 import java.util.List;
 
+/**
+ * Updating an entity is done using an <b>UPDATE</b> statement.
+ */
 public interface UpdateQuery extends Query {
 
+    /**
+     * The entity name
+     * @return the entity name
+     */
     String getEntity();
 
+    /**
+     * The list of changes as conditions. Each condition will use the equals operator, {@link Operator#EQUALS},
+     *  e.g., name = "any name"
+     * @return the conditions
+     */
     List<Condition> getConditions();
 }

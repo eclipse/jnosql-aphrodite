@@ -13,6 +13,7 @@
 package org.jnosql.query;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.stream.StreamSupport;
 
@@ -22,15 +23,18 @@ final class UpdateQuerySupplierServiceLoader {
 
     private static final List<UpdateQuerySupplier> LOADERS;
 
-    static final UpdateQuerySupplier INSTANCE;
+    static final Optional<UpdateQuerySupplier> INSTANCE;
 
     private static final String MESSAGE = "Could not found an implementation of UpdateQuerySupplier in service loader.";
 
     static {
         ServiceLoader<UpdateQuerySupplier> serviceLoader = ServiceLoader.load(UpdateQuerySupplier.class);
         LOADERS = StreamSupport.stream(serviceLoader.spliterator(), false).collect(toList());
-        INSTANCE = LOADERS.stream().findFirst().orElseThrow(() -> new IllegalStateException(MESSAGE));
+        INSTANCE = LOADERS.stream().findFirst();
     }
 
+    static UpdateQuerySupplier getInstance() {
+        return INSTANCE.orElseThrow(() -> new IllegalStateException(MESSAGE));
+    }
 
 }

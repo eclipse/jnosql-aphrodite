@@ -12,7 +12,15 @@
 
 package org.jnosql.query;
 
+/**
+ * The WHERE clause specifies a filter to the result. These filters are booleans operations that are composed of one or
+ * more conditions appended with the and ({@link Operator#AND}) and or ({@link Operator#OR}) operators.
+ */
 public interface Where {
 
+    /**
+     * The condition
+     * @return the condition
+     */
     Condition getCondition();
 }

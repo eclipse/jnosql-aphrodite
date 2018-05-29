@@ -12,6 +12,9 @@
 
 package org.jnosql.query;
 
+/**
+ * The value type
+ */
 public enum ValueType {
 
     CONDITION, NUMBER, STRING, CONVERT, PARAMETER, ARRAY

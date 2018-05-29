@@ -12,13 +12,34 @@
 
 package org.jnosql.query;
 
+/**
+ * it is used to sort the result-set in ascending or descending order.
+ */
 public interface Sort {
 
+    /**
+     * The name
+     * @return the name
+     */
     String getName();
 
+    /**
+     * It defines if it is either ascending or descending order.
+     * @return the {@link SortType}
+     */
     SortType getType();
 
+    /**
+     * The sort type
+     */
     enum SortType {
-        ASC, DESC
+        /**
+         * ascending order
+         */
+        ASC,
+        /**
+         * descending order
+         */
+        DESC
     }
 }

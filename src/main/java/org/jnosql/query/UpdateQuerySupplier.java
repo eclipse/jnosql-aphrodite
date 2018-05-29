@@ -14,9 +14,18 @@ package org.jnosql.query;
 
 import java.util.function.Function;
 
+/**
+ * A supplier to {@link UpdateQuery}
+ */
 public interface UpdateQuerySupplier extends Function<String, UpdateQuery> {
 
+    /**
+     * It returns a {@link UpdateQuery} from {@link java.util.ServiceLoader}
+     *
+     * @return {@link UpdateQuery} instance
+     * @throws IllegalStateException when there isn't UpdateQuery from service loader.
+     */
     static UpdateQuerySupplier getSupplier() {
-        return UpdateQuerySupplierServiceLoader.INSTANCE;
+        return UpdateQuerySupplierServiceLoader.getInstance();
     }
 }

@@ -12,5 +12,9 @@
 
 package org.jnosql.query;
 
+/**
+ * Query languages or data query languages (DQLs) are computer languages used to make queries in databases
+ * and information systems. A database query can be either a select query or an action query.
+ */
 public interface Query {
 }

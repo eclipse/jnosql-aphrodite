@@ -14,9 +14,18 @@ package org.jnosql.query;
 
 import java.util.function.Function;
 
+/**
+ * A supplier to {@link SelectQuery}
+ */
 public interface SelectQuerySupplier extends Function<String, SelectQuery> {
 
+    /**
+     * It returns a {@link SelectQuery} from {@link java.util.ServiceLoader}
+     *
+     * @return {@link SelectQuery} instance
+     * @throws IllegalStateException when there isn't SelectQuery from service loader.
+     */
     static SelectQuerySupplier getSupplier() {
-        return SelectQuerySupplierServiceLoader.INSTANCE;
+        return SelectQuerySupplierServiceLoader.getInstance();
     }
 }

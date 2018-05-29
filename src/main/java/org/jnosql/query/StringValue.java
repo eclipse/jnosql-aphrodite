@@ -12,5 +12,8 @@
 
 package org.jnosql.query;
 
+/**
+ *The {@link String} as value
+ */
 public interface StringValue extends Value<String> {
 }

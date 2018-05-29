@@ -14,5 +14,9 @@ package org.jnosql.query;
 
 import java.util.function.Supplier;
 
+/**
+ * The value is the last element in a condition, and it defines what it 'll go to be used, with an operator, in a field target.
+ * @param <T> the type.
+ */
 public interface Value<T> extends Supplier<T> {
 }
