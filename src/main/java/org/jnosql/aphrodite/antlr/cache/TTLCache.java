@@ -9,7 +9,7 @@
  *  Contributors:
  *  Otavio Santana
  */
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.aphrodite.antlr.cache;
 
 import java.util.Collection;
 import java.util.Map;
@@ -19,7 +19,6 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -38,12 +37,11 @@ class TTLCache<K, V> implements Map<K, V>, Runnable {
     private final Map<K, K> mutex = synchronizedMap(new WeakHashMap<>());
     private final long ttl;
     private final Function<K, V> supplier;
-    private final ScheduledFuture<?> schedule;
 
     TTLCache(long value, TimeUnit unit, Function<K, V> supplier) {
         this.ttl = unit.toNanos(value);
         this.supplier = supplier;
-        this.schedule = SCHEDULED_THREAD_POOL.schedule(this, value * 2, unit);
+        SCHEDULED_THREAD_POOL.schedule(this, value * 2, unit);
     }
 
 
@@ -53,8 +51,8 @@ class TTLCache<K, V> implements Map<K, V>, Runnable {
         if (Objects.isNull(value)) {
             K synchronizedKey = mutex.computeIfAbsent((K) key, (a) -> (K) key);
             synchronized (synchronizedKey) {
-                value = supplier.apply((K) key);
-                put((K) key, value);
+                value = supplier.apply(synchronizedKey);
+                put(synchronizedKey, value);
             }
         }
         return value;
@@ -152,7 +150,7 @@ class TTLCache<K, V> implements Map<K, V>, Runnable {
         return (System.nanoTime() - timestamps.get(key)) > this.ttl;
     }
 
-    public static <K, V> TTLCache<K, V> of(long value, TimeUnit timeUnit, Function<K, V> supplier) {
+    static <K, V> Map<K, V> of(long value, TimeUnit timeUnit, Function<K, V> supplier) {
         Objects.requireNonNull(timeUnit, "timeUnit is required");
         Objects.requireNonNull(supplier, "supplier is required");
         if (value <= 0) {

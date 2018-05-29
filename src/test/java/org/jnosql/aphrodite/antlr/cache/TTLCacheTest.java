@@ -9,7 +9,7 @@
  *  Contributors:
  *  Otavio Santana
  */
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.aphrodite.antlr.cache;
 
 import org.junit.jupiter.api.Test;
 
