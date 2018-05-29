@@ -14,7 +14,15 @@ package org.jnosql.query;
 
 import java.util.List;
 
+/**
+ * To retrieve one or more entities use the <b>GET</b> statement.
+ * This query is particular to a key-value database.
+ */
 public interface GetQuery extends Query {
 
+    /**
+     * The keys to being retrieved from the query
+     * @return the keys
+     */
     List<Value<?>> getKeys();
 }

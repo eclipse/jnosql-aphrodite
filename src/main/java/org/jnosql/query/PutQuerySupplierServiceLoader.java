@@ -13,6 +13,7 @@
 package org.jnosql.query;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.stream.StreamSupport;
 
@@ -22,15 +23,17 @@ final class PutQuerySupplierServiceLoader {
 
     private static final List<PutQuerySupplier> LOADERS;
 
-    static final PutQuerySupplier INSTANCE;
+    static final Optional<PutQuerySupplier> INSTANCE;
 
     private static final String MESSAGE = "Could not found an implementation of PutQuerySupplier in service loader.";
 
     static {
         ServiceLoader<PutQuerySupplier> serviceLoader = ServiceLoader.load(PutQuerySupplier.class);
         LOADERS = StreamSupport.stream(serviceLoader.spliterator(), false).collect(toList());
-        INSTANCE = LOADERS.stream().findFirst().orElseThrow(() -> new IllegalStateException(MESSAGE));
+        INSTANCE = LOADERS.stream().findFirst();
     }
 
-
+   static PutQuerySupplier getInstance() {
+        return INSTANCE.orElseThrow(() -> new IllegalStateException(MESSAGE));
+   }
 }

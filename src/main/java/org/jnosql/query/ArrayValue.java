@@ -12,5 +12,8 @@
 
 package org.jnosql.query;
 
+/**
+ * A sequence of elements that can be either {@link NumberValue} or {@link StringValue}
+ */
 public interface ArrayValue extends Value<Value<?>[]> {
 }

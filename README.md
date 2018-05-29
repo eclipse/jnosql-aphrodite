@@ -163,10 +163,11 @@ The WHERE clause specifies a filter to the result. These filters are booleans op
 
 #### Conditions
 
+Condition performs different computations or actions depending on whether a boolean query condition evaluates to **true** or **false**.
 The conditions are composed of three elements:
 
  1. **Name**, the data source or target, to apply the operator
- 1. **Operator**, that defines comparing process beteween the name and the value.
+ 1. **Operator**, that defines comparing process between the name and the value.
  1. **Value**, that data that receives the operation.
 
 #### Operators
@@ -195,12 +196,12 @@ The value is the last element in a condition, and it defines what it 'll go to b
 
 There are six types:
 
-* number, where if it is a decimal, will become double, otherwise, long. E.g.: `age = 20`, `salary = 12.12`
+* number is a mathematical object used to count, measure and also label where if it is a decimal, will become double, otherwise, long. E.g.: `age = 20`, `salary = 12.12`
 * string one or more characters:  among two double quotes `"`. E.g.: name = "Ada Lovelace"
 * Convert: convert is a function where given the first value parameter, as number or string, it will convert to the class type of the second one. E.g.: `birthday = convert("03-01-1988", java.time.LocalDate)`
 * parameter: the parameter is a dynamic value, which means, it does not define the query, it'll replace in the execution time. The parameter is at `@` followed by a name. E.g.: `age = @age`
 * array: A sequence of elements that can be either number or string that is between braces ` {` `}`. E.g.: `power = {"Sun", "hunt"}`
-* json: (JavaScript Object Notation) is a lightweight data-interchange format. E.g.: `siblings = {"apollo": "brother", "zeus": "father"}`
+* json: JavaScript Object Notation is a lightweight data-interchange format. E.g.: `siblings = {"apollo": "brother", "zeus": "father"}`
 
 ### SKIP
 

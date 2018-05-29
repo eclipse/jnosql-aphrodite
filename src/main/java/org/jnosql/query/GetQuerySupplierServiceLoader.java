@@ -13,6 +13,7 @@
 package org.jnosql.query;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.stream.StreamSupport;
 
@@ -22,15 +23,18 @@ final class GetQuerySupplierServiceLoader {
 
     private static final List<GetQuerySupplier> LOADERS;
 
-    static final GetQuerySupplier INSTANCE;
+    static final Optional<GetQuerySupplier> INSTANCE;
 
     private static final String MESSAGE = "Could not found an implementation of GetQuerySupplier in service loader.";
 
     static {
         ServiceLoader<GetQuerySupplier> serviceLoader = ServiceLoader.load(GetQuerySupplier.class);
         LOADERS = StreamSupport.stream(serviceLoader.spliterator(), false).collect(toList());
-        INSTANCE = LOADERS.stream().findFirst().orElseThrow(() -> new IllegalStateException(MESSAGE));
+        INSTANCE = LOADERS.stream().findFirst();
     }
 
+    static GetQuerySupplier getInstance() {
+        return INSTANCE.orElseThrow(() -> new IllegalStateException(MESSAGE));
+    }
 
 }

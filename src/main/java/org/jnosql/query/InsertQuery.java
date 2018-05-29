@@ -16,11 +16,27 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Inserting data for an entity is done using an <b>INSERT</b> statement.
+ */
 public interface InsertQuery extends Query {
 
+    /**
+     * The entity name
+     * @return the entity
+     */
     String getEntity();
 
+    /**
+     * This duration set a time for data in an entity to expire. It defines the time to live of an object in a database.
+     * @return the TTL otherwise {@link Optional#empty()}
+     */
     Optional<Duration> getTtl();
 
+    /**
+     * The list of changes as conditions. Each condition will use the equals operator, {@link Operator#EQUALS},
+     *  e.g., name = "any name"
+     * @return the conditions
+     */
     List<Condition> getConditions();
 }

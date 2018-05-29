@@ -14,10 +14,19 @@ package org.jnosql.query;
 
 import java.util.function.Function;
 
+/**
+ * A supplier to {@link PutQuery}
+ */
 public interface PutQuerySupplier extends Function<String, PutQuery> {
 
+    /**
+     * It returns a {@link PutQuery} from {@link java.util.ServiceLoader}
+     *
+     * @return {@link PutQuery} instance
+     * @throws IllegalStateException when there isn't PutQuery from service loader.
+     */
     static PutQuerySupplier getSupplier() {
-        return PutQuerySupplierServiceLoader.INSTANCE;
+        return PutQuerySupplierServiceLoader.getInstance();
     }
 
 }

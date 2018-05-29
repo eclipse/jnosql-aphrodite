@@ -12,11 +12,28 @@
 
 package org.jnosql.query;
 
+/**
+ * Condition performs different computations or actions depending on whether a boolean query
+ * condition evaluates to true or false.
+ * The conditions are composed of three elements.
+ */
 public interface Condition {
 
+    /**
+     * the data source or target, to apply the operator
+     * @return the name
+     */
     String getName();
 
+    /**
+     * that defines comparing process between the name and the value.
+     * @return the operator
+     */
     Operator getOperator();
 
+    /**
+     * that data that receives the operation.
+     * @return the value
+     */
     Value<?> getValue();
 }

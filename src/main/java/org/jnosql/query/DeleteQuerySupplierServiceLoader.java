@@ -13,6 +13,7 @@
 package org.jnosql.query;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.stream.StreamSupport;
 
@@ -22,15 +23,18 @@ final class DeleteQuerySupplierServiceLoader {
 
     private static final List<DeleteQuerySupplier> LOADERS;
 
-    static final DeleteQuerySupplier INSTANCE;
+    static final Optional<DeleteQuerySupplier> INSTANCE;
 
     private static final String MESSAGE = "Could not found an implementation of DeleteQuerySupplier in service loader.";
 
     static {
         ServiceLoader<DeleteQuerySupplier> serviceLoader = ServiceLoader.load(DeleteQuerySupplier.class);
         LOADERS = StreamSupport.stream(serviceLoader.spliterator(), false).collect(toList());
-        INSTANCE = LOADERS.stream().findFirst().orElseThrow(() -> new IllegalStateException(MESSAGE));
+        INSTANCE = LOADERS.stream().findFirst();
     }
 
 
+    static DeleteQuerySupplier getInstance() {
+        return INSTANCE.orElseThrow(() -> new IllegalStateException(MESSAGE));
+    }
 }

@@ -15,11 +15,26 @@ package org.jnosql.query;
 import java.time.Duration;
 import java.util.Optional;
 
+/**
+ * To either insert or overrides values from a key-value database use the <b>PUT</b> statement.
+ */
 public interface PutQuery extends Query {
 
+    /**
+     * The key
+     * @return the key
+     */
     Value<?> getKey();
 
+    /**
+     * The value
+     * @return the value
+     */
     Value<?> getValue();
 
+    /**
+     * This duration set a time for data in an entity to expire. It defines the time to live of an object in a database.
+     * @return the TTL otherwise {@link Optional#empty()}
+     */
     Optional<Duration> getTtl();
 }

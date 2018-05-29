@@ -14,5 +14,8 @@ package org.jnosql.query;
 
 import javax.json.JsonObject;
 
+/**
+ * JavaScript Object Notation is a lightweight data-interchange format.
+ */
 public interface JSONValue extends Value<JsonObject> {
 }

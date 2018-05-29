@@ -12,5 +12,8 @@
 
 package org.jnosql.query;
 
+/**
+ * The parameter is a dynamic value, which means, it does not define the query, it'll replace in the execution time.
+ */
 public interface ParamValue extends Value<String> {
 }

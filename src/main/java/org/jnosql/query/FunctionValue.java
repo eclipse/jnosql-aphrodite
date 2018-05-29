@@ -12,5 +12,8 @@
 
 package org.jnosql.query;
 
+/**
+ * A {@link Function} as {@link Value}
+ */
 public interface FunctionValue extends Value<Function> {
 }

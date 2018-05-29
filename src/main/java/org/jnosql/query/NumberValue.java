@@ -12,6 +12,10 @@
 
 package org.jnosql.query;
 
+/**
+ * A number is a mathematical object used to count, measure and also label where if it is a decimal, will become
+ * {@link Double}, otherwise, {@link Long}
+ */
 public interface NumberValue extends Value<Number> {
 
 }

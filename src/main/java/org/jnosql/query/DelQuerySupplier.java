@@ -14,10 +14,19 @@ package org.jnosql.query;
 
 import java.util.function.Function;
 
+/**
+ * A supplier to {@link DelQuery}
+ */
 public interface DelQuerySupplier extends Function<String, DelQuery> {
 
+    /**
+     * It returns a {@link DelQuerySupplier} from {@link java.util.ServiceLoader}
+     *
+     * @return {@link DelQuerySupplier} instance
+     * @throws IllegalStateException when there isn't DelQuerySupplier from service loader.
+     */
     static DelQuerySupplier getSupplier() {
-        return DelQuerySupplierServiceLoader.INSTANCE;
+        return DelQuerySupplierServiceLoader.getInstance();
     }
 
 }

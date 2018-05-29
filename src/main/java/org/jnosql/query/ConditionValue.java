@@ -14,5 +14,9 @@ package org.jnosql.query;
 
 import java.util.List;
 
+/**
+ * The Value type that has a list of values, it will be used when the condition is composed such as
+ * and ({@link Operator#AND}), or ({@link Operator#OR}) and negation ({@link Operator#NOT}).
+ */
 public interface ConditionValue extends Value<List<Condition>> {
 }

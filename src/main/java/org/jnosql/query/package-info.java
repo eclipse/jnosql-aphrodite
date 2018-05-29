@@ -10,22 +10,7 @@
  *  Otavio Santana
  */
 
-package org.jnosql.query;
-
 /**
- * The function is a structured representation of the activities or processes.
+ * This package domain has the representation of the query String in Classes.
  */
-public interface Function {
-
-    /**
-     * The function name
-     * @return the name
-     */
-    String getName();
-
-    /**
-     * The params of this function
-     * @return the params
-     */
-    Object[] getParams();
-}
+package org.jnosql.query;

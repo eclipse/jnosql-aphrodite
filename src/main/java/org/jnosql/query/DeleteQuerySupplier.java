@@ -14,9 +14,18 @@ package org.jnosql.query;
 
 import java.util.function.Function;
 
+/**
+ * A supplier to {@link DeleteQuery}
+ */
 public interface DeleteQuerySupplier extends Function<String, DeleteQuery> {
 
+    /**
+     * It returns a {@link DeleteQuerySupplier} from {@link java.util.ServiceLoader}
+     *
+     * @return {@link DeleteQuerySupplier} instance
+     * @throws IllegalStateException when there isn't DeleteQuerySupplier from service loader.
+     */
     static DeleteQuerySupplier getSupplier() {
-        return DeleteQuerySupplierServiceLoader.INSTANCE;
+        return DeleteQuerySupplierServiceLoader.getInstance();
     }
 }

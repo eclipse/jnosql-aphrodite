@@ -14,9 +14,18 @@ package org.jnosql.query;
 
 import java.util.function.Function;
 
+/**
+ * A supplier to {@link InsertQuery}
+ */
 public interface InsertQuerySupplier extends Function<String, InsertQuery> {
 
+    /**
+     * It returns a {@link InsertQuery} from {@link java.util.ServiceLoader}
+     *
+     * @return {@link InsertQuery} instance
+     * @throws IllegalStateException when there isn't InsertQuery from service loader.
+     */
     static InsertQuerySupplier getSupplier() {
-        return InsertQuerySupplierServiceLoader.INSTANCE;
+        return InsertQuerySupplierServiceLoader.getInstance();
     }
 }

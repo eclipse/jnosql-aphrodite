@@ -15,12 +15,27 @@ package org.jnosql.query;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Deleting either an entity or fields uses the <b>DELETE</b> statement
+ */
 public interface DeleteQuery extends Query {
 
+    /**
+     * The fields that will delete in this query, if this fields is empty, this query will remove the whole entity.
+     * @return the fields list
+     */
     List<String> getFields();
 
+    /**
+     * The entity name
+     * @return the entity name
+     */
     String getEntity();
 
+    /**
+     * The condition at this {@link DeleteQuery}, if the Where is empty that means will delete the whole entities.
+     * @return the {@link Where} entity otherwise {@link Optional#empty()}
+     */
     Optional<Where> getWhere();
 
 }

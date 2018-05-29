@@ -14,7 +14,15 @@ package org.jnosql.query;
 
 import java.util.List;
 
+/**
+ * To delete one or more entities use the <b>DEL</b> statement.
+ * This query is particular to a key-value database.
+ */
 public interface DelQuery extends Query {
 
+    /**
+     * The keys to being removed from the query
+     * @return the keys
+     */
     List<Value<?>> getKeys();
 }

@@ -14,10 +14,19 @@ package org.jnosql.query;
 
 import java.util.function.Function;
 
+/**
+ * A supplier to {@link GetQuery}
+ */
 public interface GetQuerySupplier extends Function<String, GetQuery> {
 
 
+    /**
+     * It returns a {@link GetQuery} from {@link java.util.ServiceLoader}
+     *
+     * @return {@link GetQuery} instance
+     * @throws IllegalStateException when there isn't GetQuery from service loader.
+     */
     static GetQuerySupplier getSupplier() {
-        return GetQuerySupplierServiceLoader.INSTANCE;
+        return GetQuerySupplierServiceLoader.getInstance();
     }
 }
