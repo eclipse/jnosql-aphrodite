@@ -12,6 +12,9 @@
 
 package org.jnosql.query;
 
+/**
+ * The unit that defines comparing process between the name and the value.
+ */
 public enum Operator {
     EQUALS, GREATER_THAN, GREATER_EQUALS_THAN, LESSER_THAN, LESSER_EQUALS_THAN, IN, LIKE, AND, OR, NOT, BETWEEN
 }
