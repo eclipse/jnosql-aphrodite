@@ -43,9 +43,7 @@ class TTLCacheTest {
 
     @Test
     public void shouldReturnIllegalWhenValueIsZero() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            TTLCache.of(0, TimeUnit.DAYS, supplier);
-        });
+        assertThrows(IllegalArgumentException.class, () -> TTLCache.of(0, TimeUnit.DAYS, supplier));
     }
 
     @Test
