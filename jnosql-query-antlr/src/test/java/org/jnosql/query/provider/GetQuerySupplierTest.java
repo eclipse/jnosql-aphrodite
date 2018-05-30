@@ -9,18 +9,19 @@
  *  Contributors:
  *  Otavio Santana
  */
-package org.jnosql.query;
+package org.jnosql.query.provider;
 
-import org.jnosql.aphrodite.antlr.cache.CachedDeleteQuerySupplier;
+import org.jnosql.aphrodite.antlr.cache.CachedGetQuerySupplier;
+import org.jnosql.query.GetQuerySupplier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class DeleteQuerySupplierTest {
+public class GetQuerySupplierTest {
 
     @Test
-    public void shouldReturnDeleteInstance() {
-        DeleteQuerySupplier deleteQuerySupplier = DeleteQuerySupplier.getSupplier();
-        Assertions.assertNotNull(deleteQuerySupplier);
-        Assertions.assertTrue(deleteQuerySupplier instanceof CachedDeleteQuerySupplier);
+    public void shouldGetSupplier() {
+        GetQuerySupplier supplier = GetQuerySupplier.getSupplier();
+        Assertions.assertNotNull(supplier);
+        Assertions.assertTrue(supplier instanceof CachedGetQuerySupplier);
     }
 }

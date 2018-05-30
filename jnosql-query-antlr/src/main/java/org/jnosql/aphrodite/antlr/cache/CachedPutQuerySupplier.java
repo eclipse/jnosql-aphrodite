@@ -22,13 +22,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * The {@link AntlrPutQuerySupplier} cache wrapper.
  */
-public final class CachedPutSupplier implements PutQuerySupplier {
+public final class CachedPutQuerySupplier implements PutQuerySupplier {
 
     private final Map<String, PutQuery> cached;
 
     private final PutQuerySupplier supplier;
 
-    public CachedPutSupplier() {
+    public CachedPutQuerySupplier() {
         supplier = new AntlrPutQuerySupplier();
         this.cached = TTLCache.of(5, TimeUnit.MINUTES, supplier);
     }

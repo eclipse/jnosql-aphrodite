@@ -11,30 +11,31 @@
  */
 package org.jnosql.aphrodite.antlr.cache;
 
-import org.jnosql.aphrodite.antlr.AntlrDelQuerySupplier;
-import org.jnosql.query.DelQuery;
-import org.jnosql.query.DelQuerySupplier;
+import org.jnosql.aphrodite.antlr.AntlrGetQuerySupplier;
+import org.jnosql.query.GetQuery;
+import org.jnosql.query.GetQuerySupplier;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+
 /**
- * The {@link AntlrDelQuerySupplier} cache wrapper.
+ * The {@link AntlrGetQuerySupplier} cache wrapper.
  */
-public final class CachedDelSupplier implements DelQuerySupplier {
+public final class CachedGetQuerySupplier implements GetQuerySupplier {
 
-    private final Map<String, DelQuery> cached;
+    private final Map<String, GetQuery> cached;
 
-    private final DelQuerySupplier supplier;
+    private final GetQuerySupplier supplier;
 
-    public CachedDelSupplier() {
-        supplier = new AntlrDelQuerySupplier();
+    public CachedGetQuerySupplier() {
+        supplier = new AntlrGetQuerySupplier();
         this.cached = TTLCache.of(5, TimeUnit.MINUTES, supplier);
     }
 
     @Override
-    public DelQuery apply(String query) {
+    public GetQuery apply(String query) {
         Objects.requireNonNull(query, "query is required");
         return cached.get(query);
     }
