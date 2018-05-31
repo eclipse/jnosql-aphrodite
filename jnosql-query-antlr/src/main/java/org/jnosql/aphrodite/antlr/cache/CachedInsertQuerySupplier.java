@@ -27,7 +27,7 @@ public final class CachedInsertQuerySupplier implements InsertQuerySupplier {
     private final Map<String, InsertQuery> cached;
 
     public CachedInsertQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrInsertQuerySupplier());
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q -> new AntlrInsertQuerySupplier().apply(q));
     }
 
     @Override

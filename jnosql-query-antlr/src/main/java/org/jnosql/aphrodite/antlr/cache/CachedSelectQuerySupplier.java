@@ -28,7 +28,7 @@ public final class CachedSelectQuerySupplier implements SelectQuerySupplier {
 
 
     public CachedSelectQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrSelectQuerySupplier());
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q -> new AntlrSelectQuerySupplier().apply(q));
     }
 
     @Override

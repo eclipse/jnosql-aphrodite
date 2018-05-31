@@ -28,7 +28,7 @@ public final class CachedDeleteQuerySupplier implements DeleteQuerySupplier {
 
 
     public CachedDeleteQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrDeleteQuerySupplier());
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q -> new AntlrDeleteQuerySupplier().apply(q));
     }
 
     @Override

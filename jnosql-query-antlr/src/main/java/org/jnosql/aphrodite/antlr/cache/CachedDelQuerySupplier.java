@@ -28,7 +28,7 @@ public final class CachedDelQuerySupplier implements DelQuerySupplier {
 
 
     public CachedDelQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrDelQuerySupplier());
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q -> new AntlrDelQuerySupplier().apply(q));
     }
 
     @Override

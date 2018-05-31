@@ -29,7 +29,7 @@ public final class CachedGetQuerySupplier implements GetQuerySupplier {
 
 
     public CachedGetQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrGetQuerySupplier());
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q-> new AntlrGetQuerySupplier().apply(q));
     }
 
     @Override

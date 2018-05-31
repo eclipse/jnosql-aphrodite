@@ -28,7 +28,7 @@ public final class CachedUpdateQuerySupplier implements UpdateQuerySupplier {
 
 
     public CachedUpdateQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrUpdateQuerySupplier());
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q -> new AntlrUpdateQuerySupplier().apply(q));
     }
 
     @Override

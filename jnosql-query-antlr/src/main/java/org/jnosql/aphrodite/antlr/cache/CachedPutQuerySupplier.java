@@ -28,7 +28,7 @@ public final class CachedPutQuerySupplier implements PutQuerySupplier {
 
 
     public CachedPutQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrPutQuerySupplier());
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q-> new AntlrPutQuerySupplier().apply(q));
     }
 
     @Override
