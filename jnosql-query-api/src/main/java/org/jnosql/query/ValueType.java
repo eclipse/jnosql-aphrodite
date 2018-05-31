@@ -17,5 +17,5 @@ package org.jnosql.query;
  */
 public enum ValueType {
 
-    CONDITION, NUMBER, STRING, CONVERT, PARAMETER, ARRAY, FUNCTION, JSON
+    CONDITION, NUMBER, STRING, PARAMETER, ARRAY, FUNCTION, JSON
 }
