@@ -26,11 +26,9 @@ public final class CachedUpdateQuerySupplier implements UpdateQuerySupplier {
 
     private final Map<String, UpdateQuery> cached;
 
-    private final UpdateQuerySupplier supplier;
 
     public CachedUpdateQuerySupplier() {
-        supplier = new AntlrUpdateQuerySupplier();
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, supplier);
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrUpdateQuerySupplier());
     }
 
     @Override

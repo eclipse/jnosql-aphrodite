@@ -26,11 +26,9 @@ public final class CachedPutQuerySupplier implements PutQuerySupplier {
 
     private final Map<String, PutQuery> cached;
 
-    private final PutQuerySupplier supplier;
 
     public CachedPutQuerySupplier() {
-        supplier = new AntlrPutQuerySupplier();
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, supplier);
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrPutQuerySupplier());
     }
 
     @Override

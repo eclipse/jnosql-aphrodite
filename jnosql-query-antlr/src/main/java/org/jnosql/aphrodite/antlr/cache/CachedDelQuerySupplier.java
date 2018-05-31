@@ -26,11 +26,9 @@ public final class CachedDelQuerySupplier implements DelQuerySupplier {
 
     private final Map<String, DelQuery> cached;
 
-    private final DelQuerySupplier supplier;
 
     public CachedDelQuerySupplier() {
-        supplier = new AntlrDelQuerySupplier();
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, supplier);
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrDelQuerySupplier());
     }
 
     @Override

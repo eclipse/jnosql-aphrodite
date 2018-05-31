@@ -26,11 +26,9 @@ public final class CachedDeleteQuerySupplier implements DeleteQuerySupplier {
 
     private final Map<String, DeleteQuery> cached;
 
-    private final DeleteQuerySupplier supplier;
 
     public CachedDeleteQuerySupplier() {
-        supplier = new AntlrDeleteQuerySupplier();
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, supplier);
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrDeleteQuerySupplier());
     }
 
     @Override

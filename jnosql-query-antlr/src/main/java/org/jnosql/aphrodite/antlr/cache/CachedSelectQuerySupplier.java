@@ -26,11 +26,9 @@ public final class CachedSelectQuerySupplier implements SelectQuerySupplier {
 
     private final Map<String, SelectQuery> cached;
 
-    private final SelectQuerySupplier supplier;
 
     public CachedSelectQuerySupplier() {
-        supplier = new AntlrSelectQuerySupplier();
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, supplier);
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrSelectQuerySupplier());
     }
 
     @Override

@@ -27,11 +27,9 @@ public final class CachedGetQuerySupplier implements GetQuerySupplier {
 
     private final Map<String, GetQuery> cached;
 
-    private final GetQuerySupplier supplier;
 
     public CachedGetQuerySupplier() {
-        supplier = new AntlrGetQuerySupplier();
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, supplier);
+        this.cached = TTLCache.of(5, TimeUnit.MINUTES, new AntlrGetQuerySupplier());
     }
 
     @Override
