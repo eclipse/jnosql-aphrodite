@@ -19,4 +19,9 @@ import java.util.List;
  * and ({@link Operator#AND}), or ({@link Operator#OR}) and negation ({@link Operator#NOT}).
  */
 public interface ConditionValue extends Value<List<Condition>> {
+
+    @Override
+    default ValueType getType() {
+        return ValueType.CONDITION;
+    }
 }

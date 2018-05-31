@@ -18,4 +18,8 @@ package org.jnosql.query;
  */
 public interface NumberValue extends Value<Number> {
 
+    @Override
+    default ValueType getType() {
+        return ValueType.NUMBER;
+    }
 }
