@@ -11,6 +11,7 @@
  */
 package org.jnosql.aphrodite.antlr.cache;
 
+import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
@@ -34,7 +35,7 @@ class TTLCache<K, V> implements Map<K, V>, Runnable {
 
     private final Map<K, V> store = new ConcurrentHashMap<>();
     private final Map<K, Long> timestamps = new ConcurrentHashMap<>();
-    private final Map<K, K> mutex = synchronizedMap(new WeakHashMap<>());
+    private final Map<K, WeakReference<K>> mutex = synchronizedMap(new WeakHashMap<>());
     private final long ttl;
     private final Function<K, V> supplier;
 
@@ -49,7 +50,7 @@ class TTLCache<K, V> implements Map<K, V>, Runnable {
     public V get(Object key) {
         V value = this.store.get(key);
         if (Objects.isNull(value)) {
-            K synchronizedKey = mutex.computeIfAbsent((K) key, (a) -> (K) key);
+            K synchronizedKey = mutex.computeIfAbsent((K) key, (a) -> new WeakReference<>((K) key)).get();
             synchronized (synchronizedKey) {
                 value = supplier.apply(synchronizedKey);
                 put(synchronizedKey, value);
