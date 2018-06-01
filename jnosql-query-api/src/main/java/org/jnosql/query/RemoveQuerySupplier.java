@@ -9,19 +9,24 @@
  *  Contributors:
  *  Otavio Santana
  */
-package org.jnosql.query.provider;
 
-import org.jnosql.aphrodite.antlr.cache.CachedDelQuerySupplier;
-import org.jnosql.query.DelQuerySupplier;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+package org.jnosql.query;
 
-public class DelQuerySupplierTest {
+import java.util.function.Function;
 
-    @Test
-    public void shouldGetSupplier() {
-        DelQuerySupplier supplier = DelQuerySupplier.getSupplier();
-        Assertions.assertNotNull(supplier);
-        Assertions.assertTrue(supplier instanceof CachedDelQuerySupplier);
+/**
+ * A supplier to {@link RemoveQuery}
+ */
+public interface RemoveQuerySupplier extends Function<String, RemoveQuery> {
+
+    /**
+     * It returns a {@link RemoveQuerySupplier} from {@link java.util.ServiceLoader}
+     *
+     * @return {@link RemoveQuerySupplier} instance
+     * @throws IllegalStateException when there isn't RemoveQuerySupplier from service loader.
+     */
+    static RemoveQuerySupplier getSupplier() {
+        return DelQuerySupplierServiceLoader.getInstance();
     }
+
 }

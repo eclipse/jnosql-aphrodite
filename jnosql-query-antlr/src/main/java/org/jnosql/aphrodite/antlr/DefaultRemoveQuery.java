@@ -1,6 +1,6 @@
 package org.jnosql.aphrodite.antlr;
 
-import org.jnosql.query.DelQuery;
+import org.jnosql.query.RemoveQuery;
 import org.jnosql.query.Value;
 
 import java.util.List;
@@ -8,11 +8,11 @@ import java.util.Objects;
 
 import static java.util.Collections.unmodifiableList;
 
-final class DefaultDelQuery implements DelQuery {
+final class DefaultRemoveQuery implements RemoveQuery {
 
     private final List<Value<?>> keys;
 
-    DefaultDelQuery(List<Value<?>> keys) {
+    DefaultRemoveQuery(List<Value<?>> keys) {
         this.keys = keys;
     }
 
@@ -26,10 +26,10 @@ final class DefaultDelQuery implements DelQuery {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof DefaultDelQuery)) {
+        if (!(o instanceof DefaultRemoveQuery)) {
             return false;
         }
-        DefaultDelQuery that = (DefaultDelQuery) o;
+        DefaultRemoveQuery that = (DefaultRemoveQuery) o;
         return Objects.equals(keys, that.keys);
     }
 

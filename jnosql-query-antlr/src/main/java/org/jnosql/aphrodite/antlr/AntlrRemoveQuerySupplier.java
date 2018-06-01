@@ -13,8 +13,8 @@ package org.jnosql.aphrodite.antlr;
 
 
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.jnosql.query.DelQuery;
-import org.jnosql.query.DelQuerySupplier;
+import org.jnosql.query.RemoveQuery;
+import org.jnosql.query.RemoveQuerySupplier;
 import org.jnosql.query.Value;
 
 import java.util.Collections;
@@ -24,9 +24,9 @@ import java.util.function.Function;
 import static java.util.stream.Collectors.toList;
 
 /**
- * The {@link DelQuerySupplier} implementation that uses Antlr4
+ * The {@link RemoveQuerySupplier} implementation that uses Antlr4
  */
-public final class AntlrDelQuerySupplier extends AbstractSupplier implements DelQuerySupplier {
+public final class AntlrRemoveQuerySupplier extends AbstractSupplier implements RemoveQuerySupplier {
 
     private List<Value<?>> keys = Collections.emptyList();
 
@@ -41,9 +41,9 @@ public final class AntlrDelQuerySupplier extends AbstractSupplier implements Del
     }
 
     @Override
-    public DelQuery apply(String query) {
+    public RemoveQuery apply(String query) {
         runQuery(query);
-        return new DefaultDelQuery(keys);
+        return new DefaultRemoveQuery(keys);
     }
 
 }

@@ -21,19 +21,19 @@ import static java.util.stream.Collectors.toList;
 
 final class DelQuerySupplierServiceLoader {
 
-    private static final List<DelQuerySupplier> LOADERS;
+    private static final List<RemoveQuerySupplier> LOADERS;
 
-    static final Optional<DelQuerySupplier> INSTANCE;
+    static final Optional<RemoveQuerySupplier> INSTANCE;
 
-    private static final String MESSAGE = "Could not found an implementation of DelQuerySupplier in service loader.";
+    private static final String MESSAGE = "Could not found an implementation of RemoveQuerySupplier in service loader.";
 
     static {
-        ServiceLoader<DelQuerySupplier> serviceLoader = ServiceLoader.load(DelQuerySupplier.class);
+        ServiceLoader<RemoveQuerySupplier> serviceLoader = ServiceLoader.load(RemoveQuerySupplier.class);
         LOADERS = StreamSupport.stream(serviceLoader.spliterator(), false).collect(toList());
         INSTANCE = LOADERS.stream().findFirst();
     }
 
-    static DelQuerySupplier getInstance() {
+    static RemoveQuerySupplier getInstance() {
         return INSTANCE.orElseThrow(() -> new IllegalStateException(MESSAGE));
     }
 

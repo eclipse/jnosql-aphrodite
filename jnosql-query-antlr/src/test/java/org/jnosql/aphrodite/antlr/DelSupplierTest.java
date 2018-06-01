@@ -15,8 +15,8 @@ package org.jnosql.aphrodite.antlr;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.jnosql.query.ArrayValue;
-import org.jnosql.query.DelQuery;
-import org.jnosql.query.DelQuerySupplier;
+import org.jnosql.query.RemoveQuery;
+import org.jnosql.query.RemoveQuerySupplier;
 import org.jnosql.query.NumberValue;
 import org.jnosql.query.StringValue;
 import org.jnosql.query.Value;
@@ -34,19 +34,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DelSupplierTest {
 
-    private DelQuerySupplier delQuerySupplier = new AntlrDelQuerySupplier();
+    private RemoveQuerySupplier removeQuerySupplier = new AntlrRemoveQuerySupplier();
 
     @Test
     public void shouldReturnErrorWhenStringIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () -> delQuerySupplier.apply(null));
+        Assertions.assertThrows(NullPointerException.class, () -> removeQuerySupplier.apply(null));
     }
 
 
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"del \"Diana\""})
     public void shouldReturnParserQuery(String query) {
-        DelQuery delQuery = delQuerySupplier.apply(query);
-        List<Value<?>> keys = delQuery.getKeys();
+        RemoveQuery removeQuery = removeQuerySupplier.apply(query);
+        List<Value<?>> keys = removeQuery.getKeys();
         assertEquals(1, keys.size());
         Value<?> key = keys.get(0);
         assertTrue(key instanceof StringValue);
@@ -56,8 +56,8 @@ class DelSupplierTest {
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"del 12"})
     public void shouldReturnParserQuery1(String query) {
-        DelQuery delQuery = delQuerySupplier.apply(query);
-        List<Value<?>> keys = delQuery.getKeys();
+        RemoveQuery removeQuery = removeQuerySupplier.apply(query);
+        List<Value<?>> keys = removeQuery.getKeys();
         assertEquals(1, keys.size());
         Value<?> key = keys.get(0);
         assertTrue(key instanceof NumberValue);
@@ -67,8 +67,8 @@ class DelSupplierTest {
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"del 12.12"})
     public void shouldReturnParserQuery2(String query) {
-        DelQuery delQuery = delQuerySupplier.apply(query);
-        List<Value<?>> keys = delQuery.getKeys();
+        RemoveQuery removeQuery = removeQuerySupplier.apply(query);
+        List<Value<?>> keys = removeQuery.getKeys();
         assertEquals(1, keys.size());
         Value<?> key = keys.get(0);
         assertTrue(key instanceof NumberValue);
@@ -78,8 +78,8 @@ class DelSupplierTest {
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"del -12"})
     public void shouldReturnParserQuery3(String query) {
-        DelQuery delQuery = delQuerySupplier.apply(query);
-        List<Value<?>> keys = delQuery.getKeys();
+        RemoveQuery removeQuery = removeQuerySupplier.apply(query);
+        List<Value<?>> keys = removeQuery.getKeys();
         assertEquals(1, keys.size());
         Value<?> key = keys.get(0);
         assertTrue(key instanceof NumberValue);
@@ -89,8 +89,8 @@ class DelSupplierTest {
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"del -12.12"})
     public void shouldReturnParserQuery4(String query) {
-        DelQuery delQuery = delQuerySupplier.apply(query);
-        List<Value<?>> keys = delQuery.getKeys();
+        RemoveQuery removeQuery = removeQuerySupplier.apply(query);
+        List<Value<?>> keys = removeQuery.getKeys();
         assertEquals(1, keys.size());
         Value<?> key = keys.get(0);
         assertTrue(key instanceof NumberValue);
@@ -101,8 +101,8 @@ class DelSupplierTest {
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"del {1,12}"})
     public void shouldReturnParserQuery5(String query) {
-        DelQuery delQuery = delQuerySupplier.apply(query);
-        List<Value<?>> keys = delQuery.getKeys();
+        RemoveQuery removeQuery = removeQuerySupplier.apply(query);
+        List<Value<?>> keys = removeQuery.getKeys();
         assertEquals(1, keys.size());
         Value<?> key = keys.get(0);
         assertTrue(key instanceof ArrayValue);
