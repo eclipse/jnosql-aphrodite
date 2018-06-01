@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class DelSupplierTest {
+class RemoveSupplierTest {
 
     private RemoveQuerySupplier removeQuerySupplier = new AntlrRemoveQuerySupplier();
 
@@ -43,7 +43,7 @@ class DelSupplierTest {
 
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"del \"Diana\""})
+    @ValueSource(strings = {"remove \"Diana\""})
     public void shouldReturnParserQuery(String query) {
         RemoveQuery removeQuery = removeQuerySupplier.apply(query);
         List<Value<?>> keys = removeQuery.getKeys();
@@ -54,7 +54,7 @@ class DelSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"del 12"})
+    @ValueSource(strings = {"remove 12"})
     public void shouldReturnParserQuery1(String query) {
         RemoveQuery removeQuery = removeQuerySupplier.apply(query);
         List<Value<?>> keys = removeQuery.getKeys();
@@ -65,7 +65,7 @@ class DelSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"del 12.12"})
+    @ValueSource(strings = {"remove 12.12"})
     public void shouldReturnParserQuery2(String query) {
         RemoveQuery removeQuery = removeQuerySupplier.apply(query);
         List<Value<?>> keys = removeQuery.getKeys();
@@ -76,7 +76,7 @@ class DelSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"del -12"})
+    @ValueSource(strings = {"remove -12"})
     public void shouldReturnParserQuery3(String query) {
         RemoveQuery removeQuery = removeQuerySupplier.apply(query);
         List<Value<?>> keys = removeQuery.getKeys();
@@ -87,7 +87,7 @@ class DelSupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"del -12.12"})
+    @ValueSource(strings = {"remove -12.12"})
     public void shouldReturnParserQuery4(String query) {
         RemoveQuery removeQuery = removeQuerySupplier.apply(query);
         List<Value<?>> keys = removeQuery.getKeys();
@@ -99,7 +99,7 @@ class DelSupplierTest {
 
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"del {1,12}"})
+    @ValueSource(strings = {"remove {1,12}"})
     public void shouldReturnParserQuery5(String query) {
         RemoveQuery removeQuery = removeQuerySupplier.apply(query);
         List<Value<?>> keys = removeQuery.getKeys();

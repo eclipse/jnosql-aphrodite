@@ -38,7 +38,7 @@ public class RemoveQueryTest {
 
     @Test
     public void shouldIgnoreComments() {
-        testQuery("//ignore this line \n del 12");
+        testQuery("//ignore this line \n remove 12");
     }
 
     @ParameterizedTest
@@ -57,7 +57,7 @@ public class RemoveQueryTest {
         lexer.addErrorListener(QueryErrorListener.INSTANCE);
         parser.addErrorListener(QueryErrorListener.INSTANCE);
 
-        ParseTree tree = parser.del();
+        ParseTree tree = parser.remove();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new QueryBaseListener(), tree);
 

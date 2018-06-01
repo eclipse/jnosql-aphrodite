@@ -37,7 +37,7 @@ public final class AntlrRemoveQuerySupplier extends AbstractSupplier implements 
 
     @Override
     Function<QueryParser, ParseTree> getParserTree() {
-        return QueryParser::del;
+        return QueryParser::remove;
     }
 
     @Override

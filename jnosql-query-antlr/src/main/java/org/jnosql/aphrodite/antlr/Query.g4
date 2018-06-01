@@ -4,7 +4,7 @@ delete: 'delete' deleteFields? 'from' entity where? EOF;
 insert: 'insert' entity '(' changes ')' ttl? EOF;
 update: 'update' entity '(' changes ')' EOF;
 get: 'get' keys EOF;
-del: 'del' keys EOF;
+remove: 'remove' keys EOF;
 put: 'put' '{' key ',' value (',' ttl)?  '}' EOF;
 
 fields: star | name (',' name)*;
