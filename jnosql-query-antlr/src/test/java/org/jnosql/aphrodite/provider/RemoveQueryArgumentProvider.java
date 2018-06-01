@@ -12,10 +12,11 @@
 
 package org.jnosql.aphrodite.provider;
 
-public class WrongDelQueryArgumentProvider extends AbstractArgumentProvider{
+public class RemoveQueryArgumentProvider extends AbstractArgumentProvider {
 
     @Override
     protected String getFile() {
-        return "/del_error.nosql";
+        return "/remove_jnosql.nosql";
     }
+
 }

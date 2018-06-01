@@ -19,7 +19,7 @@ import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.toList;
 
-final class DelQuerySupplierServiceLoader {
+final class RemoveQuerySupplierServiceLoader {
 
     private static final List<RemoveQuerySupplier> LOADERS;
 

@@ -26,7 +26,7 @@ public interface RemoveQuerySupplier extends Function<String, RemoveQuery> {
      * @throws IllegalStateException when there isn't RemoveQuerySupplier from service loader.
      */
     static RemoveQuerySupplier getSupplier() {
-        return DelQuerySupplierServiceLoader.getInstance();
+        return RemoveQuerySupplierServiceLoader.getInstance();
     }
 
 }

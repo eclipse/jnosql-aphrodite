@@ -21,8 +21,8 @@ import org.jnosql.aphrodite.antlr.QueryBaseListener;
 import org.jnosql.aphrodite.antlr.QueryErrorListener;
 import org.jnosql.aphrodite.antlr.QueryLexer;
 import org.jnosql.aphrodite.antlr.QueryParser;
-import org.jnosql.aphrodite.provider.DelQueryArgumentProvider;
-import org.jnosql.aphrodite.provider.WrongDelQueryArgumentProvider;
+import org.jnosql.aphrodite.provider.RemoveQueryArgumentProvider;
+import org.jnosql.aphrodite.provider.WrongRemoveQueryArgumentProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,7 +31,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 public class RemoveQueryTest {
 
     @ParameterizedTest
-    @ArgumentsSource(DelQueryArgumentProvider.class)
+    @ArgumentsSource(RemoveQueryArgumentProvider.class)
     public void shouldExecuteQuery(String query) {
         testQuery(query);
     }
@@ -42,7 +42,7 @@ public class RemoveQueryTest {
     }
 
     @ParameterizedTest
-    @ArgumentsSource(WrongDelQueryArgumentProvider.class)
+    @ArgumentsSource(WrongRemoveQueryArgumentProvider.class)
     public void shouldNotExecute(String query) {
         Assertions.assertThrows(QueryException.class, () -> testQuery(query));
     }
