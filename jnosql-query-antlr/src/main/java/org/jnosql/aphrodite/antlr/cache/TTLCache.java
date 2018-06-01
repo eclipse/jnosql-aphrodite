@@ -56,6 +56,7 @@ class TTLCache<K, V> implements Map<K, V>, Runnable {
                 put(synchronizedKey, value);
             }
         }
+        timestamps.put((K) key, System.nanoTime());
         return value;
     }
 
