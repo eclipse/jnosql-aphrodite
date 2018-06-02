@@ -32,8 +32,8 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git://github.com/jnosql/jnosql-aphrodite.git</connection>
-        <developerConnection>scm:git:ssh://github.com:jnosql/jnosql-aphrodite.git</developerConnection>
+        <connection>scm:git:git://github.com/eclipse/jnosql-aphrodite.git</connection>
+        <developerConnection>scm:git:ssh://github.com:eclipse/jnosql-aphrodite.git</developerConnection>
         <url>https://github.com/jnosql/jnosql-aphrodite</url>
     </scm>
 
