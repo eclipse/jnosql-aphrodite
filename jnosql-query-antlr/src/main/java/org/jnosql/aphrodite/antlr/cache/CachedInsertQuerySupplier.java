@@ -17,7 +17,6 @@ import org.jnosql.query.InsertQuerySupplier;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The {@link AntlrInsertQuerySupplier} cache wrapper.
@@ -27,7 +26,7 @@ public final class CachedInsertQuerySupplier implements InsertQuerySupplier {
     private final Map<String, InsertQuery> cached;
 
     public CachedInsertQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q -> new AntlrInsertQuerySupplier().apply(q));
+        this.cached = TTLCache.of(q -> new AntlrInsertQuerySupplier().apply(q));
     }
 
     @Override

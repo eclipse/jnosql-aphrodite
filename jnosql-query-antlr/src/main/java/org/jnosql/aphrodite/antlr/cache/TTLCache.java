@@ -29,7 +29,8 @@ import static java.util.Collections.unmodifiableSet;
 
 class TTLCache<K, V> implements Map<K, V>, Runnable {
 
-
+    private static final int DEFAULT_TIME = 5;
+    private static final TimeUnit DEFAULT_UNIT = TimeUnit.MINUTES;
     private static final ScheduledExecutorService SCHEDULED_THREAD_POOL = Executors.newScheduledThreadPool(1);
 
 
@@ -152,6 +153,9 @@ class TTLCache<K, V> implements Map<K, V>, Runnable {
         return (System.nanoTime() - timestamps.get(key)) > this.ttl;
     }
 
+    static <K, V> Map<K, V> of(Function<K, V> supplier) {
+        return of(DEFAULT_TIME, DEFAULT_UNIT, supplier);
+    }
     static <K, V> Map<K, V> of(long value, TimeUnit timeUnit, Function<K, V> supplier) {
         Objects.requireNonNull(timeUnit, "timeUnit is required");
         Objects.requireNonNull(supplier, "supplier is required");

@@ -17,7 +17,6 @@ import org.jnosql.query.PutQuerySupplier;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The {@link AntlrPutQuerySupplier} cache wrapper.
@@ -28,7 +27,7 @@ public final class CachedPutQuerySupplier implements PutQuerySupplier {
 
 
     public CachedPutQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q-> new AntlrPutQuerySupplier().apply(q));
+        this.cached = TTLCache.of(q -> new AntlrPutQuerySupplier().apply(q));
     }
 
     @Override

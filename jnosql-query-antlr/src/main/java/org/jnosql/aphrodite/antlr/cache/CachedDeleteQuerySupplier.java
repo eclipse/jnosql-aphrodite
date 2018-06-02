@@ -17,7 +17,6 @@ import org.jnosql.query.DeleteQuerySupplier;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The {@link AntlrDeleteQuerySupplier} cache wrapper.
@@ -28,7 +27,7 @@ public final class CachedDeleteQuerySupplier implements DeleteQuerySupplier {
 
 
     public CachedDeleteQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q -> new AntlrDeleteQuerySupplier().apply(q));
+        this.cached = TTLCache.of(q -> new AntlrDeleteQuerySupplier().apply(q));
     }
 
     @Override

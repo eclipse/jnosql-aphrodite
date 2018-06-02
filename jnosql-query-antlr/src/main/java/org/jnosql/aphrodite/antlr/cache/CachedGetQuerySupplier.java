@@ -17,7 +17,6 @@ import org.jnosql.query.GetQuerySupplier;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -29,7 +28,7 @@ public final class CachedGetQuerySupplier implements GetQuerySupplier {
 
 
     public CachedGetQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q-> new AntlrGetQuerySupplier().apply(q));
+        this.cached = TTLCache.of(q -> new AntlrGetQuerySupplier().apply(q));
     }
 
     @Override

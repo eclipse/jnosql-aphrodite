@@ -17,7 +17,6 @@ import org.jnosql.query.UpdateQuerySupplier;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The {@link AntlrUpdateQuerySupplier} cache wrapper.
@@ -28,7 +27,7 @@ public final class CachedUpdateQuerySupplier implements UpdateQuerySupplier {
 
 
     public CachedUpdateQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q -> new AntlrUpdateQuerySupplier().apply(q));
+        this.cached = TTLCache.of(q -> new AntlrUpdateQuerySupplier().apply(q));
     }
 
     @Override

@@ -17,7 +17,6 @@ import org.jnosql.query.SelectQuerySupplier;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The {@link AntlrSelectQuerySupplier} cache wrapper.
@@ -28,7 +27,7 @@ public final class CachedSelectQuerySupplier implements SelectQuerySupplier {
 
 
     public CachedSelectQuerySupplier() {
-        this.cached = TTLCache.of(5, TimeUnit.MINUTES, q -> new AntlrSelectQuerySupplier().apply(q));
+        this.cached = TTLCache.of(q -> new AntlrSelectQuerySupplier().apply(q));
     }
 
     @Override
