@@ -33,7 +33,10 @@ final class PutQuerySupplierServiceLoader {
         INSTANCE = LOADERS.stream().findFirst();
     }
 
-   static PutQuerySupplier getInstance() {
+    private PutQuerySupplierServiceLoader() {
+    }
+
+    static PutQuerySupplier getInstance() {
         return INSTANCE.orElseThrow(() -> new IllegalStateException(MESSAGE));
    }
 }

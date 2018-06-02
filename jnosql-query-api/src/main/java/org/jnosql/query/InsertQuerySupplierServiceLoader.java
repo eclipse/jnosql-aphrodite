@@ -33,6 +33,9 @@ final class InsertQuerySupplierServiceLoader {
         INSTANCE = LOADERS.stream().findFirst();
     }
 
+    private InsertQuerySupplierServiceLoader() {
+    }
+
     static InsertQuerySupplier getInstance() {
         return INSTANCE.orElseThrow(() -> new IllegalStateException(MESSAGE));
     }

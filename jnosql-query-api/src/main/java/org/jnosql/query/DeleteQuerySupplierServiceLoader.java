@@ -33,6 +33,8 @@ final class DeleteQuerySupplierServiceLoader {
         INSTANCE = LOADERS.stream().findFirst();
     }
 
+    private DeleteQuerySupplierServiceLoader() {
+    }
 
     static DeleteQuerySupplier getInstance() {
         return INSTANCE.orElseThrow(() -> new IllegalStateException(MESSAGE));

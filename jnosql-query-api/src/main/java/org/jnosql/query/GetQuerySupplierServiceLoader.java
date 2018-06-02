@@ -33,6 +33,9 @@ final class GetQuerySupplierServiceLoader {
         INSTANCE = LOADERS.stream().findFirst();
     }
 
+    private GetQuerySupplierServiceLoader() {
+    }
+
     static GetQuerySupplier getInstance() {
         return INSTANCE.orElseThrow(() -> new IllegalStateException(MESSAGE));
     }
