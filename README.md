@@ -1,3 +1,5 @@
+![Eclipse JNoSQL Aphrodite Project](https://github.com/JNOSQL/diana-site/blob/master/images/duke-aphrodite.png)
+
 # Eclipse JNoSQL Aphrodite
 
 Eclipse JNoSQL Aphrodite is the project that contains the syntax query to JNoSQL API.
