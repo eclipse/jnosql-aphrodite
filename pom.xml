@@ -15,7 +15,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jnosql.query</groupId>
     <artifactId>query-parent</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7-SNAPSHOT</version>
     <name>Eclipse JNoSQL Query Project</name>
     <description>The Eclipse JNoSQL parent</description>
     <url>http://jnosql.org/</url>
