@@ -9,13 +9,13 @@ delete from Person where age =
 delete from Person where age >=
 delete from Person where age >
 delete from Person where age <
-delete from Person where age <= 'ada'
-delete from Person where age >= 'ada'
-delete from Person where age > 'ada'
-delete from Person where age < 'ada'
-delete from Person where age <= 'ada'
+delete from Person where age <= 'ada"
+delete from Person where age >= 'ada
+delete from Person where age > 'ada
+delete from Person where age < ada'
+delete from Person where age <= 'ada
 delete from Person where age between 13 and
-delete from Person where age between 13 and 'ada'
+delete from Person where age between 13 and 'ada"
 delete from Person where age between  and 10
 delete from Person where age between 10.12 and 30 and salary =
 delete from Person where age between -10 and 30 or salary =
