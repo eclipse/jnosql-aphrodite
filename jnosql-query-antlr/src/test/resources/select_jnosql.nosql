@@ -51,8 +51,10 @@ select  * from Person where age not in (1,2,3,4)
 select  * from Person where age not in (1)
 #test string
 select  * from Person where not name = "Ada"
+select  * from Person where not name = 'Ada'
 select  * from Person where name = "Ada"
 select  * from Person where name in ("Ada")
+select  * from Person where name in ('Ada')
 select  * from Person where name in ("Ada", "Lovelace")
 select  * from Person where name not in ("Ada")
 select  * from Person where name not in ("Ada", "Lovelace")
@@ -61,12 +63,18 @@ select  * from Person where birthday >= "01-09-1988"
 select  * from Person where birthday > "01-09-1988"
 select  * from Person where birthday < "01-09-1988"
 select  * from Person where birthday <= "01-09-1988"
-select  * from Person where birthday between "01-09-1988" and "01-09-1988"
+select  * from Person where birthday between "01-09-1988" and '01-09-1988'
 select  * from Person where birthday between "01-09-1988" and "01-09-1988" and salary = 12
 select  * from Person where birthday between "01-09-1988" and "01-09-1988" or salary = 12
+select  * from Person where age <= 'ada'
+select  * from Person where age >= 'ada'
+select  * from Person where age > 'ada'
+select  * from Person where age < 'ada'
+select  * from Person where age <= 'ada'
+select  * from Person where age between 13 and 'ada'
 #test array
 select  * from Person where not phones = {"11-15351"}
-select  * from Person where phones = {"11-15351", "11-15351"}
+select  * from Person where phones = {'11-15351', "11-15351"}
 select  * from Person where phones in ({"11-15351", "11-15351"}, "Ada")
 select  * from Person where power = {"sun", "hunt"}
 select  * from Person where birthday > "01-09-1988" and power = {"sun", "hunt"}

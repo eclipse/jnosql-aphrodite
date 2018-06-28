@@ -19,13 +19,13 @@ select  * from Person where age =
 select  * from Person where age >=
 select  * from Person where age >
 select  * from Person where age <
-select  * from Person where age <= 'ada'
-select  * from Person where age >= 'ada'
-select  * from Person where age > 'ada'
-select  * from Person where age < 'ada'
-select  * from Person where age <= 'ada'
+select  * from Person where age <= 'ada"
+select  * from Person where age >= 'ada
+select  * from Person where age > "ada'
+select  * from Person where age < "ada
+select  * from Person where age <= "ada
 select  * from Person where age between 13 and
-select  * from Person where age between 13 and 'ada'
+select  * from Person where age between 13 and 'ada
 select  * from Person where age between  and 10
 select  * from Person where age between 10.12 and 30 and salary =
 select  * from Person where age between -10 and 30 or salary =
