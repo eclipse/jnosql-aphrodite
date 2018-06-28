@@ -266,8 +266,23 @@ class SelectQuerySupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"select  * from God where name = {\"diana\"}"})
+    @ValueSource(strings = {"select  * from God where name = 'diana'"})
     public void shouldReturnParserQuery16(String query) {
+        SelectQuery selectQuery = checkSelectFromStart(query);
+        assertTrue(selectQuery.getWhere().isPresent());
+
+        Where where = selectQuery.getWhere().get();
+        Condition condition = where.getCondition();
+        Value value = condition.getValue();
+        Assertions.assertEquals(Operator.EQUALS, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof StringValue);
+        assertEquals("diana", value.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"select  * from God where name = {\"diana\"}"})
+    public void shouldReturnParserQuery17(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
 
@@ -283,7 +298,7 @@ class SelectQuerySupplierTest {
 
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"select  * from God where name = {\"diana\", 17, 20.21}"})
-    public void shouldReturnParserQuery17(String query) {
+    public void shouldReturnParserQuery18(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
 
@@ -300,7 +315,7 @@ class SelectQuerySupplierTest {
 
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"select  * from God where siblings = {\"apollo\": \"Brother\", \"Zeus\": \"Father\"}"})
-    public void shouldReturnParserQuery18(String query) {
+    public void shouldReturnParserQuery19(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
 
@@ -317,7 +332,7 @@ class SelectQuerySupplierTest {
 
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"select  * from God where name = @name"})
-    public void shouldReturnParserQuery19(String query) {
+    public void shouldReturnParserQuery20(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
 
@@ -332,7 +347,7 @@ class SelectQuerySupplierTest {
 
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"select  * from God where age = convert(12, java.lang.Integer)"})
-    public void shouldReturnParserQuery20(String query) {
+    public void shouldReturnParserQuery21(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
 
@@ -351,7 +366,7 @@ class SelectQuerySupplierTest {
 
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"select  * from God where name in (\"Ada\", \"Apollo\")"})
-    public void shouldReturnParserQuery21(String query) {
+    public void shouldReturnParserQuery22(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
 
@@ -367,7 +382,7 @@ class SelectQuerySupplierTest {
 
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"select * from God where name like \"Ada\""})
-    public void shouldReturnParserQuery22(String query) {
+    public void shouldReturnParserQuery23(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
 
@@ -382,7 +397,7 @@ class SelectQuerySupplierTest {
 
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"select * from God where name not like \"Ada\""})
-    public void shouldReturnParserQuery23(String query) {
+    public void shouldReturnParserQuery24(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
 
@@ -405,7 +420,7 @@ class SelectQuerySupplierTest {
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"select  * from God where name = \"Ada\" and age = 20 and" +
             " siblings = {\"apollo\": \"Brother\", \"Zeus\": \"Father\"}"})
-    public void shouldReturnParserQuery24(String query) {
+    public void shouldReturnParserQuery25(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
 
@@ -444,7 +459,7 @@ class SelectQuerySupplierTest {
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"select  * from God where name = \"Ada\" or age = 20 or" +
             " siblings = {\"apollo\": \"Brother\", \"Zeus\": \"Father\"}"})
-    public void shouldReturnParserQuery25(String query) {
+    public void shouldReturnParserQuery26(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
 
@@ -484,7 +499,7 @@ class SelectQuerySupplierTest {
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"select  * from God where name = \"Ada\" and age = 20 or" +
             " siblings = {\"apollo\": \"Brother\", \"Zeus\": \"Father\"}"})
-    public void shouldReturnParserQuery26(String query) {
+    public void shouldReturnParserQuery27(String query) {
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
 
@@ -534,7 +549,7 @@ class SelectQuerySupplierTest {
     @ValueSource(strings = {"select  * from God where name = \"Ada\" and age = 20 or" +
             " siblings = {\"apollo\": \"Brother\", \"Zeus\": \"Father\"} or birthday =" +
             " convert(\"2007-12-03\", java.time.LocalDate)"})
-    public void shouldReturnParserQuery27(String query) {
+    public void shouldReturnParserQuery28(String query) {
 
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
@@ -597,7 +612,7 @@ class SelectQuerySupplierTest {
     @ValueSource(strings = {"select  * from God where name = \"Ada\" and age = 20 or" +
             " siblings = {\"apollo\": \"Brother\", \"Zeus\": \"Father\"} and birthday =" +
             " convert(\"2007-12-03\", java.time.LocalDate)"})
-    public void shouldReturnParserQuery28(String query) {
+    public void shouldReturnParserQuery29(String query) {
 
         SelectQuery selectQuery = checkSelectFromStart(query);
         assertTrue(selectQuery.getWhere().isPresent());
