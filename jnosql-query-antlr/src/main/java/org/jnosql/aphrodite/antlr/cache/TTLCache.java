@@ -29,7 +29,7 @@ import static java.util.Collections.unmodifiableSet;
 
 class TTLCache<K, V> implements Map<K, V>, Runnable {
 
-    private static final int DEFAULT_TIME = 5;
+    private static final int DEFAULT_TIME = 1;
     private static final TimeUnit DEFAULT_UNIT = TimeUnit.MINUTES;
     private static final ScheduledExecutorService SCHEDULED_THREAD_POOL = Executors.newScheduledThreadPool(1);
 
