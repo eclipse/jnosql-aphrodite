@@ -15,7 +15,6 @@ import org.jnosql.aphrodite.antlr.AntlrSelectQuerySupplier;
 import org.jnosql.query.SelectQuery;
 import org.jnosql.query.SelectQuerySupplier;
 
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -23,11 +22,11 @@ import java.util.Objects;
  */
 public final class CachedSelectQuerySupplier implements SelectQuerySupplier {
 
-    private final Map<String, SelectQuery> cached;
+    private final CacheQuery<SelectQuery> cached;
 
 
     public CachedSelectQuerySupplier() {
-        this.cached = TTLCache.of(q -> new AntlrSelectQuerySupplier().apply(q));
+        this.cached = CacheQuery.of(q -> new AntlrSelectQuerySupplier().apply(q));
     }
 
     @Override

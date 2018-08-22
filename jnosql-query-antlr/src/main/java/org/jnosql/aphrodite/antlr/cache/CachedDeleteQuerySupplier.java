@@ -15,7 +15,6 @@ import org.jnosql.aphrodite.antlr.AntlrDeleteQuerySupplier;
 import org.jnosql.query.DeleteQuery;
 import org.jnosql.query.DeleteQuerySupplier;
 
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -23,11 +22,11 @@ import java.util.Objects;
  */
 public final class CachedDeleteQuerySupplier implements DeleteQuerySupplier {
 
-    private final Map<String, DeleteQuery> cached;
+    private final CacheQuery<DeleteQuery> cached;
 
 
     public CachedDeleteQuerySupplier() {
-        this.cached = TTLCache.of(q -> new AntlrDeleteQuerySupplier().apply(q));
+        this.cached = CacheQuery.of(q -> new AntlrDeleteQuerySupplier().apply(q));
     }
 
     @Override

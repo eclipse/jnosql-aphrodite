@@ -15,7 +15,6 @@ import org.jnosql.aphrodite.antlr.AntlrPutQuerySupplier;
 import org.jnosql.query.PutQuery;
 import org.jnosql.query.PutQuerySupplier;
 
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -23,11 +22,11 @@ import java.util.Objects;
  */
 public final class CachedPutQuerySupplier implements PutQuerySupplier {
 
-    private final Map<String, PutQuery> cached;
+    private final CacheQuery<PutQuery> cached;
 
 
     public CachedPutQuerySupplier() {
-        this.cached = TTLCache.of(q -> new AntlrPutQuerySupplier().apply(q));
+        this.cached = CacheQuery.of(q -> new AntlrPutQuerySupplier().apply(q));
     }
 
     @Override

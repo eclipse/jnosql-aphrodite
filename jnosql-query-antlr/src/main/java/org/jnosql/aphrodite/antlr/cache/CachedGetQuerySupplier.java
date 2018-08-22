@@ -15,7 +15,6 @@ import org.jnosql.aphrodite.antlr.AntlrGetQuerySupplier;
 import org.jnosql.query.GetQuery;
 import org.jnosql.query.GetQuerySupplier;
 
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -24,11 +23,11 @@ import java.util.Objects;
  */
 public final class CachedGetQuerySupplier implements GetQuerySupplier {
 
-    private final Map<String, GetQuery> cached;
+    private final CacheQuery<GetQuery> cached;
 
 
     public CachedGetQuerySupplier() {
-        this.cached = TTLCache.of(q -> new AntlrGetQuerySupplier().apply(q));
+        this.cached = CacheQuery.of(q -> new AntlrGetQuerySupplier().apply(q));
     }
 
     @Override

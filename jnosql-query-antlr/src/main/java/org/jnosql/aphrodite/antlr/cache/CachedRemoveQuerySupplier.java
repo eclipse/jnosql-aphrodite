@@ -15,7 +15,6 @@ import org.jnosql.aphrodite.antlr.AntlrRemoveQuerySupplier;
 import org.jnosql.query.RemoveQuery;
 import org.jnosql.query.RemoveQuerySupplier;
 
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -23,11 +22,11 @@ import java.util.Objects;
  */
 public final class CachedRemoveQuerySupplier implements RemoveQuerySupplier {
 
-    private final Map<String, RemoveQuery> cached;
+    private final CacheQuery<RemoveQuery> cached;
 
 
     public CachedRemoveQuerySupplier() {
-        this.cached = TTLCache.of(q -> new AntlrRemoveQuerySupplier().apply(q));
+        this.cached = CacheQuery.of(q -> new AntlrRemoveQuerySupplier().apply(q));
     }
 
     @Override

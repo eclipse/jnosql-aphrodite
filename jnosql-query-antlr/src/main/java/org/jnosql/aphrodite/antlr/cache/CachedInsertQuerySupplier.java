@@ -15,7 +15,6 @@ import org.jnosql.aphrodite.antlr.AntlrInsertQuerySupplier;
 import org.jnosql.query.InsertQuery;
 import org.jnosql.query.InsertQuerySupplier;
 
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -23,10 +22,10 @@ import java.util.Objects;
  */
 public final class CachedInsertQuerySupplier implements InsertQuerySupplier {
 
-    private final Map<String, InsertQuery> cached;
+    private final CacheQuery<InsertQuery> cached;
 
     public CachedInsertQuerySupplier() {
-        this.cached = TTLCache.of(q -> new AntlrInsertQuerySupplier().apply(q));
+        this.cached = CacheQuery.of(q -> new AntlrInsertQuerySupplier().apply(q));
     }
 
     @Override

@@ -25,7 +25,7 @@ final class CacheQuery<V> {
     private final Map<String, WeakReference<String>> mutex = synchronizedMap(new WeakHashMap<>());
     private final Function<String, V> supplier;
 
-    CacheQuery(Function<String, V> supplier) {
+    private CacheQuery(Function<String, V> supplier) {
         this.supplier = supplier;
     }
 
@@ -45,6 +45,7 @@ final class CacheQuery<V> {
     public int size() {
         return store.size();
     }
+
     private V put(String key, V value) {
         return store.put(key, value);
     }
@@ -57,5 +58,8 @@ final class CacheQuery<V> {
         return sb.toString();
     }
 
+    public static <V> CacheQuery<V> of(Function<String, V> supplier) {
+        return new CacheQuery<>(supplier);
+    }
 
 }

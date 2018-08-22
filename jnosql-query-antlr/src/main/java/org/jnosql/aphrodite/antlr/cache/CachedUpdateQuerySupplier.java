@@ -15,7 +15,6 @@ import org.jnosql.aphrodite.antlr.AntlrUpdateQuerySupplier;
 import org.jnosql.query.UpdateQuery;
 import org.jnosql.query.UpdateQuerySupplier;
 
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -23,11 +22,11 @@ import java.util.Objects;
  */
 public final class CachedUpdateQuerySupplier implements UpdateQuerySupplier {
 
-    private final Map<String, UpdateQuery> cached;
+    private final CacheQuery<UpdateQuery> cached;
 
 
     public CachedUpdateQuerySupplier() {
-        this.cached = TTLCache.of(q -> new AntlrUpdateQuerySupplier().apply(q));
+        this.cached = CacheQuery.of(q -> new AntlrUpdateQuerySupplier().apply(q));
     }
 
     @Override
