@@ -42,7 +42,20 @@ final class CacheQuery<V> {
         return value;
     }
 
+    public int size() {
+        return store.size();
+    }
     private V put(String key, V value) {
         return store.put(key, value);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("CacheQuery{");
+        sb.append("store=").append(store);
+        sb.append('}');
+        return sb.toString();
+    }
+
+
 }
