@@ -165,7 +165,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.EQUALS, condition.getOperator());
         assertEquals("age", condition.getName());
         assertTrue(value instanceof NumberValue);
@@ -180,7 +180,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.GREATER_THAN, condition.getOperator());
         assertEquals("stamina", condition.getName());
         assertTrue(value instanceof NumberValue);
@@ -195,7 +195,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.GREATER_EQUALS_THAN, condition.getOperator());
         assertEquals("stamina", condition.getName());
         assertTrue(value instanceof NumberValue);
@@ -210,7 +210,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.LESSER_EQUALS_THAN, condition.getOperator());
         assertEquals("stamina", condition.getName());
         assertTrue(value instanceof NumberValue);
@@ -225,7 +225,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.LESSER_THAN, condition.getOperator());
         assertEquals("stamina", condition.getName());
         assertTrue(value instanceof NumberValue);
@@ -241,7 +241,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.BETWEEN, condition.getOperator());
         assertEquals("age", condition.getName());
         assertTrue(value instanceof ArrayValue);
@@ -258,7 +258,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.EQUALS, condition.getOperator());
         assertEquals("name", condition.getName());
         assertTrue(value instanceof StringValue);
@@ -273,7 +273,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.EQUALS, condition.getOperator());
         assertEquals("name", condition.getName());
         assertTrue(value instanceof StringValue);
@@ -288,7 +288,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.EQUALS, condition.getOperator());
         assertEquals("name", condition.getName());
         assertTrue(value instanceof ArrayValue);
@@ -304,7 +304,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.EQUALS, condition.getOperator());
         assertEquals("name", condition.getName());
         assertTrue(value instanceof ArrayValue);
@@ -321,7 +321,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.EQUALS, condition.getOperator());
         assertEquals("siblings", condition.getName());
         assertTrue(value instanceof JSONValue);
@@ -338,7 +338,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.EQUALS, condition.getOperator());
         assertEquals("name", condition.getName());
         assertTrue(value instanceof ParamValue);
@@ -353,7 +353,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.EQUALS, condition.getOperator());
         assertEquals("age", condition.getName());
         assertTrue(value instanceof FunctionValue);
@@ -372,7 +372,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.IN, condition.getOperator());
         assertEquals("name", condition.getName());
         assertTrue(value instanceof ArrayValue);
@@ -388,7 +388,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.LIKE, condition.getOperator());
         assertEquals("name", condition.getName());
         assertTrue(value instanceof StringValue);
@@ -403,7 +403,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.NOT, condition.getOperator());
         assertEquals("_NOT", condition.getName());
         assertTrue(value instanceof ConditionValue);
@@ -426,7 +426,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.AND, condition.getOperator());
         assertEquals("_AND", condition.getName());
         assertTrue(value instanceof ConditionValue);
@@ -465,7 +465,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.OR, condition.getOperator());
         assertEquals("_OR", condition.getName());
         assertTrue(value instanceof ConditionValue);
@@ -505,7 +505,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.AND, condition.getOperator());
         assertEquals("_AND", condition.getName());
         assertTrue(value instanceof ConditionValue);
@@ -556,7 +556,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.AND, condition.getOperator());
         assertEquals("_AND", condition.getName());
         assertTrue(value instanceof ConditionValue);
@@ -619,7 +619,7 @@ class SelectQuerySupplierTest {
 
         Where where = selectQuery.getWhere().get();
         Condition condition = where.getCondition();
-        Value value = condition.getValue();
+        Value<?> value = condition.getValue();
         Assertions.assertEquals(Operator.AND, condition.getOperator());
         assertEquals("_AND", condition.getName());
         assertTrue(value instanceof ConditionValue);

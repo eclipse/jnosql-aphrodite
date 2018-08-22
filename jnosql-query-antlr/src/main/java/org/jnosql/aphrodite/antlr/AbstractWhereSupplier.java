@@ -90,7 +90,7 @@ abstract class AbstractWhereSupplier extends AbstractSupplier {
         Value<?>[] values = ctx.value().stream()
                 .map(ValueConverter::get)
                 .toArray(Value[]::new);
-        ArrayValue value = DefaultArrayValue.of(values);
+        ArrayValue<?> value = DefaultArrayValue.of(values);
         checkCondition(new DefaultCondition(name, IN, value), hasNot);
     }
 
@@ -99,7 +99,7 @@ abstract class AbstractWhereSupplier extends AbstractSupplier {
     public void exitLike(QueryParser.LikeContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String name = ctx.name().getText();
-        StringValue value = DefaultStringValue.of(ctx.string());
+        StringValue<?> value = DefaultStringValue.of(ctx.string());
         checkCondition(new DefaultCondition(name, LIKE, value), hasNot);
     }
 
