@@ -23,7 +23,7 @@ class CacheQueryTest {
 
     @BeforeEach
     public void setUp() {
-        cacheQuery = new CacheQuery<>(Integer::parseInt);
+        cacheQuery = CacheQuery.of(Integer::parseInt);
     }
 
 
