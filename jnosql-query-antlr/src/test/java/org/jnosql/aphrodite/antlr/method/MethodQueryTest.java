@@ -150,4 +150,20 @@ class MethodQueryTest {
         assertNotNull(methodQuery);
         assertEquals("findBy Firstname Not Like", methodQuery.get());
     }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByFirstnameLikeOrderByNameAscAgeDesc"})
+    public void shouldRunQuery15(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Firstname Like OrderBy Name Asc Age Desc", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByFirstnameLikeOrderByNameAscAge"})
+    public void shouldRunQuery16(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Firstname Like OrderBy Name Asc Age", methodQuery.get());
+    }
 }

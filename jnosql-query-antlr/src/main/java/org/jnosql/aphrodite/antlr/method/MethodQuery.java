@@ -33,8 +33,8 @@ public class MethodQuery implements Supplier<String> {
                 .replaceAll("Between", " Between")
                 .replaceAll("In", " In" )
                 .replaceAll("Like", " Like" )
-                .replaceAll("Asc", " Asc")
-                .replaceAll("Desc", " Desc").trim();
+                .replaceAll("Asc", " Asc ")
+                .replaceAll("Desc", " Desc ").trim();
 
     }
 
