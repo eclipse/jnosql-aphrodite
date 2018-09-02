@@ -9,7 +9,7 @@
  *  Contributors:
  *  Otavio Santana
  */
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.aphrodite.antlr.method;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -21,20 +21,20 @@ public class MethodQuery implements Supplier<String> {
     private MethodQuery(String value) {
         this.value = value
                 .replaceAll("findBy", "findBy ")
-                .replaceAll("OrderBy", " order by ")
-                .replaceAll("And", " and ")
-                .replaceAll("Or(?!der)", " or ")
-                .replaceAll("Equals", " = ?")
-                .replaceAll("GreaterThanEqual", " >= ?")
-                .replaceAll("LessThanEqual", " <= ?")
-                .replaceAll("GreaterThan", " > ?" )
-                .replaceAll("LessThan", " < ?" )
-                .replaceAll("Between", " between ? and ?")
-                .replaceAll("Not", " not")
-                .replaceAll("In", " in ?" )
-                .replaceAll("Like", " like ?")
-                .replaceAll("Asc", " asc")
-                .replaceAll("Desc", " desc").trim();
+                .replaceAll("OrderBy", " OrderBy ")
+                .replaceAll("And", " And ")
+                .replaceAll("Or(?!der)", " Or ")
+                .replaceAll("Not", " Not")
+                .replaceAll("Equals", " Equals")
+                .replaceAll("GreaterThanEqual", " GreaterThanEqual")
+                .replaceAll("LessThanEqual", " LessThanEqual")
+                .replaceAll("GreaterThan", " GreaterThan" )
+                .replaceAll("LessThan", " LessThan" )
+                .replaceAll("Between", " Between")
+                .replaceAll("In", " In" )
+                .replaceAll("Like", " Like" )
+                .replaceAll("Asc", " Asc")
+                .replaceAll("Desc", " Desc").trim();
 
     }
 

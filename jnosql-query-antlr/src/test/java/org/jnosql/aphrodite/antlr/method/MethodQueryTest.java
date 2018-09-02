@@ -9,14 +9,15 @@
  *  Contributors:
  *  Otavio Santana
  */
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.aphrodite.antlr.method;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class MethodQueryTest {
 
@@ -41,7 +42,7 @@ class MethodQueryTest {
     public void shouldRunQuery1(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Name and Age", methodQuery.get());
+        assertEquals("findBy Name And Age", methodQuery.get());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -49,7 +50,7 @@ class MethodQueryTest {
     public void shouldRunQuery2(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Name or Age", methodQuery.get());
+        assertEquals("findBy Name Or Age", methodQuery.get());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -57,7 +58,7 @@ class MethodQueryTest {
     public void shouldRunQuery3(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Name or Age order by Name", methodQuery.get());
+        assertEquals("findBy Name Or Age OrderBy Name", methodQuery.get());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -65,7 +66,7 @@ class MethodQueryTest {
     public void shouldRunQuery4(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Name or Age order by Name asc", methodQuery.get());
+        assertEquals("findBy Name Or Age OrderBy Name Asc", methodQuery.get());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -73,7 +74,7 @@ class MethodQueryTest {
     public void shouldRunQuery5(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Name or Age order by Name desc", methodQuery.get());
+        assertEquals("findBy Name Or Age OrderBy Name Desc", methodQuery.get());
     }
 
 
@@ -82,7 +83,7 @@ class MethodQueryTest {
     public void shouldRunQuery6(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Lastname and Firstname", methodQuery.get());
+        assertEquals("findBy Lastname And Firstname", methodQuery.get());
     }
 
 
@@ -91,7 +92,7 @@ class MethodQueryTest {
     public void shouldRunQuery7(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Lastname or Firstname", methodQuery.get());
+        assertEquals("findBy Lastname Or Firstname", methodQuery.get());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -99,7 +100,7 @@ class MethodQueryTest {
     public void shouldRunQuery8(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy StartDate between ? and ?", methodQuery.get());
+        assertEquals("findBy StartDate Between", methodQuery.get());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -107,7 +108,7 @@ class MethodQueryTest {
     public void shouldRunQuery9(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Age < ?", methodQuery.get());
+        assertEquals("findBy Age LessThan", methodQuery.get());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -115,7 +116,7 @@ class MethodQueryTest {
     public void shouldRunQuery10(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Age <= ?", methodQuery.get());
+        assertEquals("findBy Age  LessThanEqual", methodQuery.get());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -123,7 +124,7 @@ class MethodQueryTest {
     public void shouldRunQuery11(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Age > ?", methodQuery.get());
+        assertEquals("findBy Age GreaterThan", methodQuery.get());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -131,7 +132,7 @@ class MethodQueryTest {
     public void shouldRunQuery12(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Age >= ?", methodQuery.get());
+        assertEquals("findBy Age  GreaterThanEqual", methodQuery.get());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -139,7 +140,7 @@ class MethodQueryTest {
     public void shouldRunQuery13(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Firstname like ?", methodQuery.get());
+        assertEquals("findBy Firstname Like", methodQuery.get());
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
@@ -147,6 +148,6 @@ class MethodQueryTest {
     public void shouldRunQuery14(String query) {
         MethodQuery methodQuery = MethodQuery.of(query);
         assertNotNull(methodQuery);
-        assertEquals("findBy Firstname not like ?", methodQuery.get());
+        assertEquals("findBy Firstname Not Like", methodQuery.get());
     }
 }
