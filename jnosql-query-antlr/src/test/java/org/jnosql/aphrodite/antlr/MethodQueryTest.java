@@ -11,8 +11,70 @@
  */
 package org.jnosql.aphrodite.antlr;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MethodQueryTest {
+
+    @Test
+    public void shouldReturnNullWhenQueryIsNull() {
+        Assertions.assertThrows(NullPointerException.class, () ->{
+           MethodQuery.of(null);
+        });
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAge"})
+    public void shouldRunQuery(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Age", methodQuery.get());
+    }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByNameAndAge"})
+    public void shouldRunQuery1(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Name and Age", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByNameOrAge"})
+    public void shouldRunQuery2(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Name or Age", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByNameOrAgeOrderByName"})
+    public void shouldRunQuery3(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Name or Age order by Name", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByNameOrAgeOrderByNameAsc"})
+    public void shouldRunQuery4(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Name or Age order by Name asc", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByNameOrAgeOrderByNameDesc"})
+    public void shouldRunQuery5(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Name or Age order by Name desc", methodQuery.get());
+    }
+
 
 }

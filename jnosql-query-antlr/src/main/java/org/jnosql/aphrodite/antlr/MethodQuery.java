@@ -11,17 +11,19 @@
  */
 package org.jnosql.aphrodite.antlr;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public class MethodQuery implements Supplier<String> {
 
     private final String value;
 
-    public MethodQuery(String value) {
+    private MethodQuery(String value) {
         this.value = value
                 .replaceAll("findBy", "findBy ")
                 .replaceAll("OrderBy", " order by ")
                 .replaceAll("And", " and ")
+                .replaceAll("Or(?!der)", " or ")
                 .replaceAll("Equals", " = ")
                 .replaceAll("GreaterThan", " > ")
                 .replaceAll("GreaterThanEqual", " >= ")
@@ -31,7 +33,7 @@ public class MethodQuery implements Supplier<String> {
                 .replaceAll("Not", " not ")
                 .replaceAll("In", " in ")
                 .replaceAll("Asc", " asc ")
-                .replaceAll("Desc", " desc ");
+                .replaceAll("Desc", " desc ").trim();
 
     }
 
@@ -46,5 +48,9 @@ public class MethodQuery implements Supplier<String> {
     }
 
 
+    public static MethodQuery of(String query) {
+        Objects.requireNonNull(query, "query is required");
+        return new MethodQuery(query);
+    }
 
 }
