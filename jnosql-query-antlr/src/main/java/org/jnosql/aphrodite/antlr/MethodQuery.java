@@ -30,10 +30,11 @@ public class MethodQuery implements Supplier<String> {
                 .replaceAll("GreaterThan", " > ?" )
                 .replaceAll("LessThan", " < ?" )
                 .replaceAll("Between", " between ? and ?")
-                .replaceAll("Not", " not ")
+                .replaceAll("Not", " not")
                 .replaceAll("In", " in ?" )
-                .replaceAll("Asc", " asc ")
-                .replaceAll("Desc", " desc ").trim();
+                .replaceAll("Like", " like ?")
+                .replaceAll("Asc", " asc")
+                .replaceAll("Desc", " desc").trim();
 
     }
 
