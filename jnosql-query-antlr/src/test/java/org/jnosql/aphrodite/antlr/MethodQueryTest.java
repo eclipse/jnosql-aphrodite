@@ -77,4 +77,60 @@ class MethodQueryTest {
     }
 
 
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByLastnameAndFirstname"})
+    public void shouldRunQuery6(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Lastname and Firstname", methodQuery.get());
+    }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByLastnameOrFirstname"})
+    public void shouldRunQuery7(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Lastname or Firstname", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByStartDateBetween"})
+    public void shouldRunQuery8(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy StartDate between ? and ?", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeLessThan"})
+    public void shouldRunQuery9(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Age < ?", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeLessThanEqual"})
+    public void shouldRunQuery10(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Age <= ?", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeGreaterThan"})
+    public void shouldRunQuery11(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Age > ?", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeGreaterThanEqual"})
+    public void shouldRunQuery12(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Age >= ?", methodQuery.get());
+    }
 }

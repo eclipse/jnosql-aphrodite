@@ -24,14 +24,14 @@ public class MethodQuery implements Supplier<String> {
                 .replaceAll("OrderBy", " order by ")
                 .replaceAll("And", " and ")
                 .replaceAll("Or(?!der)", " or ")
-                .replaceAll("Equals", " = ")
-                .replaceAll("GreaterThan", " > ")
-                .replaceAll("GreaterThanEqual", " >= ")
-                .replaceAll("LessThan", " < ")
-                .replaceAll("LessThanEqual", " <= ")
-                .replaceAll("Between", " between ")
+                .replaceAll("Equals", " = ?")
+                .replaceAll("GreaterThanEqual", " >= ?")
+                .replaceAll("LessThanEqual", " <= ?")
+                .replaceAll("GreaterThan", " > ?" )
+                .replaceAll("LessThan", " < ?" )
+                .replaceAll("Between", " between ? and ?")
                 .replaceAll("Not", " not ")
-                .replaceAll("In", " in ")
+                .replaceAll("In", " in ?" )
                 .replaceAll("Asc", " asc ")
                 .replaceAll("Desc", " desc ").trim();
 
@@ -52,5 +52,4 @@ public class MethodQuery implements Supplier<String> {
         Objects.requireNonNull(query, "query is required");
         return new MethodQuery(query);
     }
-
 }
