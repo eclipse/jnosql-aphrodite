@@ -25,10 +25,10 @@ final class MethodCondition implements Condition {
 
     private final ParamValue value;
 
-    MethodCondition(String name, Operator operator, ParamValue value) {
+    MethodCondition(String name, Operator operator) {
         this.name = name;
         this.operator = operator;
-        this.value = value;
+        this.value = new MethodParamValue(name);
     }
 
     @Override
