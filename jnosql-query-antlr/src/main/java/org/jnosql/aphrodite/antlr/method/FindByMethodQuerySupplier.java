@@ -13,11 +13,8 @@ package org.jnosql.aphrodite.antlr.method;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.jnosql.aphrodite.antlr.MethodParser;
-import org.jnosql.query.ParamValue;
 import org.jnosql.query.SelectQuery;
-import org.jnosql.query.Where;
 
-import java.util.Locale;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -31,19 +28,6 @@ class FindByMethodQuerySupplier extends AbstractMethodQuerySupplier implements B
         Objects.requireNonNull(entity, " entity is required");
         runQuery(MethodQuery.of(query).get());
         return new MethodSelectQuery(entity, where);
-    }
-
-    @Override
-    public void exitEq(MethodParser.EqContext ctx) {
-        boolean hasNot = Objects.nonNull(ctx.not());
-        String variable = getVariable(ctx.variable());
-        ParamValue paramValue = new MethodParamValue(variable);
-    }
-
-    private String getVariable(MethodParser.VariableContext ctx) {
-        String text = ctx.getText();
-        String capital = String.valueOf(text.charAt(0)).toUpperCase(Locale.US);
-        return capital.concat(text.substring(1));
     }
 
 

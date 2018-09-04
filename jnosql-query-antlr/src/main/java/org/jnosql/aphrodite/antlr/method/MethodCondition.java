@@ -23,12 +23,18 @@ final class MethodCondition implements Condition {
 
     private final Operator operator;
 
-    private final ParamValue value;
+    private final Value<?> value;
 
     MethodCondition(String name, Operator operator) {
         this.name = name;
         this.operator = operator;
         this.value = new MethodParamValue(name);
+    }
+
+    MethodCondition(String name, Operator operator, Value<?> value) {
+        this.name = name;
+        this.operator = operator;
+        this.value = value;
     }
 
     @Override
