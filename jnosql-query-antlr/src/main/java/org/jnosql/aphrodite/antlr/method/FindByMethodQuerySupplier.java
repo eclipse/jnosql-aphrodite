@@ -13,7 +13,9 @@ package org.jnosql.aphrodite.antlr.method;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.jnosql.aphrodite.antlr.MethodParser;
+import org.jnosql.query.ParamValue;
 import org.jnosql.query.SelectQuery;
+import org.jnosql.query.Where;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -22,19 +24,20 @@ import java.util.function.Function;
 
 class FindByMethodQuerySupplier extends AbstractMethodQuerySupplier implements BiFunction<String, String, SelectQuery> {
 
+
     @Override
     public SelectQuery apply(String query, String entity) {
         Objects.requireNonNull(query, " query is required");
         Objects.requireNonNull(entity, " entity is required");
-        runQuery(MethodQuery.of(query).get(), entity);
-        return null;
+        runQuery(MethodQuery.of(query).get());
+        return new MethodSelectQuery(entity, where);
     }
 
     @Override
     public void exitEq(MethodParser.EqContext ctx) {
         boolean hasNot = Objects.nonNull(ctx.not());
         String variable = getVariable(ctx.variable());
-        System.out.println("eq");
+        ParamValue paramValue = new MethodParamValue(variable);
     }
 
     private String getVariable(MethodParser.VariableContext ctx) {

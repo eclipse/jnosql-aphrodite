@@ -25,7 +25,7 @@ import java.util.function.Function;
 
 abstract class AbstractMethodQuerySupplier extends MethodBaseListener {
 
-    protected void runQuery(String query, String entity) {
+    protected void runQuery(String query) {
 
         CharStream stream = CharStreams.fromString(query);
         MethodLexer lexer = new MethodLexer(stream);
