@@ -9,9 +9,8 @@
  *  Contributors:
  *  Otavio Santana
  */
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.aphrodite.antlr.method;
 
-import org.jnosql.aphrodite.antlr.method.FindByMethodQuerySupplier;
 import org.jnosql.query.SelectQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

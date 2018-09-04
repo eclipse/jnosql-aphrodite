@@ -11,7 +11,6 @@
  */
 package org.jnosql.aphrodite.antlr.method;
 
-import org.jnosql.aphrodite.antlr.MethodQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

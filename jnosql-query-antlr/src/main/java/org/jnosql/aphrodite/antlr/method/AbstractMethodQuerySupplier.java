@@ -9,20 +9,21 @@
  *  Contributors:
  *  Otavio Santana
  */
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.aphrodite.antlr.method;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.jnosql.aphrodite.antlr.MethodBaseListener;
+import org.jnosql.aphrodite.antlr.MethodLexer;
+import org.jnosql.aphrodite.antlr.MethodParser;
+import org.jnosql.aphrodite.antlr.QueryErrorListener;
 
-import java.util.Locale;
 import java.util.function.Function;
 
-abstract class AbstractMethodQuerySupplier extends MethodBaseListener  {
-
-    protected String variable;
+abstract class AbstractMethodQuerySupplier extends MethodBaseListener {
 
     protected void runQuery(String query, String entity) {
 
@@ -38,13 +39,6 @@ abstract class AbstractMethodQuerySupplier extends MethodBaseListener  {
         ParseTree tree = getParserTree().apply(parser);
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
-    }
-
-    @Override
-    public void exitVariable(MethodParser.VariableContext ctx) {
-        String text = ctx.getText();
-        String capital = String.valueOf(text.charAt(0)).toUpperCase(Locale.US);
-        variable = capital.concat(text.substring(1));
     }
 
     abstract Function<MethodParser, ParseTree> getParserTree();

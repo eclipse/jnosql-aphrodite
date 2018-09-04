@@ -9,7 +9,7 @@
  *  Contributors:
  *  Otavio Santana
  */
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.aphrodite.antlr.method;
 
 import java.util.Objects;
 import java.util.function.Supplier;
