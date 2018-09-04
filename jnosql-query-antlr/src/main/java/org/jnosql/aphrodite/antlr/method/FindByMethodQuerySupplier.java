@@ -12,7 +12,6 @@
 package org.jnosql.aphrodite.antlr.method;
 
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.jnosql.aphrodite.antlr.MethodParser;
 import org.jnosql.query.SelectQuery;
 
 import java.util.Objects;
