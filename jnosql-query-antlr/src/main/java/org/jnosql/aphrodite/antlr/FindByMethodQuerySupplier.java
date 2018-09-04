@@ -16,25 +16,39 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.jnosql.aphrodite.antlr.method.MethodBaseListener;
+import org.jnosql.query.SelectQuery;
 
 import java.util.Objects;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
-class MethodQuerySupplier extends MethodBaseListener {
+class FindByMethodQuerySupplier extends MethodBaseListener implements BiFunction<String, String, SelectQuery> {
 
-
-    Function<QueryParser, ParseTree> getParserTree() {
+    @Override
+    public SelectQuery apply(String query, String entity) {
+        Objects.requireNonNull(query, " query is required");
+        Objects.requireNonNull(entity, " entity is required");
+        runQuery(MethodQuery.of(query).get(), entity);
         return null;
     }
 
-    protected void runQuery(String query) {
-        Objects.requireNonNull(query, "query is required");
+    @Override
+    public void exitEq(MethodParser.EqContext ctx) {
+        System.out.println("eq");
+        super.exitEq(ctx);
+    }
+
+    @Override
+    public void exitVariable(MethodParser.VariableContext ctx) {
+        System.out.println("variable" + ctx.getText());
+    }
+
+    private void runQuery(String query, String entity) {
 
         CharStream stream = CharStreams.fromString(query);
-        QueryLexer lexer = new QueryLexer(stream);
+        MethodLexer lexer = new MethodLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        QueryParser parser = new MethodParser(tokens);
+        MethodParser parser = new MethodParser(tokens);
         lexer.removeErrorListeners();
         parser.removeErrorListeners();
         lexer.addErrorListener(QueryErrorListener.INSTANCE);
@@ -44,4 +58,10 @@ class MethodQuerySupplier extends MethodBaseListener {
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(this, tree);
     }
+
+    Function<MethodParser, ParseTree> getParserTree() {
+        return MethodParser::findBy;
+    }
+
+
 }
