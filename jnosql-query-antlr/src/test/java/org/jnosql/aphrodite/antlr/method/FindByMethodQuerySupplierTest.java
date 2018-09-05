@@ -270,6 +270,60 @@ class FindByMethodQuerySupplierTest {
     }
 
 
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeBetween"})
+    public void shouldReturnParserQuery27(String query) {
+
+        Operator operator = Operator.BETWEEN;
+        String variable = "age";
+        String entity = "entity";
+        SelectQuery selectQuery = querySupplier.apply(query, entity);
+        assertNotNull(selectQuery);
+        assertEquals(entity, selectQuery.getEntity());
+        assertTrue(selectQuery.getFields().isEmpty());
+        assertTrue(selectQuery.getOrderBy().isEmpty());
+        assertEquals(0, selectQuery.getLimit());
+        assertEquals(0, selectQuery.getSkip());
+        Optional<Where> where = selectQuery.getWhere();
+        assertTrue(where.isPresent());
+        Condition condition = where.get().getCondition();
+        Value<?> value = condition.getValue();
+        assertEquals(operator, condition.getOperator());
+        Value<?>[] values = MethodArrayValue.class.cast(value).get();
+        ParamValue param1 = (ParamValue) values[0];
+        ParamValue param2 = (ParamValue) values[1];
+        assertFalse(param1.get().equals(param2.get()));
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeNotBetween"})
+    public void shouldReturnParserQuery28(String query) {
+
+        Operator operator = Operator.BETWEEN;
+        String variable = "age";
+        String entity = "entity";
+        SelectQuery selectQuery = querySupplier.apply(query, entity);
+        assertNotNull(selectQuery);
+        assertEquals(entity, selectQuery.getEntity());
+        assertTrue(selectQuery.getFields().isEmpty());
+        assertTrue(selectQuery.getOrderBy().isEmpty());
+        assertEquals(0, selectQuery.getLimit());
+        assertEquals(0, selectQuery.getSkip());
+        Optional<Where> where = selectQuery.getWhere();
+        assertTrue(where.isPresent());
+        Condition condition = where.get().getCondition();
+        Value<?> value = condition.getValue();
+        assertEquals(Operator.NOT, condition.getOperator());
+        Condition notCondition =  MethodConditionValue.class.cast(value).get().get(0);
+        assertEquals(Operator.BETWEEN, notCondition.getOperator());
+
+        Value<?>[] values = MethodArrayValue.class.cast(notCondition.getValue()).get();
+        ParamValue param1 = (ParamValue) values[0];
+        ParamValue param2 = (ParamValue) values[1];
+        assertFalse(param1.get().equals(param2.get()));
+    }
+
+
 
     private void checkOrderBy(String query, Sort.SortType type, Sort.SortType type2) {
         String entity = "entity";
