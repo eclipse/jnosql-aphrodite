@@ -24,6 +24,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -33,8 +34,24 @@ class FindByMethodQuerySupplierTest {
 
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"findByName"})
+    @ValueSource(strings = {"findBy"})
     public void shouldReturnParserQuery(String query) {
+        String entity = "entity";
+        SelectQuery selectQuery = querySupplier.apply(query, entity);
+        assertNotNull(selectQuery);
+        assertEquals(entity, selectQuery.getEntity());
+        assertTrue(selectQuery.getFields().isEmpty());
+        assertTrue(selectQuery.getOrderBy().isEmpty());
+        assertEquals(0, selectQuery.getLimit());
+        assertEquals(0, selectQuery.getSkip());
+        Optional<Where> where = selectQuery.getWhere();
+        assertFalse(where.isPresent());
+    }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByName"})
+    public void shouldReturnParserQuery1(String query) {
         String entity = "entity";
         checkEqualsQuery(query, entity);
     }
