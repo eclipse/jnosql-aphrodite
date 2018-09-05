@@ -49,8 +49,29 @@ class FindByMethodQuerySupplierTest {
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"findByNameNotEquals"})
     public void shouldReturnParserQuery3(String query) {
-        String entity = "entity";
+        checkNotCondition(query, Operator.EQUALS, "name");
+    }
 
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeGreaterThan"})
+    public void shouldReturnParserQuery4(String query) {
+
+        Operator operator = Operator.GREATER_THAN;
+        String variable = "age";
+        checkCondition(query, operator, variable);
+    }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeNotGreaterThan"})
+    public void shouldReturnParserQuery5(String query) {
+        Operator operator = Operator.GREATER_THAN;
+        String variable = "age";
+        checkNotCondition(query, operator, variable);
+    }
+
+    private void checkNotCondition(String query, Operator operator, String variable) {
+        String entity = "entity";
         SelectQuery selectQuery = querySupplier.apply(query, entity);
         assertNotNull(selectQuery);
         assertEquals(entity, selectQuery.getEntity());
@@ -69,10 +90,9 @@ class FindByMethodQuerySupplierTest {
         assertTrue(value instanceof ConditionValue);
         Condition condition1 = ConditionValue.class.cast(value).get().get(0);
         Value<?> param = condition1.getValue();
-        assertEquals(Operator.EQUALS, condition1.getOperator());
-        assertTrue(ParamValue.class.cast(param).get().contains("name"));
+        assertEquals(operator, condition1.getOperator());
+        assertTrue(ParamValue.class.cast(param).get().contains(variable));
     }
-
 
     private void checkEqualsQuery(String query, String entity) {
         SelectQuery selectQuery = querySupplier.apply(query, entity);
@@ -90,5 +110,22 @@ class FindByMethodQuerySupplierTest {
         assertEquals("name", condition.getName());
         assertTrue(value instanceof ParamValue);
         assertTrue(ParamValue.class.cast(value).get().contains("name"));
+    }
+
+    private void checkCondition(String query, Operator operator, String variable) {
+        String entity = "entity";
+        SelectQuery selectQuery = querySupplier.apply(query, entity);
+        assertNotNull(selectQuery);
+        assertEquals(entity, selectQuery.getEntity());
+        assertTrue(selectQuery.getFields().isEmpty());
+        assertTrue(selectQuery.getOrderBy().isEmpty());
+        assertEquals(0, selectQuery.getLimit());
+        assertEquals(0, selectQuery.getSkip());
+        Optional<Where> where = selectQuery.getWhere();
+        assertTrue(where.isPresent());
+        Condition condition = where.get().getCondition();
+        Value<?> value = condition.getValue();
+        assertEquals(operator, condition.getOperator());
+        assertTrue(ParamValue.class.cast(value).get().contains(variable));
     }
 }

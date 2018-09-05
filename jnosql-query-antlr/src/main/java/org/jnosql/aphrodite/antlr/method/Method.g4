@@ -11,7 +11,7 @@ asc: 'Asc';
 desc: 'Desc';
 eq: variable | variable not? 'Equals';
 gt: variable not? 'GreaterThan';
-gte: variable not? 'GreaterThan';
+gte: variable not? 'GreaterThanEqual';
 lt: variable not? 'LessThan';
 lte: variable not? 'LessThanEqual';
 between: variable not? 'Between';
