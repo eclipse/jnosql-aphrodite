@@ -20,7 +20,8 @@ final class MethodParamValue implements ParamValue {
     private final String value;
 
     MethodParamValue(String value) {
-        this.value = value.concat(Long.toString(System.nanoTime()));
+        this.value = value.concat("_")
+                .concat(Long.toString(System.nanoTime()));
     }
 
     @Override
