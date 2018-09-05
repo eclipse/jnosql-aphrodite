@@ -221,6 +221,11 @@ class FindByMethodQuerySupplierTest {
         checkAppendCondition(query, operator, operator2, variable, variable2, operatorAppender);
     }
 
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByOrderBy"})
+    public void shouldReturnParserQuery20(String query) {
+
+    }
 
     private void checkAppendCondition(String query, Operator operator, Operator operator2, String variable,
                                       String variable2, Operator operatorAppender) {

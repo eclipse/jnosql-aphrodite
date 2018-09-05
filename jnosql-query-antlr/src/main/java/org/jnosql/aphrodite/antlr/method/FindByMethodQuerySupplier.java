@@ -13,22 +13,30 @@ package org.jnosql.aphrodite.antlr.method;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.jnosql.query.SelectQuery;
+import org.jnosql.query.Sort;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
 class FindByMethodQuerySupplier extends AbstractMethodQuerySupplier implements BiFunction<String, String, SelectQuery> {
 
+    private List<Sort> sorts = new ArrayList<>();
 
     @Override
     public SelectQuery apply(String query, String entity) {
         Objects.requireNonNull(query, " query is required");
         Objects.requireNonNull(entity, " entity is required");
         runQuery(MethodQuery.of(query).get());
-        return new MethodSelectQuery(entity, where);
+        return new MethodSelectQuery(entity, sorts, where);
     }
 
+    @Override
+    public void exitOrderName(MethodParser.OrderNameContext ctx) {
+        sorts.add(MethodSort.of(ctx));
+    }
 
     @Override
     Function<MethodParser, ParseTree> getParserTree() {

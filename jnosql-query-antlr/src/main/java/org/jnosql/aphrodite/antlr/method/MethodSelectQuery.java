@@ -26,8 +26,11 @@ final class MethodSelectQuery implements SelectQuery {
 
     private final Where where;
 
-    MethodSelectQuery(String entity, Where where) {
+    private final List<Sort> sorts;
+
+    MethodSelectQuery(String entity, List<Sort> sorts, Where where) {
         this.entity = entity;
+        this.sorts = sorts;
         this.where = where;
     }
 
@@ -59,7 +62,7 @@ final class MethodSelectQuery implements SelectQuery {
 
     @Override
     public List<Sort> getOrderBy() {
-        return Collections.emptyList();
+        return Collections.unmodifiableList(sorts);
     }
 
     @Override
@@ -82,6 +85,6 @@ final class MethodSelectQuery implements SelectQuery {
 
     @Override
     public String toString() {
-        return entity + " where " + where;
+        return entity + " where " + where + " orderBy " + sorts;
     }
 }
