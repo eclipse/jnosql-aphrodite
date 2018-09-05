@@ -242,6 +242,51 @@ class FindByMethodQuerySupplierTest {
         checkOrderBy(query, Sort.SortType.DESC);
     }
 
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByOrderByNameDescAgeAsc"})
+    public void shouldReturnParserQuery23(String query) {
+
+        Sort.SortType type = Sort.SortType.DESC;
+        Sort.SortType type2 = Sort.SortType.ASC;
+        checkOrderBy(query, type, type2);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByOrderByNameDescAge"})
+    public void shouldReturnParserQuery24(String query) {
+        checkOrderBy(query, Sort.SortType.DESC, Sort.SortType.ASC);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByOrderByNameDescAgeDesc"})
+    public void shouldReturnParserQuery25(String query) {
+        checkOrderBy(query, Sort.SortType.DESC, Sort.SortType.DESC);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByOrderByNameAscAgeAsc"})
+    public void shouldReturnParserQuery26(String query) {
+        checkOrderBy(query, Sort.SortType.ASC, Sort.SortType.ASC);
+    }
+
+
+
+    private void checkOrderBy(String query, Sort.SortType type, Sort.SortType type2) {
+        String entity = "entity";
+        SelectQuery selectQuery = querySupplier.apply(query, entity);
+        assertNotNull(selectQuery);
+        assertEquals(entity, selectQuery.getEntity());
+        List<Sort> sorts = selectQuery.getOrderBy();
+
+        assertEquals(2, sorts.size());
+        Sort sort = sorts.get(0);
+        assertEquals("name", sort.getName());
+        assertEquals(type, sort.getType());
+
+        Sort sort2 = sorts.get(1);
+        assertEquals("age", sort2.getName());
+        assertEquals(type2, sort2.getType());
+    }
 
     private void checkOrderBy(String query, Sort.SortType type) {
         String entity = "entity";
