@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-class DeleteByMethodQuerySupplier extends AbstractMethodQuerySupplier implements BiFunction<String, String, DeleteQuery> {
+final class DeleteByMethodQuerySupplier extends AbstractMethodQuerySupplier implements BiFunction<String, String, DeleteQuery> {
 
 
     @Override
