@@ -166,4 +166,105 @@ class MethodQueryTest {
         assertNotNull(methodQuery);
         assertEquals("findBy Firstname Like  OrderBy Name Asc Age", methodQuery.get());
     }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"deleteByAge"})
+    public void shouldRunQuery17(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("deleteBy Age", methodQuery.get());
+    }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"deleteByNameAndAge"})
+    public void shouldRunQuery18(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("deleteBy Name And Age", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"deleteByNameOrAge"})
+    public void shouldRunQuery19(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("deleteBy Name Or Age", methodQuery.get());
+    }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"deleteByLastnameAndFirstname"})
+    public void shouldRunQuery20(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("deleteBy Lastname And Firstname", methodQuery.get());
+    }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"deleteByLastnameOrFirstname"})
+    public void shouldRunQuery21(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("deleteBy Lastname Or Firstname", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"deleteByStartDateBetween"})
+    public void shouldRunQuery22(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("deleteBy StartDate Between", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"deleteByAgeLessThan"})
+    public void shouldRunQuery23(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("deleteBy Age LessThan", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeLessThanEqual"})
+    public void shouldRunQuery24(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("findBy Age LessThanEqual", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"deleteByAgeGreaterThan"})
+    public void shouldRunQuery25(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("deleteBy Age GreaterThan", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"deleteByAgeGreaterThanEqual"})
+    public void shouldRunQuery26(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("deleteBy Age GreaterThanEqual", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"deleteByFirstnameLike"})
+    public void shouldRunQuery27(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("deleteBy Firstname Like", methodQuery.get());
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"deleteByFirstnameNotLike"})
+    public void shouldRunQuery28(String query) {
+        MethodQuery methodQuery = MethodQuery.of(query);
+        assertNotNull(methodQuery);
+        assertEquals("deleteBy Firstname Not  Like", methodQuery.get());
+    }
+
 }

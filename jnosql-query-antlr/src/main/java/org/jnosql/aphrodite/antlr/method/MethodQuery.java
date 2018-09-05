@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class MethodQuery implements Supplier<String> {
 
     private final String value;
-    private static final Pattern PATTERN = Pattern.compile("findBy|OrderBy|And|Or(?!der)|Not|Equals|GreaterThanEqual|" +
+    private static final Pattern PATTERN = Pattern.compile("findBy|deleteBy|OrderBy|And|Or(?!der)|Not|Equals|GreaterThanEqual|" +
             "LessThanEqual|GreaterThan|GreaterThan|LessThan|Between|In|Like|Asc|Desc");
     private static final Map<String, String> CACHE = Collections.synchronizedMap(new WeakHashMap<>());
 
