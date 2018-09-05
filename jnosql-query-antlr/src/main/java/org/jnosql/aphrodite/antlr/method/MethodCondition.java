@@ -9,15 +9,14 @@
  *  Contributors:
  *  Otavio Santana
  */
-package org.jnosql.aphrodite.antlr;
+
+package org.jnosql.aphrodite.antlr.method;
 
 import org.jnosql.query.Condition;
 import org.jnosql.query.Operator;
 import org.jnosql.query.Value;
 
-import java.util.Objects;
-
-final class DefaultCondition implements Condition {
+final class MethodCondition implements Condition {
 
     private final String name;
 
@@ -25,7 +24,13 @@ final class DefaultCondition implements Condition {
 
     private final Value<?> value;
 
-    DefaultCondition(String name, Operator operator, Value<?> value) {
+    MethodCondition(String name, Operator operator) {
+        this.name = name;
+        this.operator = operator;
+        this.value = new MethodParamValue(name);
+    }
+
+    MethodCondition(String name, Operator operator, Value<?> value) {
         this.name = name;
         this.operator = operator;
         this.value = value;
@@ -44,25 +49,6 @@ final class DefaultCondition implements Condition {
     @Override
     public Value<?> getValue() {
         return value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof DefaultCondition)) {
-            return false;
-        }
-        DefaultCondition that = (DefaultCondition) o;
-        return Objects.equals(name, that.name) &&
-                operator == that.operator &&
-                Objects.equals(value, that.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, operator, value);
     }
 
     @Override

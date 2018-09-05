@@ -9,26 +9,22 @@
  *  Contributors:
  *  Otavio Santana
  */
-package org.jnosql.aphrodite.antlr;
+package org.jnosql.aphrodite.antlr.method;
 
-import org.jnosql.query.Condition;
-import org.jnosql.query.Operator;
-import org.jnosql.query.Value;
+import org.jnosql.query.Sort;
 
+import java.util.Locale;
 import java.util.Objects;
 
-final class DefaultCondition implements Condition {
+final class MethodSort implements Sort {
 
     private final String name;
 
-    private final Operator operator;
+    private final SortType type;
 
-    private final Value<?> value;
-
-    DefaultCondition(String name, Operator operator, Value<?> value) {
+    private MethodSort(String name, SortType type) {
         this.name = name;
-        this.operator = operator;
-        this.value = value;
+        this.type = type;
     }
 
     @Override
@@ -37,13 +33,8 @@ final class DefaultCondition implements Condition {
     }
 
     @Override
-    public Operator getOperator() {
-        return operator;
-    }
-
-    @Override
-    public Value<?> getValue() {
-        return value;
+    public SortType getType() {
+        return type;
     }
 
     @Override
@@ -51,22 +42,28 @@ final class DefaultCondition implements Condition {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof DefaultCondition)) {
+        if (!(o instanceof MethodSort)) {
             return false;
         }
-        DefaultCondition that = (DefaultCondition) o;
+        MethodSort that = (MethodSort) o;
         return Objects.equals(name, that.name) &&
-                operator == that.operator &&
-                Objects.equals(value, that.value);
+                type == that.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, operator, value);
+        return Objects.hash(name, type);
     }
 
     @Override
     public String toString() {
-        return name + " " + operator + " " + value;
+        return name + " " + type.name();
+    }
+
+    public static Sort of(MethodParser.OrderNameContext context) {
+        String text = context.variable().getText();
+        String lowerCase = String.valueOf(text.charAt(0)).toLowerCase(Locale.US);
+        SortType type = context.desc() == null? SortType.ASC: SortType.DESC;
+        return new MethodSort(lowerCase.concat(text.substring(1)), type);
     }
 }
