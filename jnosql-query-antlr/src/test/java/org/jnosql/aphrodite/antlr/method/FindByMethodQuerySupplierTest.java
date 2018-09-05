@@ -120,6 +120,43 @@ class FindByMethodQuerySupplierTest {
         checkNotCondition(query, operator, variable);
     }
 
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeLike"})
+    public void shouldReturnParserQuery12(String query) {
+
+        Operator operator = Operator.LIKE;
+        String variable = "age";
+        checkCondition(query, operator, variable);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeNotLike"})
+    public void shouldReturnParserQuery13(String query) {
+        Operator operator = Operator.LIKE;
+        String variable = "age";
+        checkNotCondition(query, operator, variable);
+    }
+
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeIn"})
+    public void shouldReturnParserQuery14(String query) {
+
+        Operator operator = Operator.IN;
+        String variable = "age";
+        checkCondition(query, operator, variable);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeNotIn"})
+    public void shouldReturnParserQuery15(String query) {
+        Operator operator = Operator.IN;
+        String variable = "age";
+        checkNotCondition(query, operator, variable);
+    }
+
+
+
     private void checkNotCondition(String query, Operator operator, String variable) {
         String entity = "entity";
         SelectQuery selectQuery = querySupplier.apply(query, entity);
