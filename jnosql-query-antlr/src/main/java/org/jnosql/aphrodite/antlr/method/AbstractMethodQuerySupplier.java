@@ -17,6 +17,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.jnosql.aphrodite.antlr.QueryErrorListener;
+import org.jnosql.query.ArrayValue;
 import org.jnosql.query.Condition;
 import org.jnosql.query.ConditionValue;
 import org.jnosql.query.Operator;
@@ -32,6 +33,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 import static org.jnosql.query.Operator.AND;
+import static org.jnosql.query.Operator.BETWEEN;
 import static org.jnosql.query.Operator.EQUALS;
 import static org.jnosql.query.Operator.GREATER_EQUALS_THAN;
 import static org.jnosql.query.Operator.GREATER_THAN;
@@ -130,11 +132,12 @@ abstract class AbstractMethodQuerySupplier extends MethodBaseListener {
 
     @Override
     public void exitBetween(MethodParser.BetweenContext ctx) {
-        super.exitBetween(ctx);
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String variable = getVariable(ctx.variable());
+        Operator operator = BETWEEN;
+        ArrayValue value = MethodArrayValue.of(variable);
+        checkCondition(new MethodCondition(variable, operator, value), hasNot);
     }
-
-
-
 
 
     private void appendCondition(boolean hasNot, String variable, Operator operator) {
