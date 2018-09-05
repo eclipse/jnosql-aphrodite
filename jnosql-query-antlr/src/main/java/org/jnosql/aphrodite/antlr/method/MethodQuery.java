@@ -11,7 +11,10 @@
  */
 package org.jnosql.aphrodite.antlr.method;
 
+import java.util.Collections;
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
@@ -20,9 +23,10 @@ public class MethodQuery implements Supplier<String> {
     private final String value;
     private static final Pattern PATTERN = Pattern.compile("findBy|OrderBy|And|Or(?!der)|Not|Equals|GreaterThanEqual|" +
             "LessThanEqual|GreaterThan|GreaterThan|LessThan|Between|In|Like|Asc|Desc");
+    private static final Map<String, String> CACHE = Collections.synchronizedMap(new WeakHashMap<>());
 
     private MethodQuery(String value) {
-        this.value = PATTERN.matcher(value).replaceAll(" $0 ").trim();
+        this.value = value;
     }
 
     @Override
@@ -54,6 +58,11 @@ public class MethodQuery implements Supplier<String> {
 
     public static MethodQuery of(String query) {
         Objects.requireNonNull(query, "query is required");
-        return new MethodQuery(query);
+        String value = CACHE.get(query);
+        if (Objects.isNull(value)) {
+            value = PATTERN.matcher(query).replaceAll(" $0 ").trim();
+            CACHE.put(query, value);
+        }
+        return new MethodQuery(value);
     }
 }
