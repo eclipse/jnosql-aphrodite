@@ -61,11 +61,61 @@ class FindByMethodQuerySupplierTest {
         checkCondition(query, operator, variable);
     }
 
-
     @ParameterizedTest(name = "Should parser the query {0}")
     @ValueSource(strings = {"findByAgeNotGreaterThan"})
     public void shouldReturnParserQuery5(String query) {
         Operator operator = Operator.GREATER_THAN;
+        String variable = "age";
+        checkNotCondition(query, operator, variable);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeGreaterThanEqual"})
+    public void shouldReturnParserQuery6(String query) {
+
+        Operator operator = Operator.GREATER_EQUALS_THAN;
+        String variable = "age";
+        checkCondition(query, operator, variable);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeNotGreaterThanEqual"})
+    public void shouldReturnParserQuery7(String query) {
+        Operator operator = Operator.GREATER_EQUALS_THAN;
+        String variable = "age";
+        checkNotCondition(query, operator, variable);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeLessThan"})
+    public void shouldReturnParserQuery8(String query) {
+
+        Operator operator = Operator.LESSER_THAN;
+        String variable = "age";
+        checkCondition(query, operator, variable);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeNotLessThan"})
+    public void shouldReturnParserQuery9(String query) {
+        Operator operator = Operator.LESSER_THAN;
+        String variable = "age";
+        checkNotCondition(query, operator, variable);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeLessThanEqual"})
+    public void shouldReturnParserQuery10(String query) {
+
+        Operator operator = Operator.LESSER_EQUALS_THAN;
+        String variable = "age";
+        checkCondition(query, operator, variable);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeNotLessThanEqual"})
+    public void shouldReturnParserQuer11(String query) {
+        Operator operator = Operator.LESSER_EQUALS_THAN;
         String variable = "age";
         checkNotCondition(query, operator, variable);
     }
