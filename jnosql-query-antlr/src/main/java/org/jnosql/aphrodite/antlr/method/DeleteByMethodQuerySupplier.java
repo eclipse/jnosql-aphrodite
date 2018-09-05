@@ -12,6 +12,7 @@
 package org.jnosql.aphrodite.antlr.method;
 
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.jnosql.query.DeleteQuery;
 import org.jnosql.query.SelectQuery;
 import org.jnosql.query.Sort;
 
@@ -21,12 +22,12 @@ import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-class FindByMethodQuerySupplier extends AbstractMethodQuerySupplier implements BiFunction<String, String, SelectQuery> {
+class DeleteByMethodQuerySupplier extends AbstractMethodQuerySupplier implements BiFunction<String, String, DeleteQuery> {
 
     private List<Sort> sorts = new ArrayList<>();
 
     @Override
-    public SelectQuery apply(String query, String entity) {
+    public DeleteQuery apply(String query, String entity) {
         Objects.requireNonNull(query, " query is required");
         Objects.requireNonNull(entity, " entity is required");
         runQuery(MethodQuery.of(query).get());
@@ -40,6 +41,6 @@ class FindByMethodQuerySupplier extends AbstractMethodQuerySupplier implements B
 
     @Override
     Function<MethodParser, ParseTree> getParserTree() {
-        return MethodParser::findBy;
+        return MethodParser::deleteBy;
     }
 }
