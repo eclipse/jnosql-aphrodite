@@ -179,6 +179,32 @@ class FindByMethodQuerySupplierTest {
         checkAppendCondition(query, operator, operator2, variable, variable2, operatorAppender);
     }
 
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeOrNameLessThan"})
+    public void shouldReturnParserQuery18(String query) {
+
+        Operator operator = Operator.EQUALS;
+        Operator operator2 = Operator.LESSER_THAN;
+        String variable = "age";
+        String variable2 = "name";
+        Operator operatorAppender = Operator.OR;
+        checkAppendCondition(query, operator, operator2, variable, variable2, operatorAppender);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeGreaterThanOrNameIn"})
+    public void shouldReturnParserQuery19(String query) {
+
+        Operator operator = Operator.GREATER_THAN;
+        Operator operator2 = Operator.IN;
+        String variable = "age";
+        String variable2 = "name";
+        Operator operatorAppender = Operator.OR;
+        checkAppendCondition(query, operator, operator2, variable, variable2, operatorAppender);
+    }
+
+
     private void checkAppendCondition(String query, Operator operator, Operator operator2, String variable,
                                       String variable2, Operator operatorAppender) {
         String entity = "entity";
@@ -205,7 +231,7 @@ class FindByMethodQuerySupplierTest {
 
         assertEquals(operator2, condition2.getOperator());
         Value<?> param2 = condition2.getValue();
-        assertEquals(operator, condition2.getOperator());
+        assertEquals(condition2.getOperator(), operator2);
         assertTrue(ParamValue.class.cast(param2).get().contains(variable2));
     }
 
