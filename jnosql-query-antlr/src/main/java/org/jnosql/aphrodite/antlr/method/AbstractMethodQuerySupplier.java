@@ -33,6 +33,12 @@ import java.util.function.Function;
 
 import static org.jnosql.query.Operator.AND;
 import static org.jnosql.query.Operator.EQUALS;
+import static org.jnosql.query.Operator.GREATER_EQUALS_THAN;
+import static org.jnosql.query.Operator.GREATER_THAN;
+import static org.jnosql.query.Operator.IN;
+import static org.jnosql.query.Operator.LESSER_EQUALS_THAN;
+import static org.jnosql.query.Operator.LESSER_THAN;
+import static org.jnosql.query.Operator.LIKE;
 import static org.jnosql.query.Operator.NOT;
 import static org.jnosql.query.Operator.OR;
 
@@ -68,11 +74,74 @@ abstract class AbstractMethodQuerySupplier extends MethodBaseListener {
 
     @Override
     public void exitEq(MethodParser.EqContext ctx) {
+        Operator operator = EQUALS;
         boolean hasNot = Objects.nonNull(ctx.not());
         String variable = getVariable(ctx.variable());
-        ParamValue paramValue = new MethodParamValue(variable);
-        checkCondition(new MethodCondition(variable, EQUALS, paramValue), hasNot);
+        appendCondition(hasNot, variable, operator);
     }
+
+    @Override
+    public void exitGt(MethodParser.GtContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String variable = getVariable(ctx.variable());
+        Operator operator = GREATER_THAN;
+        appendCondition(hasNot, variable, operator);
+    }
+
+    @Override
+    public void exitGte(MethodParser.GteContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String variable = getVariable(ctx.variable());
+        Operator operator = GREATER_EQUALS_THAN;
+        appendCondition(hasNot, variable, operator);
+    }
+
+    @Override
+    public void exitLt(MethodParser.LtContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String variable = getVariable(ctx.variable());
+        Operator operator = LESSER_THAN;
+        appendCondition(hasNot, variable, operator);
+    }
+
+    @Override
+    public void exitLte(MethodParser.LteContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String variable = getVariable(ctx.variable());
+        Operator operator = LESSER_EQUALS_THAN;
+        appendCondition(hasNot, variable, operator);
+    }
+
+    @Override
+    public void exitLike(MethodParser.LikeContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String variable = getVariable(ctx.variable());
+        Operator operator = LIKE;
+        appendCondition(hasNot, variable, operator);
+    }
+
+    @Override
+    public void exitIn(MethodParser.InContext ctx) {
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String variable = getVariable(ctx.variable());
+        Operator operator = IN;
+        appendCondition(hasNot, variable, operator);
+    }
+
+    @Override
+    public void exitBetween(MethodParser.BetweenContext ctx) {
+        super.exitBetween(ctx);
+    }
+
+
+
+
+
+    private void appendCondition(boolean hasNot, String variable, Operator operator) {
+        ParamValue paramValue = new MethodParamValue(variable);
+        checkCondition(new MethodCondition(variable, operator, paramValue), hasNot);
+    }
+
 
     private void checkCondition(Condition condition, boolean hasNot) {
         Condition newCondition = checkNotCondition(condition, hasNot);

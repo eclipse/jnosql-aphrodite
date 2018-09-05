@@ -12,6 +12,7 @@
 package org.jnosql.aphrodite.antlr.method;
 
 import org.jnosql.query.Condition;
+import org.jnosql.query.ConditionValue;
 import org.jnosql.query.Operator;
 import org.jnosql.query.ParamValue;
 import org.jnosql.query.SelectQuery;
@@ -35,6 +36,45 @@ class FindByMethodQuerySupplierTest {
     @ValueSource(strings = {"findByName"})
     public void shouldReturnParserQuery(String query) {
         String entity = "entity";
+        checkEqualsQuery(query, entity);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByNameEquals"})
+    public void shouldReturnParserQuery2(String query) {
+        String entity = "entity";
+        checkEqualsQuery(query, entity);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByNameNotEquals"})
+    public void shouldReturnParserQuery3(String query) {
+        String entity = "entity";
+
+        SelectQuery selectQuery = querySupplier.apply(query, entity);
+        assertNotNull(selectQuery);
+        assertEquals(entity, selectQuery.getEntity());
+        assertTrue(selectQuery.getFields().isEmpty());
+        assertTrue(selectQuery.getOrderBy().isEmpty());
+        assertEquals(0, selectQuery.getLimit());
+        assertEquals(0, selectQuery.getSkip());
+        Optional<Where> where = selectQuery.getWhere();
+        assertTrue(where.isPresent());
+        Condition condition = where.get().getCondition();
+        Value<?> value = condition.getValue();
+        assertEquals(Operator.NOT, condition.getOperator());
+
+
+        assertEquals("_NOT", condition.getName());
+        assertTrue(value instanceof ConditionValue);
+        Condition condition1 = ConditionValue.class.cast(value).get().get(0);
+        Value<?> param = condition1.getValue();
+        assertEquals(Operator.EQUALS, condition1.getOperator());
+        assertTrue(ParamValue.class.cast(param).get().contains("name"));
+    }
+
+
+    private void checkEqualsQuery(String query, String entity) {
         SelectQuery selectQuery = querySupplier.apply(query, entity);
         assertNotNull(selectQuery);
         assertEquals(entity, selectQuery.getEntity());
