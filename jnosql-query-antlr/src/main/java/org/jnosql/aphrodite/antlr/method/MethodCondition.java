@@ -14,7 +14,6 @@ package org.jnosql.aphrodite.antlr.method;
 
 import org.jnosql.query.Condition;
 import org.jnosql.query.Operator;
-import org.jnosql.query.ParamValue;
 import org.jnosql.query.Value;
 
 final class MethodCondition implements Condition {
@@ -50,5 +49,10 @@ final class MethodCondition implements Condition {
     @Override
     public Value<?> getValue() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + operator + " " + value;
     }
 }

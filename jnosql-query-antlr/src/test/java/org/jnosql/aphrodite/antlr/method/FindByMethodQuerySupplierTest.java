@@ -11,10 +11,20 @@
  */
 package org.jnosql.aphrodite.antlr.method;
 
+import org.jnosql.query.Condition;
+import org.jnosql.query.Operator;
+import org.jnosql.query.ParamValue;
 import org.jnosql.query.SelectQuery;
-import org.junit.jupiter.api.Assertions;
+import org.jnosql.query.Value;
+import org.jnosql.query.Where;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FindByMethodQuerySupplierTest {
 
@@ -22,14 +32,23 @@ class FindByMethodQuerySupplierTest {
 
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"findByAge"})
+    @ValueSource(strings = {"findByName"})
     public void shouldReturnParserQuery(String query) {
         String entity = "entity";
         SelectQuery selectQuery = querySupplier.apply(query, entity);
-        Assertions.assertNotNull(selectQuery);
-        Assertions.assertEquals(entity, selectQuery.getEntity());
-        Assertions.assertTrue(selectQuery.getFields().isEmpty());
-
-
+        assertNotNull(selectQuery);
+        assertEquals(entity, selectQuery.getEntity());
+        assertTrue(selectQuery.getFields().isEmpty());
+        assertTrue(selectQuery.getOrderBy().isEmpty());
+        assertEquals(0, selectQuery.getLimit());
+        assertEquals(0, selectQuery.getSkip());
+        Optional<Where> where = selectQuery.getWhere();
+        assertTrue(where.isPresent());
+        Condition condition = where.get().getCondition();
+        Value<?> value = condition.getValue();
+        assertEquals(Operator.EQUALS, condition.getOperator());
+        assertEquals("name", condition.getName());
+        assertTrue(value instanceof ParamValue);
+        assertTrue(ParamValue.class.cast(value).get().contains("name"));
     }
 }

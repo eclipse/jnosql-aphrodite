@@ -16,9 +16,6 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.jnosql.aphrodite.antlr.MethodBaseListener;
-import org.jnosql.aphrodite.antlr.MethodLexer;
-import org.jnosql.aphrodite.antlr.MethodParser;
 import org.jnosql.aphrodite.antlr.QueryErrorListener;
 import org.jnosql.query.Condition;
 import org.jnosql.query.ConditionValue;
@@ -93,8 +90,8 @@ abstract class AbstractMethodQuerySupplier extends MethodBaseListener {
 
     private String getVariable(MethodParser.VariableContext ctx) {
         String text = ctx.getText();
-        String capital = String.valueOf(text.charAt(0)).toUpperCase(Locale.US);
-        return capital.concat(text.substring(1));
+        String lowerCase = String.valueOf(text.charAt(0)).toLowerCase(Locale.US);
+        return lowerCase.concat(text.substring(1));
     }
 
 
