@@ -155,6 +155,59 @@ class FindByMethodQuerySupplierTest {
         checkNotCondition(query, operator, variable);
     }
 
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeAndName"})
+    public void shouldReturnParserQuery16(String query) {
+
+        Operator operator = Operator.EQUALS;
+        Operator operator2 = Operator.EQUALS;
+        String variable = "age";
+        String variable2 = "name";
+        Operator operatorAppender = Operator.AND;
+        checkAppendCondition(query, operator, operator2, variable, variable2, operatorAppender);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByAgeOrName"})
+    public void shouldReturnParserQuery17(String query) {
+
+        Operator operator = Operator.EQUALS;
+        Operator operator2 = Operator.EQUALS;
+        String variable = "age";
+        String variable2 = "name";
+        Operator operatorAppender = Operator.OR;
+        checkAppendCondition(query, operator, operator2, variable, variable2, operatorAppender);
+    }
+
+    private void checkAppendCondition(String query, Operator operator, Operator operator2, String variable,
+                                      String variable2, Operator operatorAppender) {
+        String entity = "entity";
+        SelectQuery selectQuery = querySupplier.apply(query, entity);
+        assertNotNull(selectQuery);
+        assertEquals(entity, selectQuery.getEntity());
+        assertTrue(selectQuery.getFields().isEmpty());
+        assertTrue(selectQuery.getOrderBy().isEmpty());
+        assertEquals(0, selectQuery.getLimit());
+        assertEquals(0, selectQuery.getSkip());
+        Optional<Where> where = selectQuery.getWhere();
+        assertTrue(where.isPresent());
+        Condition condition = where.get().getCondition();
+        Value<?> value = condition.getValue();
+        assertEquals(operatorAppender, condition.getOperator());
+        assertTrue(value instanceof ConditionValue);
+        Condition condition1 = ConditionValue.class.cast(value).get().get(0);
+        Condition condition2 = ConditionValue.class.cast(value).get().get(1);
+
+        assertEquals(operator, condition1.getOperator());
+        Value<?> param = condition1.getValue();
+        assertEquals(operator, condition1.getOperator());
+        assertTrue(ParamValue.class.cast(param).get().contains(variable));
+
+        assertEquals(operator2, condition2.getOperator());
+        Value<?> param2 = condition2.getValue();
+        assertEquals(operator, condition2.getOperator());
+        assertTrue(ParamValue.class.cast(param2).get().contains(variable2));
+    }
 
 
     private void checkNotCondition(String query, Operator operator, String variable) {

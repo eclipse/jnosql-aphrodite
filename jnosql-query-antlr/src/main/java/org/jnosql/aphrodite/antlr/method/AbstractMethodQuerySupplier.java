@@ -139,6 +139,15 @@ abstract class AbstractMethodQuerySupplier extends MethodBaseListener {
         checkCondition(new MethodCondition(variable, operator, value), hasNot);
     }
 
+    @Override
+    public void exitAnd(MethodParser.AndContext ctx) {
+        this.and = true;
+    }
+
+    @Override
+    public void exitOr(MethodParser.OrContext ctx) {
+        this.and = false;
+    }
 
     private void appendCondition(boolean hasNot, String variable, Operator operator) {
         ParamValue paramValue = new MethodParamValue(variable);
