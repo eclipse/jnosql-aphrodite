@@ -16,11 +16,13 @@ import org.jnosql.query.ConditionValue;
 import org.jnosql.query.Operator;
 import org.jnosql.query.ParamValue;
 import org.jnosql.query.SelectQuery;
+import org.jnosql.query.Sort;
 import org.jnosql.query.Value;
 import org.jnosql.query.Where;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -222,10 +224,38 @@ class FindByMethodQuerySupplierTest {
     }
 
     @ParameterizedTest(name = "Should parser the query {0}")
-    @ValueSource(strings = {"findByOrderBy"})
+    @ValueSource(strings = {"findByOrderByName"})
     public void shouldReturnParserQuery20(String query) {
-
+        checkOrderBy(query, Sort.SortType.ASC);
     }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByOrderByNameAsc"})
+    public void shouldReturnParserQuery21(String query) {
+        Sort.SortType type = Sort.SortType.ASC;
+        checkOrderBy(query, type);
+    }
+
+    @ParameterizedTest(name = "Should parser the query {0}")
+    @ValueSource(strings = {"findByOrderByNameDesc"})
+    public void shouldReturnParserQuery22(String query) {
+        checkOrderBy(query, Sort.SortType.DESC);
+    }
+
+
+    private void checkOrderBy(String query, Sort.SortType type) {
+        String entity = "entity";
+        SelectQuery selectQuery = querySupplier.apply(query, entity);
+        assertNotNull(selectQuery);
+        assertEquals(entity, selectQuery.getEntity());
+        List<Sort> sorts = selectQuery.getOrderBy();
+
+        assertEquals(1, sorts.size());
+        Sort sort = sorts.get(0);
+        assertEquals("name", sort.getName());
+        assertEquals(type, sort.getType());
+    }
+
 
     private void checkAppendCondition(String query, Operator operator, Operator operator2, String variable,
                                       String variable2, Operator operatorAppender) {
