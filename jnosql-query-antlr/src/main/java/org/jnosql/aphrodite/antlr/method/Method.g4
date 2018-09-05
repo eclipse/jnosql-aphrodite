@@ -1,5 +1,6 @@
 grammar Method;
 findBy:'findBy' where? order? EOF;
+deleteBy: 'deleteBy' where? EOF;
 
 where: condition (and condition| or condition)* ;
 condition: eq | gt | gte | lt | lte | between | in | like;
