@@ -13,29 +13,16 @@ package org.jnosql.aphrodite.antlr.method;
 
 import java.util.Objects;
 import java.util.function.Supplier;
+import java.util.regex.Pattern;
 
 public class MethodQuery implements Supplier<String> {
 
     private final String value;
+    private static final Pattern PATTERN = Pattern.compile("findBy|OrderBy|And|Or(?!der)|Not|Equals|GreaterThanEqual|" +
+            "LessThanEqual|GreaterThan|GreaterThan|LessThan|Between|In|Like|Asc|Desc");
 
     private MethodQuery(String value) {
-        this.value = value
-                .replaceAll("findBy", "findBy ")
-                .replaceAll("OrderBy", " OrderBy ")
-                .replaceAll("And", " And ")
-                .replaceAll("Or(?!der)", " Or ")
-                .replaceAll("Not", " Not")
-                .replaceAll("Equals", " Equals")
-                .replaceAll("GreaterThanEqual", " GreaterThanEqual")
-                .replaceAll("LessThanEqual", " LessThanEqual")
-                .replaceAll("GreaterThan", " GreaterThan" )
-                .replaceAll("LessThan", " LessThan" )
-                .replaceAll("Between", " Between")
-                .replaceAll("In", " In" )
-                .replaceAll("Like", " Like" )
-                .replaceAll("Asc", " Asc ")
-                .replaceAll("Desc", " Desc ").trim();
-
+        this.value = PATTERN.matcher(value).replaceAll(" $0 ").trim();
     }
 
     @Override
