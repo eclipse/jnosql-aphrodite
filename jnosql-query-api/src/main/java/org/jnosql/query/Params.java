@@ -24,7 +24,7 @@ public interface Params {
      *
      * @return true if Params is empty
      */
-    boolean isNotEmpty();
+    boolean isEmpty();
 
     /**
      * The list of params names the left to fill out in the Params.
