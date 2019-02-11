@@ -1,3 +1,5 @@
+Per https://bugs.eclipse.org/bugs/show_bug.cgi?id=544301 This repo has been archived.
+
 ![Eclipse JNoSQL Aphrodite Project](https://github.com/JNOSQL/diana-site/blob/master/images/duke-aphrodite.png)
 
 # Eclipse JNoSQL Aphrodite
